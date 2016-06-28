@@ -76,9 +76,10 @@ def get_images(href, name):
     os.chdir(name)
     i = 0
     for page in pages:
-        name = "{name} Page {index:03}.{ext}".format(name=name, index=i, ext=page[1])
-        axel = 'axel -aqo "' + name + '" ' + page[0]
-        print axel
+        tmpName = "{name} Page {index:03}.{ext}".format(name=name, index=i, ext=page[1])
+        tmpName = tmpName.replace("-", " ").replace("  ", " ").replace("  ", " ")
+        axel = 'axel -aqo "' + tmpName + '" ' + page[0]
+        i = i + 1
         os.system(axel)
         # urllib.urlretrieve(page[0],page[1])
     os.chdir("..")
