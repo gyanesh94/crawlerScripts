@@ -33,7 +33,7 @@ url_list = [
     ["tgr", "http://www.wuxiaworld.com/tgr-index/tgr-chapter-{}/"],
     ["wdqk", "http://www.wuxiaworld.com/wdqk-index/wdqk-chapter-{}/"],
     ["tmw", "http://gravitytales.com/true-martial-world/tmw-chapter-{}/"],
-    ["Stellar", "http://www.translationnations.com/translations/stellar-transformations/st-book-18-chapter-{}/"]
+    ["God and devil", "http://www.translationnations.com/translations/god-and-devil-world/god-and-devil-world-chapter-0{}/"]
 ]
 
 
@@ -93,7 +93,7 @@ def save_chapter(name, content):
     # name= "/Users/gyanesh/Documents/.a/Web Novel alias/" + name
     # name = "/Users/gyanesh/Google Drive/Web Novels/Web Novel alias/" + name
     # name = "/Users/gyanesh/Documents/Web Novels/Web Novel alias/" + name
-    name = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/" + name
+    name = "./" + name
     text = open(name + ".txt", "w")
     text.write(content)
     text.close()
@@ -111,6 +111,7 @@ def get_content(url):
     name = name.replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"  ", u" ").replace(u"  ", u" ")
     name = re.sub(r':', '-', name)
     name = re.sub(r'^[\w\s\S\W]*Chapter\s', '', name)
+    name = re.sub(r'^0', '', name)
     name = name.strip()
 
     # Body Extraction
@@ -132,6 +133,7 @@ def get_content(url):
         content += t + "\n\n"
     content = content.replace(u"\xa0", u" ")
     content = content.replace(u"\u3000", u" ")
+    # content = re.sub(r'^(Edited|Translated)\sby\s?:\s?.*$\n*', '', content)
     content = re.sub(r'([\w\W\s\S]*)Previous(\sChapter)?[\s]*Next\sChapter([\S\w\W\s]*)', r'\1\n\3', content)
     content = re.sub(r'([\w\W\s\S]*)\[Previous\sChapter\][\s]*\[Table\sof\sContents\][\s]*\[Next\sChapter\]([\S\w\W\s]*)', r'\1\n\2', content)
     content = re.sub(r'([\w\W\s\S]*)Previous(\sChapter)?[\s]*\|[\s]*Index[\s]*\|[\s]*Next\sChapter([\S\w\W\s]*)', r'\1\n\3', content)
