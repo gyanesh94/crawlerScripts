@@ -93,7 +93,7 @@ def save_chapter(name, content):
     # name= "/Users/gyanesh/Documents/.a/Web Novel alias/" + name
     # name = "/Users/gyanesh/Google Drive/Web Novels/Web Novel alias/" + name
     # name = "/Users/gyanesh/Documents/Web Novels/Web Novel alias/" + name
-    name = "./" + name
+    name = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/" + name
     text = open(name + ".txt", "w")
     text.write(content)
     text.close()
@@ -102,7 +102,7 @@ def save_chapter(name, content):
 def get_content(url):
     src = get_src(url)
     soup = BeautifulSoup(src, 'html.parser')
-    div = soup.find("div", {"class": "entry-content"})
+    div = soup.find("div", {"itemprop": "articleBody"})
     p = div.find_all("p")
     p = p[1:]
     # Name Extraction
