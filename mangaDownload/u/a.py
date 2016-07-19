@@ -4,7 +4,13 @@ from bs4 import BeautifulSoup
 import urllib2
 import os
 import sys
+import signal
 import getopt
+
+
+def signal_handler(signal, frame):
+        print('You pressed Ctrl+C!')
+        exit()
 
 
 def get_url():
@@ -64,6 +70,7 @@ def get_image_links(url):
         href = url_encode(href)
         name = str_encode(name)
         extension = name.split(".")[-1]
+        extension = extension.split("?")[0]
         pages.append([href, extension])
         image = image.img
     return pages
@@ -84,6 +91,7 @@ def get_images(href, name):
         # urllib.urlretrieve(page[0],page[1])
     os.chdir("..")
 
+signal.signal(signal.SIGINT, signal_handler)
 
 url = get_url()
 
