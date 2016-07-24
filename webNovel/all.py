@@ -14,10 +14,10 @@
 """
 
 from bs4 import BeautifulSoup
-import sys
-import getopt
+import argparse
 import re
 import requests
+import cfscrape
 
 
 url_list = [
@@ -33,33 +33,28 @@ url_list = [
     ["tgr", "http://www.wuxiaworld.com/tgr-index/tgr-chapter-{}/"],
     ["wdqk", "http://www.wuxiaworld.com/wdqk-index/wdqk-chapter-{}/"],
     ["tmw", "http://gravitytales.com/true-martial-world/tmw-chapter-{}/"],
-    ["God and devil", "http://www.translationnations.com/translations/god-and-devil-world/god-and-devil-world-chapter-0{}/"]
+    ["SkyFire", "http://www.wuxiaworld.com/sfl-index/skyfire-avenue-chapter-{}/"]
 ]
 
 
 def get_url():
-    url = ''
-    try:
-        opts, args = getopt.getopt(sys.argv[1:], "u:")
-    except getopt.GetoptError:
-        print "Command Line Error"
-        sys.exit(2)
-    for opt, arg in opts:
-        if opt == '-u':
-            url = arg
+    parser = argparse.ArgumentParser(description='Fetch Url')
+    parser.add_argument('-u', action="store", default=None, dest='url', help="give url")
+    url = parser.parse_args().url
     return url
-
-
-# def get_src(url):
-#     opener = urllib2.build_opener()
-#     opener.addheaders = [('User-agent', 'Mozilla/5.0')]
-#     return opener.open(url)
 
 
 def get_src(url):
     r = requests.get(url)
-    r.encoding = 'utf-8'
-    return r.text
+    if r.status_code == 503:
+        scraper = cfscrape.create_scraper()
+        s = scraper.get(url)
+        s.encoding = 'utf-8'
+        return s.text
+    elif r.status_code == 200:
+        r.encoding = 'utf-8'
+        return r.text
+    exit()
 
 
 def str_encode(name):
@@ -173,9 +168,12 @@ def get_urls():
         l += [url.format(i)]
     return l
 
-urls = get_urls()
+tempUrl = get_url()
 
-# urls = [get_url()]
+if tempUrl is None:
+    urls = get_urls()
+else:
+    urls = [tempUrl]
 
 for url in urls:
     name, content = get_content(url)
