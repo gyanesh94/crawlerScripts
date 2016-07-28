@@ -61,8 +61,11 @@ def get_chapters(chapters, url):
 def get_image_links(url):
     src = get_src(url)
     soup = BeautifulSoup(src, 'html.parser')
-    div = soup.find("div", {"class": "page_chapter"})
-    image = div.find("img")
+    div = soup.find_all("div", {"class": "page_chapter"})
+    for t in div:
+        image = t.find("img")
+        if image is not None:
+            break
     pages = []
     while image:
         href = image["src"]
@@ -79,7 +82,8 @@ def get_image_links(url):
 def get_images(href, name):
     pages = get_image_links(href)
     name = name.replace(".", "_")
-    os.mkdir(name)
+    if not os.path.isdir(name):
+        os.mkdir(name)
     os.chdir(name)
     i = 0
     for page in pages:
