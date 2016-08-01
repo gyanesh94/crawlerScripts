@@ -97,7 +97,7 @@ def save_chapter(name, content):
 def get_content(url):
     src = get_src(url)
     soup = BeautifulSoup(src, 'html.parser')
-    div = soup.find("div", {"itemprop": "articleBody"})
+    div = soup.find("div", {"class": "entry-content"})
     p = div.find_all("p")
     p = p[1:]
     # Name Extraction
@@ -128,11 +128,20 @@ def get_content(url):
         content += t + "\n\n"
     content = content.replace(u"\xa0", u" ")
     content = content.replace(u"\u3000", u" ")
+    content = content.strip()
     # content = re.sub(r'^(Edited|Translated)\sby\s?:\s?.*$\n*', '', content)
-    content = re.sub(r'([\w\W\s\S]*)Previous(\sChapter)?[\s]*Next\sChapter([\S\w\W\s]*)', r'\1\n\3', content)
-    content = re.sub(r'([\w\W\s\S]*)\[Previous\sChapter\][\s]*\[Table\sof\sContents\][\s]*\[Next\sChapter\]([\S\w\W\s]*)', r'\1\n\2', content)
-    content = re.sub(r'([\w\W\s\S]*)Previous(\sChapter)?[\s]*\|[\s]*Index[\s]*\|[\s]*Next\sChapter([\S\w\W\s]*)', r'\1\n\3', content)
-    content = re.sub(r'([\w\W\s\S]*)\>\s*Teaser\s*for\s*Next\s*Chapter\s*\<([\S\w\W\s]*)', r'\1\n\2', content)
+    content = re.sub(r'([\w\W\s\S]*)Advertisement\Z', r'\1', content)
+    content = content.strip()
+    content = re.sub(r'([\w\W\s\S]*)\>\s*Teaser\s*for\s*Next\s*Chapter\s*\<\Z', r'\1', content)
+    content = content.strip()
+    content = re.sub(r'([\w\W\s\S]*)This\s*Chapter.?s\s*Teaser\Z', r'\1', content)
+    content = content.strip()
+    content = re.sub(r'([\w\W\s\S]*)Previous(\sChapter)?[\s]*Next\sChapter\Z', r'\1', content)
+    content = content.strip()
+    content = re.sub(r'([\w\W\s\S]*)\[Previous\sChapter\][\s]*\[Table\sof\sContents\][\s]*\[Next\sChapter\]\Z', r'\1', content)
+    content = content.strip()
+    content = re.sub(r'([\w\W\s\S]*)Previous(\sChapter)?[\s]*\|[\s]*Index[\s]*\|[\s]*Next\sChapter\Z', r'\1', content)
+    content = content.strip()
     content = re.sub(r'\n\n[\n]+', r'\n\n', content)
     content = content.strip()
 
