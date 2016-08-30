@@ -15,9 +15,11 @@ def argumentParser():
     parser = argparse.ArgumentParser(description='Fetch Url')
     parser.add_argument('-u', action="store", default=False, dest='url', help="url")
     parser.add_argument('-p', action="store", default=False, dest='pdf', help="convert to pdf")
+    parser.add_argument('-c', action="store", default=None, dest='convert', help="donot convert")
     url = parser.parse_args().url
     pdf = parser.parse_args().pdf
-    return url, pdf
+    convert = parser.parse_args().convert
+    return url, pdf, convert
 
 
 def signal_handler(signal, frame):
@@ -94,7 +96,9 @@ def get_images(href, name, pdf):
         os.system(axel)
         # urllib.urlretrieve(page[0],page[1])
     os.chdir("..")
-    if pdf:
+    if convert is not None:
+        pass
+    elif pdf:
         print "test"
         convertToPdf("./" + name)
     else:
@@ -104,7 +108,7 @@ def get_images(href, name, pdf):
 
 signal.signal(signal.SIGINT, signal_handler)
 
-url, pdf = argumentParser()
+url, pdf, convert = argumentParser()
 
 os.chdir(mainDir)
 
@@ -123,15 +127,15 @@ if url:
             ch = choices[0]
             if ch == "a" or ch == "A":
                 for chapter in reversed(chapters):
-                    get_images(chapter[0], chapter[1], pdf)
+                    get_images(chapter[0], chapter[1], pdf, convert)
             elif ch == "r" or ch == "R":
                 for i in range(int(choices[1]), int(choices[2]) + 1):
                     chapter = chapters[i]
-                    get_images(chapter[0], chapter[1], pdf)
+                    get_images(chapter[0], chapter[1], pdf, convert)
             else:
                 choices = filter(lambda x: x.isdigit(), choices)
                 if choices:
                     choices = map(lambda x: int(x), choices)
                     for choice in choices:
                         chapter = chapters[choice]
-                        get_images(chapter[0], chapter[1], pdf)
+                        get_images(chapter[0], chapter[1], pdf, convert)
