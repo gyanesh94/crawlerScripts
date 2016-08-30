@@ -80,7 +80,7 @@ def get_image_links(url):
     return pages
 
 
-def get_images(href, name, pdf):
+def get_images(href, name, pdf, convert):
     pages = get_image_links(href)
     name = name.replace(".", "_")
     if not os.path.isdir(name):
