@@ -23,7 +23,7 @@ import cfscrape
 url_list = [
     ["atg", "http://www.wuxiaworld.com/atg-index/atg-chapter-{}/"],
     ["csg", "http://gravitytales.com/chaotic-sword-god/csg-chapter-{}/"],
-    ["col", "http://www.wuxiaworld.com/col-index/col-volume-9-chapter-{}/"],
+    ["col", "http://www.wuxiaworld.com/col-index/col-volume-12-chapter-{}/"],
     ["hjc", "http://www.wuxiaworld.com/hjc-index/hjc-chapter-48-{}/"],
     ["issth", "http://www.wuxiaworld.com/issth-index/issth-book-4-chapter-{}/"],
     ["mga", "http://www.wuxiaworld.com/mga-index/mga-chapter-{}/"],
@@ -33,7 +33,9 @@ url_list = [
     ["tgr", "http://www.wuxiaworld.com/tgr-index/tgr-chapter-{}/"],
     ["wdqk", "http://www.wuxiaworld.com/wdqk-index/wdqk-chapter-{}/"],
     ["tmw", "http://gravitytales.com/true-martial-world/tmw-chapter-{}/"],
-    ["SkyFire", "http://www.wuxiaworld.com/sfl-index/skyfire-avenue-chapter-{}/"]
+    ["SkyFire", "http://www.wuxiaworld.com/sfl-index/skyfire-avenue-chapter-{}/"],
+    ["Sotr", "http://www.wuxiaworld.com/sotr-index/sotr-chapter-{}/"],
+    ["Emperor's Dom", "http://www.wuxiaworld.com/emperor-index/emperor-chapter-{}/"]
 ]
 
 
@@ -102,15 +104,22 @@ def get_content(url):
     p = p[1:]
     # Name Extraction
     name = p[0]
+    p = p[1:]
     name = name.get_text()
-    name = name.replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"  ", u" ").replace(u"  ", u" ")
+    name = name.replace(u"\xa0", u" ").replace(u"\u3000", u" ")
+    name = re.sub(r' [ ]+', r' ', name)
+    while not name or name == " " or name == "":
+        name = p[0]
+        p = p[1:]
+        name = name.get_text()
+        name = name.replace(u"\xa0", u" ").replace(u"\u3000", u" ")
+        name = re.sub(r' [ ]+', r' ', name)
     name = re.sub(r':', '-', name)
     name = re.sub(r'^[\w\s\S\W]*Chapter\s', '', name)
     name = re.sub(r'^0', '', name)
     name = name.strip()
 
     # Body Extraction
-    p = p[1:]
     content = ""
     for i in p:
         if i.sup:
