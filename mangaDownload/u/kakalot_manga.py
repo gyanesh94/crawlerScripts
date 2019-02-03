@@ -7,7 +7,6 @@ import requests
 import os
 import signal
 import argparse
-import cfscrape
 from imgToPdf import *
 
 LOGGING_FILE_NAME = "error.log"
@@ -40,15 +39,9 @@ def get_src(url):
     # opener.addheaders = [('User-agent', 'Mozilla/5.0')]
     # return opener.open(url)
     r = requests.get(url)
-    if r.status_code == 503:
-        scraper = cfscrape.create_scraper()
-        s = scraper.get(url)
-        s.encoding = 'utf-8'
-        return s.text
-    elif r.status_code == 200:
-        r.encoding = 'utf-8'
-        return r.text
-    exit()
+    print r
+    r.encoding = 'utf-8'
+    return r.text
 
 
 def url_encode(url):
@@ -69,9 +62,9 @@ def str_encode(name):
 def get_chapters(chapters, url):
     links = []
     for chapter in chapters:
-        href = chapter.a['href'] + "/all-pages"
+        href = chapter['href'] + "/all-pages"
         href = url_encode(href)
-        name = chapter.span.contents[1]
+        name = chapter['title']
         name = str_encode(name)
         links.append([href, name])
     return links
@@ -80,7 +73,7 @@ def get_chapters(chapters, url):
 def get_image_links(url):
     src = get_src(url)
     soup = BeautifulSoup(src, 'html.parser')
-    images = soup.find_all("img", {"class": "img-responsive"})
+    images = soup.find_all("img", {"class": "img_content"})
     # div = div[1]
     # for t in div:
     #     print t
@@ -112,22 +105,11 @@ def get_images(href, name, pdf, convert, choice=None):
     for page in pages:
         tmpName = "{name} Page {index:03}.{ext}".format(name=name, index=i, ext=page[1])
         tmpName = tmpName.replace("-", " ").replace("  ", " ").replace("  ", " ")
-        axel = 'axel -ao "{name}" "{page_url}"'.format(name=tmpName, page_url=page[0])
+        axel = 'axel -ao "' + tmpName + '" ' + page[0]
         i = i + 1
         os.system(axel)
         # urllib.urlretrieve(page[0],page[1])
     os.chdir("..")
-    if convert is not None:
-        pass
-    elif choice == 'a' or choice == 'A':
-        pass
-    elif pdf:
-        print "test"
-        convertToPdf("./" + name)
-    else:
-        zipCmd = "zip '{name}'.cbz -r '{name}'".format(name=name)
-        print zipCmd
-        os.system(zipCmd)
 
 signal.signal(signal.SIGINT, signal_handler)
 
@@ -138,21 +120,23 @@ os.chdir(mainDir)
 if url:
     src = get_src(url)
     soup = BeautifulSoup(src, 'html.parser')
-    ul = soup.find("ul", {"class": "chp_lst"})
-    chapters = get_chapters(ul.find_all("li"), url)
+    ul = soup.find("div", {"class": "chapter-list"})
+    chapters = get_chapters(ul.find_all("a"), url)
     if chapters:
         i = len(chapters) - 1
         for ch in reversed(chapters):
             print i, ch[1]
             i -= 1
         choices = raw_input().split()
+        comicName = url.split("/")[-1]
+        if comicName is None or comicName is "":
+            comicName = url.split("/")[-2]
+        if not os.path.isdir(comicName):
+            os.mkdir(comicName)
+        os.chdir(comicName)
         if choices:
             ch = choices[0]
             if ch == "a" or ch == "A":
-                comicName = url.split("/")[-1]
-                if not os.path.isdir(comicName):
-                    os.mkdir(comicName)
-                os.chdir(comicName)
                 for chapter in reversed(chapters):
                     get_images(chapter[0], chapter[1], pdf, convert, ch)
             elif ch == "r" or ch == "R":
@@ -165,5 +149,4 @@ if url:
                     choices = map(lambda x: int(x), choices)
                     for choice in choices:
                         chapter = chapters[choice]
-                        # print chapter
                         get_images(chapter[0], chapter[1], pdf, convert)
