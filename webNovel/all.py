@@ -17,11 +17,13 @@
 from bs4 import BeautifulSoup
 import argparse
 import re
+import signal
 import os
 import requests
 import cfscrape
 import time
 from listings_download import *
+from multiprocessing import Pool
 
 SKIP_DEFAULT = True
 MAKE_P_RECURSICE = False
@@ -35,9 +37,8 @@ if not os.path.exists(SAVE_DIRECTORY):
     os.makedirs(SAVE_DIRECTORY)
 
 url_list = [
-    ["BEM", "https://www.wuxiaworld.com/novel/the-book-eating-magician/bem-chapter-{}"],
+    ["Ancient Strengthening Technique", "https://www.wuxiaworld.com/novel/ancient-strengthening-technique/ast-chapter-{}"],
     ["SYWZ", "http://gravitytales.com/novel/shen-yin-wang-zuo/sywz-chapter-{}"],
-    ["Warlock of the Magus World", "https://www.wuxiaworld.com/novel/warlock-of-the-magus-world/wmw-chapter-{}"],       # 1 - 1200
     ["Against the Gods", "http://www.wuxiaworld.com/atg-index/atg-chapter-{}/"],
     ["Chaotic Sword God", "http://gravitytales.com/chaotic-sword-god/csg-chapter-{}/"],
     ["Emperor's Domination", "http://www.wuxiaworld.com/emperor-index/emperor-chapter-{}/"],
@@ -47,8 +48,13 @@ url_list = [
     ["Sovereign of the Three Realms", "http://www.wuxiaworld.com/sotr-index/sotr-chapter-{}/"],
     ["The Great Ruler", "http://www.wuxiaworld.com/tgr-index/tgr-chapter-{}/"],
     ["Dragon Maken War", "https://www.wuxiaworld.com/novel/dragon-maken-war/dmw-chapter-{}"],
-    ["OverGeared", "https://www.wuxiaworld.com/novel/overgeared/og-chapter-{}"]
+    ["OverGeared", "https://www.wuxiaworld.com/novel/overgeared/og-chapter-{}"],
 ]
+
+
+def signal_handler(signal, frame):
+    print('You pressed Ctrl+C!')
+    exit()
 
 
 def get_url():
@@ -130,7 +136,7 @@ def get_content(url, getName=""):
         name = re.sub(r'^0', '', name)
         name = name.strip()
     else:
-        if url.find('wuxiaworld.com') != -1:
+        if url.find('novel/martial-world/') != -1:
             divSectionContent = soup.find('div', {"class": "section-content"})
             divUpperAll = divSectionContent.find_all('div', {"class": "panel-default"})
             divUpper = divUpperAll[-1]
@@ -139,20 +145,75 @@ def get_content(url, getName=""):
             p = div.find_all("p", recursive=MAKE_P_RECURSICE)
 
             while p[0].get_text().strip() == "":
-                p = p[1:]
+                del p[0]
+            if re.search(r'^.*Chapter [0-9]{1,3}.*$', p[0].get_text()):
+                name = p[0]
+                del p[0]
+            else:
+                temp_chapter_name = name.get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ")
+                temp_chapter_name_in_body = p[0].get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ")
+                temp_chapter_name = re.sub(r' [ ]+', r' ', temp_chapter_name)
+                temp_chapter_name_in_body = re.sub(r' [ ]+', r' ', temp_chapter_name_in_body)
+                if temp_chapter_name == temp_chapter_name_in_body:
+                    print "equals"
+                    name = p[0]
+                    del p[0]
+
+        elif url.find('novel/ancient-strengthening-technique/') != -1:
+            divSectionContent = soup.find('div', {"class": "section-content"})
+            divUpperAll = divSectionContent.find_all('div', {"class": "panel-default"})
+            divUpper = divUpperAll[-1]
+            name = divUpper.h4
+            div = divUpper.find('div', {"class": "fr-view"})
+            p = div.find_all("p", recursive=MAKE_P_RECURSICE)
+
+            if len(p) < 6 and url.find('novel/ancient-strengthening-technique/') != -1:
+                div = divUpper.find('div', {"id": "chapterContent"})
+                p = div.find_all("p", recursive=MAKE_P_RECURSICE)
+
+            if re.findall('(?:AST|Chapter).*(?:\s|-|^)[0-9]{1,5}(?:\s|-)', p[0].get_text()) != []:
+                print(re.findall('(?:AST|Chapter).*(?:\s|-|^)[0-9]{1,5}(?:\s|-)', p[0].get_text()))
+                name = p[0]
+                del p[0]
+            else:
+                temp_chapter_name = name.get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ")
+                temp_chapter_name_in_body = p[0].get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ")
+                temp_chapter_name = re.sub(r' [ ]+', r' ', temp_chapter_name)
+                temp_chapter_name_in_body = re.sub(r' [ ]+', r' ', temp_chapter_name_in_body)
+                if temp_chapter_name == temp_chapter_name_in_body:
+                    print "equals"
+                    name = p[0]
+                    del p[0]
+
+        elif url.find('wuxiaworld.com') != -1:
+            divSectionContent = soup.find('div', {"class": "section-content"})
+            divUpperAll = divSectionContent.find_all('div', {"class": "panel-default"})
+            divUpper = divUpperAll[-1]
+            name = divUpper.h4
+            div = divUpper.find('div', {"class": "fr-view"})
+            p = div.find_all("p", recursive=MAKE_P_RECURSICE)
+
+            if len(p) < 6 and url.find('novel/ancient-strengthening-technique/') != -1:
+                div = divUpper.find('div', {"id": "chapterContent"})
+                p = div.find_all("p", recursive=MAKE_P_RECURSICE)
+
+            while p[0].get_text().strip() == "":
+                del p[0]
             # print name.get_text()
             # print p[0].get_text()
-            temp_chapter_name = name.get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-")
-            temp_chapter_name_in_body = p[0].get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-")
+            temp_chapter_name = name.get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ")
+            temp_chapter_name_in_body = p[0].get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ")
+            temp_chapter_name = re.sub(r' [ ]+', r' ', temp_chapter_name)
+            temp_chapter_name_in_body = re.sub(r' [ ]+', r' ', temp_chapter_name_in_body)
             if temp_chapter_name == temp_chapter_name_in_body:
                 print "equals"
                 name = p[0]
-                p = p[1:]
+                del p[0]
         elif url.find('wdqk-index') != -1:
             temp = p[0]
             if temp is not None and temp.get_text().find('Chapter') != -1:
                 name = temp
-                p = p[1:]
+                del p[0]
             else:
                 name = soup.find("h1", {"class": "entry-title"})
         elif url.find('mga-index') != -1:
@@ -161,7 +222,7 @@ def get_content(url, getName=""):
             temp = p[0]
             if temp is not None and temp.get_text().find('Chapter') != -1:
                 name = temp
-                p = p[1:]
+                del p[0]
             else:
                 name = soup.find("h4")
         elif url.find('webnovel.com') != -1:
@@ -171,19 +232,32 @@ def get_content(url, getName=""):
             p = div.find_all("p", recursive=False)
         else:
             name = p[0]
-            p = p[1:]
+            del p[0]
         name = name.get_text()
-        name = name.replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"/", u"-").replace(u"\\", u" -")
+        if url.find('warlock-of-the-magus-world') != -1:
+            temp_name = p[0].get_text().encode('utf-8')
+            name = "{} - {}".format(name, temp_name)
+            name = name.decode('utf-8')
+            del p[0]
+        if url.find('perfect-world') != -1:
+            name = p[0].get_text()
+            del p[0]
+        name = name.replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"/", u"-").replace(u"\\", u" -").replace(u'\u2019', "'").replace(u'\u2018', "'").replace(u'\u201D', '"').replace(u'\u201C', '"')
         name = re.sub(r' [ ]+', r' ', name)
         while not name or name == " " or name == "":
             name = p[0]
-            p = p[1:]
+            del p[0]
             name = name.get_text()
-            name = name.replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"/", u"-").replace(u"\\", u" -")
+            name = name.replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"/", u"-").replace(u"\\", u" -").replace(u'\u2019', "'").replace(u'\u2018', "'").replace(u'\u201D', '"').replace(u'\u201C', '"')
             name = re.sub(r' [ ]+', r' ', name)
         name = re.sub(r':', '-', name)
-        name = re.sub(r'^[\w\s\S\W]*Chapter\s', '', name)
-        name = re.sub(r'^0', '', name)
+        name = name.split("Chapter")
+        if len(name) > 1:
+            del name[0]
+        name = "Chapter".join(name)
+        # name = re.sub(r'^[\w\s\S\W]*Chapter\s', '', name, 1)
+        name = re.sub(r'^AST ([0-9]{1,5})', r'\1', name)
+        name = re.sub(r'^0+', '', name)
         name = name.strip()
         if url.find('http://www.radianttranslations.com') != -1:
             tempName = url
@@ -226,7 +300,7 @@ def get_content(url, getName=""):
     content = content.strip()
     content = re.sub(r'([\w\W\s\S]*)Advertisement\Z', r'\1', content)
     content = content.strip()
-    content = re.sub(r'([\w\W\s\S]*)\>\s*Teaser\s*for\s*Next\s*Chapter\s*\<\Z', r'\1', content)
+    content = re.sub(r'([\w\W\s\S]*)\,\s*Teaser\s*for\s*Next\s*Chapter\s*\<\Z', r'\1', content)
     content = content.strip()
     content = re.sub(r'([\w\W\s\S]*)This\s*Chapter.?s\s*Teaser\Z', r'\1', content)
     content = content.strip()
@@ -278,15 +352,33 @@ def get_content(url, getName=""):
     return name, content.encode("utf-8")
 
 
+def download_chapter(url):
+    name, content = get_content(url)
+    save_chapter(name, content)
+
+
 if LIST_TRUE:
     if SKIP_NAME:
         for l in LIST:
             name, content = get_content(l[0], l[1])
             save_chapter(name, content)
     else:
-        for l in LIST:
-            name, content = get_content(l)
-            save_chapter(name, content)
+        if len(LIST) < 10:
+            for url in LIST:
+                name, content = get_content(url)
+                save_chapter(name, content)
+                time.sleep(1)
+        else:
+            pool = Pool(3)
+            try:
+                pool.map(download_chapter, LIST, chunksize=1)
+            except KeyboardInterrupt:
+                print("Caught KeyboardInterrupt, terminating workers")
+                pool.terminate()
+            else:
+                print("Normal termination")
+                pool.close()
+            pool.join()
     exit()
 
 
@@ -317,7 +409,21 @@ elif tempUrl is None:
 else:
     urls = [tempUrl]
 
-for url in urls:
-    name, content = get_content(url)
-    save_chapter(name, content)
-    time.sleep(1)
+signal.signal(signal.SIGINT, signal_handler)
+
+if len(urls) < 10:
+    for url in urls:
+        name, content = get_content(url)
+        save_chapter(name, content)
+        time.sleep(1)
+else:
+    pool = Pool(3)
+    try:
+        pool.map(download_chapter, urls, chunksize=1)
+    except KeyboardInterrupt:
+        print("Caught KeyboardInterrupt, terminating workers")
+        pool.terminate()
+    else:
+        print("Normal termination")
+        pool.close()
+    pool.join()
