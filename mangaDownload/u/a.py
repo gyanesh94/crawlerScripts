@@ -8,7 +8,9 @@ import os
 import signal
 import argparse
 import cfscrape
+import subprocess
 from imgToPdf import *
+from time import sleep
 
 LOGGING_FILE_NAME = "error.log"
 LOGGING_MESSAGE_FORMAT = "%(asctime)s %(levelname)-8s %(message)s"
@@ -18,6 +20,8 @@ logging.basicConfig(filename=LOGGING_FILE_NAME, format=LOGGING_MESSAGE_FORMAT, d
 
 mainDir = "/Users/gyanesh/Documents/Anime Manga/Unread"
 
+url = "https://www.funmanga.com"
+cookie_arg, user_agent = cfscrape.get_cookie_string(url)
 
 def argumentParser():
     parser = argparse.ArgumentParser(description='Fetch Url')
@@ -31,8 +35,8 @@ def argumentParser():
 
 
 def signal_handler(signal, frame):
-        print('You pressed Ctrl+C!')
-        exit()
+    print('You pressed Ctrl+C!')
+    exit()
 
 
 def get_src(url):
@@ -103,7 +107,7 @@ def get_image_links(url):
 
 def get_images(href, name, pdf, convert, choice=None):
     pages = get_image_links(href)
-    name = name.replace(".", "_")
+    name = name.replace(".", "_").replace("'", "")
     if not os.path.isdir(name):
         os.mkdir(name)
     os.chdir(name)
@@ -114,7 +118,12 @@ def get_images(href, name, pdf, convert, choice=None):
         tmpName = tmpName.replace("-", " ").replace("  ", " ").replace("  ", " ")
         axel = 'axel -ao "{name}" "{page_url}"'.format(name=tmpName, page_url=page[0])
         i = i + 1
-        os.system(axel)
+        # os.system(axel)
+        cmd = "curl --cookie '{cookie_arg}' -A '{user_agent}' -s '{url}' > '{name}'".format(cookie_arg=cookie_arg, user_agent=user_agent, url=page[0], name=tmpName)
+        print cmd
+        # subprocess.call(cmd)
+        subprocess.call(["curl", "--cookie", cookie_arg, "-A", user_agent, "-s", "-o", tmpName, page[0]])
+        sleep(1)
         # urllib.urlretrieve(page[0],page[1])
     os.chdir("..")
     if convert is not None:

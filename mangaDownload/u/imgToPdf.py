@@ -1,5 +1,3 @@
-#!/Users/gyanesh/anaconda/bin/python
-
 import img2pdf
 import os
 import re
@@ -13,7 +11,7 @@ def natural_keys(text):
     return [atoi(c) for c in re.split('(\d+)', text)]
 
 
-root = "./pdf/"
+root = "/Users/gyanesh/Documents/Anime Manga/Unread/"
 
 
 def convertToPdf(d):
