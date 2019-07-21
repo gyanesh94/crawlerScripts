@@ -37,6 +37,10 @@ if not os.path.exists(SAVE_DIRECTORY):
     os.makedirs(SAVE_DIRECTORY)
 
 url_list = [
+    ["Invincible", "https://www.wuxiaworld.com/novel/invincible/inv-chapter-{}"],
+    ["Talisman Emperor", "https://www.wuxiaworld.com/novel/talisman-emperor/te-chapter-{}"],
+    ["Renegade Immortal", "https://www.wuxiaworld.com/novel/renegade-immortal/rge-chapter-{}"],
+    ["Spirit Realm", "https://www.wuxiaworld.com/novel/spirit-realm/sr-chapter-{}"],
     ["Ancient Strengthening Technique", "https://www.wuxiaworld.com/novel/ancient-strengthening-technique/ast-chapter-{}"],
     ["SYWZ", "http://gravitytales.com/novel/shen-yin-wang-zuo/sywz-chapter-{}"],
     ["Against the Gods", "http://www.wuxiaworld.com/atg-index/atg-chapter-{}/"],
@@ -105,8 +109,40 @@ def get_chapters(chapters):
     return links
 
 
-def save_chapter(name, content):
-    name = os.path.join(SAVE_DIRECTORY, name)
+def save_chapter(name, content, url):
+    if url.find("/novel/ancient-strengthening-technique/") != -1:
+        path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Ancient Strengthening Technique/"
+
+    elif url.find("/novel/dragon-maken-war/") != -1:
+        path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Dragon Maken War/"
+
+    elif url.find("/novel/invincible/") != -1:
+        path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Invincible/"
+
+    elif url.find("/novel/overgeared/") != -1:
+        path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Overgeared/"
+
+    elif url.find("/novel/renegade-immortal/") != -1:
+        path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Renegade Immortal/"
+
+    elif url.find("/novel/spirit-realm/") != -1:
+        path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Spirit Realm/"
+
+    elif url.find("/novel/talisman-emperor/") != -1:
+        path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Talisman Emperor/"
+
+    elif url.find("/novel/upgrade-specialist-in-another-world/") != -1:
+        path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Upgrade Specialist in Another World/"
+
+    elif url.find("/novel/martial-god-asura/") != -1:
+        path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Slow_Stopped/Martial God Asura/"
+
+    elif url.find("/novel/the-great-ruler/") != -1:
+        path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Slow_Stopped/The Great Ruler/"
+
+    else:
+        path = SAVE_DIRECTORY
+    name = os.path.join(path, name)
     text = open(name + ".txt", "w")
     text.write(content)
     text.close()
@@ -131,9 +167,9 @@ def get_content(url, getName=""):
 
     # Name Extraction
     if SKIP_NAME and LIST_TRUE:
-        name = re.sub(r':', '-', getName)
-        name = re.sub(r'^[\w\s\S\W]*Chapter\s', '', name)
-        name = re.sub(r'^0', '', name)
+        name = re.sub(r':', '-', getName, flags=re.IGNORECASE)
+        name = re.sub(r'^[\w\s\S\W]*Chapter\s', '', name, flags=re.IGNORECASE)
+        name = re.sub(r'^0', '', name, flags=re.IGNORECASE)
         name = name.strip()
     else:
         if url.find('novel/martial-world/') != -1:
@@ -146,14 +182,14 @@ def get_content(url, getName=""):
 
             while p[0].get_text().strip() == "":
                 del p[0]
-            if re.search(r'^.*Chapter [0-9]{1,3}.*$', p[0].get_text()):
+            if re.search(r'^.*Chapter [0-9]{1,3}.*$', p[0].get_text(), flags=re.IGNORECASE):
                 name = p[0]
                 del p[0]
             else:
                 temp_chapter_name = name.get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ")
                 temp_chapter_name_in_body = p[0].get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ")
-                temp_chapter_name = re.sub(r' [ ]+', r' ', temp_chapter_name)
-                temp_chapter_name_in_body = re.sub(r' [ ]+', r' ', temp_chapter_name_in_body)
+                temp_chapter_name = re.sub(r' [ ]+', r' ', temp_chapter_name, flags=re.IGNORECASE)
+                temp_chapter_name_in_body = re.sub(r' [ ]+', r' ', temp_chapter_name_in_body, flags=re.IGNORECASE)
                 if temp_chapter_name == temp_chapter_name_in_body:
                     print "equals"
                     name = p[0]
@@ -178,8 +214,8 @@ def get_content(url, getName=""):
             else:
                 temp_chapter_name = name.get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ")
                 temp_chapter_name_in_body = p[0].get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ")
-                temp_chapter_name = re.sub(r' [ ]+', r' ', temp_chapter_name)
-                temp_chapter_name_in_body = re.sub(r' [ ]+', r' ', temp_chapter_name_in_body)
+                temp_chapter_name = re.sub(r' [ ]+', r' ', temp_chapter_name, flags=re.IGNORECASE)
+                temp_chapter_name_in_body = re.sub(r' [ ]+', r' ', temp_chapter_name_in_body, flags=re.IGNORECASE)
                 if temp_chapter_name == temp_chapter_name_in_body:
                     print "equals"
                     name = p[0]
@@ -203,8 +239,8 @@ def get_content(url, getName=""):
             # print p[0].get_text()
             temp_chapter_name = name.get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ")
             temp_chapter_name_in_body = p[0].get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ")
-            temp_chapter_name = re.sub(r' [ ]+', r' ', temp_chapter_name)
-            temp_chapter_name_in_body = re.sub(r' [ ]+', r' ', temp_chapter_name_in_body)
+            temp_chapter_name = re.sub(r' [ ]+', r' ', temp_chapter_name, flags=re.IGNORECASE)
+            temp_chapter_name_in_body = re.sub(r' [ ]+', r' ', temp_chapter_name_in_body, flags=re.IGNORECASE)
             if temp_chapter_name == temp_chapter_name_in_body:
                 print "equals"
                 name = p[0]
@@ -296,26 +332,26 @@ def get_content(url, getName=""):
     content = content.strip()
 
     # content = re.sub(r'^(Edited|Translated)\sby\s?:\s?.*$\n*', '', content)
-    content = re.sub(r'([\w\W\s\S]*)Do you want to read up to [0-9]{1,2} unreleased chapters\? Support UTS on Patreon!', r'\1', content)
+    content = re.sub(r'([\w\W\s\S]*)Do you want to read up to [0-9]{1,2} unreleased chapters\? Support UTS on Patreon!', r'\1', content, flags=re.IGNORECASE)
     content = content.strip()
-    content = re.sub(r'([\w\W\s\S]*)Advertisement\Z', r'\1', content)
+    content = re.sub(r'([\w\W\s\S]*)Advertisement\Z', r'\1', content, flags=re.IGNORECASE)
     content = content.strip()
-    content = re.sub(r'([\w\W\s\S]*)\,\s*Teaser\s*for\s*Next\s*Chapter\s*\<\Z', r'\1', content)
+    content = re.sub(r'([\w\W\s\S]*)\>\s*Teaser\s*for\s*Next\s*Chapter\s*\<\Z', r'\1', content, flags=re.IGNORECASE)
     content = content.strip()
-    content = re.sub(r'([\w\W\s\S]*)This\s*Chapter.?s\s*Teaser\Z', r'\1', content)
+    content = re.sub(r'([\w\W\s\S]*)This\s*Chapter.?s\s*Teaser\Z', r'\1', content, flags=re.IGNORECASE)
     content = content.strip()
-    content = re.sub(r'([\w\W\s\S]*)Previous(\sChapter)?[\s]*Next\sChapter\Z', r'\1', content)
+    content = re.sub(r'([\w\W\s\S]*)Previous(\sChapter)?[\s]*Next\sChapter\Z', r'\1', content, flags=re.IGNORECASE)
     content = content.strip()
-    content = re.sub(r'([\w\W\s\S]*)\[Previous\sChapter\][\s]*\[Table\sof\sContents\][\s]*\[Next\sChapter\]\Z', r'\1', content)
+    content = re.sub(r'([\w\W\s\S]*)\[Previous\sChapter\][\s]*\[Table\sof\sContents\][\s]*\[Next\sChapter\]\Z', r'\1', content, flags=re.IGNORECASE)
     content = content.strip()
-    content = re.sub(r'([\w\W\s\S]*)Previous(\sChapter)?[\s]*\|[\s]*Index[\s]*\|[\s]*Next\sChapter\Z', r'\1', content)
+    content = re.sub(r'([\w\W\s\S]*)Previous(\sChapter)?[\s]*\|[\s]*Index[\s]*\|[\s]*Next\sChapter\Z', r'\1', content, flags=re.IGNORECASE)
     content = content.strip()
-    content = re.sub(r'([\w\W\s\S]*)\WPrevious\s+Chapter[\s]+\|[\s]+Next\s+Chapter\W\Z', r'\1', content)
+    content = re.sub(r'([\w\W\s\S]*)«(\s)?Previous(\sChapter)?[\s]*\|[\s]*Next\sChapter(\s)?»\Z', r'\1', content, flags=re.IGNORECASE)
     content = content.strip()
-    content = re.sub(r'([\w\W\s\S]*).Previous\s*Chapter[\s]*\|[\s]*Next\s*Chapter.?\Z', r'\1', content)
+    content = re.sub(r'([\w\W\s\S]*).Previous\s*Chapter[\s]*\|[\s]*Next\s*Chapter.?\Z', r'\1', content, flags=re.IGNORECASE)
     content = content.strip()
-    content = re.sub(r'\n +\n', r'\n\n', content)
-    content = re.sub(r'\n\n[\n]+', r'\n\n', content)
+    content = re.sub(r'\n +\n', r'\n\n', content, flags=re.IGNORECASE)
+    content = re.sub(r'\n\n[\n]+', r'\n\n', content, flags=re.IGNORECASE)
     content = content.strip()
 
     # Foot note Extraction
@@ -354,19 +390,19 @@ def get_content(url, getName=""):
 
 def download_chapter(url):
     name, content = get_content(url)
-    save_chapter(name, content)
+    save_chapter(name, content, url)
 
 
 if LIST_TRUE:
     if SKIP_NAME:
         for l in LIST:
             name, content = get_content(l[0], l[1])
-            save_chapter(name, content)
+            save_chapter(name, content, l[0])
     else:
         if len(LIST) < 10:
             for url in LIST:
                 name, content = get_content(url)
-                save_chapter(name, content)
+                save_chapter(name, content, url)
                 time.sleep(1)
         else:
             pool = Pool(3)
@@ -414,7 +450,7 @@ signal.signal(signal.SIGINT, signal_handler)
 if len(urls) < 10:
     for url in urls:
         name, content = get_content(url)
-        save_chapter(name, content)
+        save_chapter(name, content, url)
         time.sleep(1)
 else:
     pool = Pool(3)

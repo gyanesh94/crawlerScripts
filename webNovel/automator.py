@@ -88,10 +88,34 @@ def get_chapters(chapters):
 def save_chapter(name, content, url):
     if url.find("/novel/ancient-strengthening-technique/") != -1:
         path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Ancient Strengthening Technique/"
+
+    elif url.find("/novel/dragon-maken-war/") != -1:
+        path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Dragon Maken War/"
+
+    elif url.find("/novel/invincible/") != -1:
+        path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Invincible/"
+
+    elif url.find("/novel/overgeared/") != -1:
+        path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Overgeared/"
+
+    elif url.find("/novel/renegade-immortal/") != -1:
+        path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Renegade Immortal/"
+
+    elif url.find("/novel/spirit-realm/") != -1:
+        path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Spirit Realm/"
+
+    elif url.find("/novel/talisman-emperor/") != -1:
+        path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Talisman Emperor/"
+
+    elif url.find("/novel/upgrade-specialist-in-another-world/") != -1:
+        path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Upgrade Specialist in Another World/"
+
     elif url.find("/novel/martial-god-asura/") != -1:
-        path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Martial God Asura/"
-    elif url.find("novel/the-great-ruler/") != -1:
-        path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/The Great Ruler/"
+        path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Slow_Stopped/Martial God Asura/"
+
+    elif url.find("/novel/the-great-ruler/") != -1:
+        path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Slow_Stopped/The Great Ruler/"
+
     else:
         path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/"
         # path = "/Users/gyanesh/Documents/.a/Web Novel alias/"
@@ -129,14 +153,14 @@ def get_content(url):
 
         while p[0].get_text().strip() == "":
             del p[0]
-        if re.search(r'^.*Chapter [0-9]{1,3}.*$', p[0].get_text()):
+        if re.search(r'^.*Chapter [0-9]{1,3}.*$', p[0].get_text(), flags=re.IGNORECASE):
             name = p[0]
             del p[0]
         else:
             temp_chapter_name = name.get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ")
             temp_chapter_name_in_body = p[0].get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ")
-            temp_chapter_name = re.sub(r' [ ]+', r' ', temp_chapter_name)
-            temp_chapter_name_in_body = re.sub(r' [ ]+', r' ', temp_chapter_name_in_body)
+            temp_chapter_name = re.sub(r' [ ]+', r' ', temp_chapter_name, flags=re.IGNORECASE)
+            temp_chapter_name_in_body = re.sub(r' [ ]+', r' ', temp_chapter_name_in_body, flags=re.IGNORECASE)
             if temp_chapter_name == temp_chapter_name_in_body:
                 print "equals"
                 name = p[0]
@@ -161,8 +185,8 @@ def get_content(url):
         else:
             temp_chapter_name = name.get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ")
             temp_chapter_name_in_body = p[0].get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ")
-            temp_chapter_name = re.sub(r' [ ]+', r' ', temp_chapter_name)
-            temp_chapter_name_in_body = re.sub(r' [ ]+', r' ', temp_chapter_name_in_body)
+            temp_chapter_name = re.sub(r' [ ]+', r' ', temp_chapter_name, flags=re.IGNORECASE)
+            temp_chapter_name_in_body = re.sub(r' [ ]+', r' ', temp_chapter_name_in_body, flags=re.IGNORECASE)
             if temp_chapter_name == temp_chapter_name_in_body:
                 print "equals"
                 name = p[0]
@@ -182,8 +206,8 @@ def get_content(url):
         # print p[0].get_text()
         temp_chapter_name = name.get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ")
         temp_chapter_name_in_body = p[0].get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ")
-        temp_chapter_name = re.sub(r' [ ]+', r' ', temp_chapter_name)
-        temp_chapter_name_in_body = re.sub(r' [ ]+', r' ', temp_chapter_name_in_body)
+        temp_chapter_name = re.sub(r' [ ]+', r' ', temp_chapter_name, flags=re.IGNORECASE)
+        temp_chapter_name_in_body = re.sub(r' [ ]+', r' ', temp_chapter_name_in_body, flags=re.IGNORECASE)
         if temp_chapter_name == temp_chapter_name_in_body:
             print "equals"
             name = p[0]
@@ -235,6 +259,7 @@ def get_content(url):
         del name[0]
     name = "Chapter".join(name)
     # name = re.sub(r'^[\w\s\S\W]*Chapter\s', '', name)
+    name = re.sub(r'^AST ([0-9]{1,5})', r'\1', name, flags=re.IGNORECASE)
     name = re.sub(r'^0', '', name)
     name = name.strip()
     if url.find('http://www.radianttranslations.com') != -1:
@@ -273,26 +298,26 @@ def get_content(url):
     content = content.replace(u"\u3000", u" ")
     content = content.strip()
     # content = re.sub(r'^(Edited|Translated)\sby\s?:\s?.*$\n*', '', content)
-    content = re.sub(r'([\w\W\s\S]*)Do you want to read up to [0-9]{1,2} unreleased chapters\? Support UTS on Patreon!', r'\1', content)
+    content = re.sub(r'([\w\W\s\S]*)Do you want to read up to [0-9]{1,2} unreleased chapters\? Support UTS on Patreon!', r'\1', content, flags=re.IGNORECASE)
     content = content.strip()
-    content = re.sub(r'([\w\W\s\S]*)Advertisement\Z', r'\1', content)
+    content = re.sub(r'([\w\W\s\S]*)Advertisement\Z', r'\1', content, flags=re.IGNORECASE)
     content = content.strip()
-    content = re.sub(r'([\w\W\s\S]*)\>\s*Teaser\s*for\s*Next\s*Chapter\s*\<\Z', r'\1', content)
+    content = re.sub(r'([\w\W\s\S]*)\>\s*Teaser\s*for\s*Next\s*Chapter\s*\<\Z', r'\1', content, flags=re.IGNORECASE)
     content = content.strip()
-    content = re.sub(r'([\w\W\s\S]*)This\s*Chapter.?s\s*Teaser\Z', r'\1', content)
+    content = re.sub(r'([\w\W\s\S]*)This\s*Chapter.?s\s*Teaser\Z', r'\1', content, flags=re.IGNORECASE)
     content = content.strip()
-    content = re.sub(r'([\w\W\s\S]*)Previous(\sChapter)?[\s]*Next\sChapter\Z', r'\1', content)
+    content = re.sub(r'([\w\W\s\S]*)Previous(\sChapter)?[\s]*Next\sChapter\Z', r'\1', content, flags=re.IGNORECASE)
     content = content.strip()
-    content = re.sub(r'([\w\W\s\S]*)\[Previous\sChapter\][\s]*\[Table\sof\sContents\][\s]*\[Next\sChapter\]\Z', r'\1', content)
+    content = re.sub(r'([\w\W\s\S]*)\[Previous\sChapter\][\s]*\[Table\sof\sContents\][\s]*\[Next\sChapter\]\Z', r'\1', content, flags=re.IGNORECASE)
     content = content.strip()
-    content = re.sub(r'([\w\W\s\S]*)Previous(\sChapter)?[\s]*\|[\s]*Index[\s]*\|[\s]*Next\sChapter\Z', r'\1', content)
+    content = re.sub(r'([\w\W\s\S]*)Previous(\sChapter)?[\s]*\|[\s]*Index[\s]*\|[\s]*Next\sChapter\Z', r'\1', content, flags=re.IGNORECASE)
     content = content.strip()
-    content = re.sub(r'([\w\W\s\S]*)«(\s)?Previous(\sChapter)?[\s]*\|[\s]*Next\sChapter(\s)?»\Z', r'\1', content)
+    content = re.sub(r'([\w\W\s\S]*)«(\s)?Previous(\sChapter)?[\s]*\|[\s]*Next\sChapter(\s)?»\Z', r'\1', content, flags=re.IGNORECASE)
     content = content.strip()
-    content = re.sub(r'([\w\W\s\S]*).Previous\s*Chapter[\s]*\|[\s]*Next\s*Chapter.?\Z', r'\1', content)
+    content = re.sub(r'([\w\W\s\S]*).Previous\s*Chapter[\s]*\|[\s]*Next\s*Chapter.?\Z', r'\1', content, flags=re.IGNORECASE)
     content = content.strip()
-    content = re.sub(r'\n +\n', r'\n\n', content)
-    content = re.sub(r'\n\n[\n]+', r'\n\n', content)
+    content = re.sub(r'\n +\n', r'\n\n', content, flags=re.IGNORECASE)
+    content = re.sub(r'\n\n[\n]+', r'\n\n', content, flags=re.IGNORECASE)
     content = content.strip()
 
     # Foot note Extraction
