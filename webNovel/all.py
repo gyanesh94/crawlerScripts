@@ -128,6 +128,9 @@ def save_chapter(name, content, url):
     elif url.find("/novel/spirit-realm/") != -1:
         path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Spirit Realm/"
 
+    elif url.find("/novel/stop-friendly-fire/") != -1:
+        path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Stop, Friendly Fire!/"
+
     elif url.find("/novel/talisman-emperor/") != -1:
         path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Talisman Emperor/"
 
@@ -172,7 +175,17 @@ def get_content(url, getName=""):
         name = re.sub(r'^0', '', name, flags=re.IGNORECASE)
         name = name.strip()
     else:
-        if url.find('novel/martial-world/') != -1:
+        if url.find('novelfull.com/') != -1:
+            div = soup.find('div', {"id": "chapter-content"})
+            
+            p = div.find_all("p", recursive=MAKE_P_RECURSICE)
+
+            while p[0].get_text().strip() == "":
+                del p[0]
+            name = p[0]
+            del p[0]
+
+        elif url.find('novel/martial-world/') != -1:
             divSectionContent = soup.find('div', {"class": "section-content"})
             divUpperAll = divSectionContent.find_all('div', {"class": "panel-default"})
             divUpper = divUpperAll[-1]
@@ -203,7 +216,7 @@ def get_content(url, getName=""):
             div = divUpper.find('div', {"class": "fr-view"})
             p = div.find_all("p", recursive=MAKE_P_RECURSICE)
 
-            if len(p) < 6 and url.find('novel/ancient-strengthening-technique/') != -1:
+            if len(p) < 6:
                 div = divUpper.find('div', {"id": "chapterContent"})
                 p = div.find_all("p", recursive=MAKE_P_RECURSICE)
 
@@ -221,7 +234,7 @@ def get_content(url, getName=""):
                     name = p[0]
                     del p[0]
 
-        elif url.find('wuxiaworld.com') != -1:
+        elif url.find('novel/stop-friendly-fire/') != -1:
             divSectionContent = soup.find('div', {"class": "section-content"})
             divUpperAll = divSectionContent.find_all('div', {"class": "panel-default"})
             divUpper = divUpperAll[-1]
@@ -229,9 +242,25 @@ def get_content(url, getName=""):
             div = divUpper.find('div', {"class": "fr-view"})
             p = div.find_all("p", recursive=MAKE_P_RECURSICE)
 
-            if len(p) < 6 and url.find('novel/ancient-strengthening-technique/') != -1:
-                div = divUpper.find('div', {"id": "chapterContent"})
-                p = div.find_all("p", recursive=MAKE_P_RECURSICE)
+            if len(p) < 10 and url.find('novel/stop-friendly-fire') != -1:
+                p = div.find_all("div", recursive=MAKE_P_RECURSICE) + p
+
+            temp_chapter_name = name.get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ")
+            temp_chapter_name_in_body = p[0].get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ")
+            temp_chapter_name = re.sub(r' [ ]+', r' ', temp_chapter_name, flags=re.IGNORECASE)
+            temp_chapter_name_in_body = re.sub(r' [ ]+', r' ', temp_chapter_name_in_body, flags=re.IGNORECASE)
+            if temp_chapter_name == temp_chapter_name_in_body:
+                print "equals"
+                name = p[0]
+                del p[0]
+
+        elif url.find('wuxiaworld.com') != -1:
+            divSectionContent = soup.find('div', {"class": "section-content"})
+            divUpperAll = divSectionContent.find_all('div', {"class": "panel-default"})
+            divUpper = divUpperAll[-1]
+            name = divUpper.h4
+            div = divUpper.find('div', {"class": "fr-view"})
+            p = div.find_all("p", recursive=MAKE_P_RECURSICE)
 
             while p[0].get_text().strip() == "":
                 del p[0]
@@ -287,6 +316,8 @@ def get_content(url, getName=""):
             name = name.replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"/", u"-").replace(u"\\", u" -").replace(u'\u2019', "'").replace(u'\u2018', "'").replace(u'\u201D', '"').replace(u'\u201C', '"')
             name = re.sub(r' [ ]+', r' ', name)
         name = re.sub(r':', '-', name)
+        if url.find('novel/stop-friendly-fire') != -1:
+            name = name.replace(">", "").replace("<", "")
         name = name.split("Chapter")
         if len(name) > 1:
             del name[0]
