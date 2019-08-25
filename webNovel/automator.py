@@ -86,14 +86,32 @@ def get_chapters(chapters):
 
 
 def save_chapter(name, content, url):
-    if url.find("/novel/ancient-strengthening-technique/") != -1:
+    if url.find("/novel/rmji/") != -1:
+        path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/A Record of a Mortal's Journey to Immortality/"
+
+    elif url.find("/novel/ancient-strengthening-technique/") != -1:
         path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Ancient Strengthening Technique/"
+
+    elif url.find('novel/city-of-sin/') != -1:
+        path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/City of Sin/"
 
     elif url.find("/novel/dragon-maken-war/") != -1:
         path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Dragon Maken War/"
 
+    elif url.find("/novel/gate-of-revelation/") != -1:
+        path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Gate of Revelation/"
+
+    elif url.find("/novel/imperial-god-emperor/") != -1:
+        path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Imperial God Emperor/"
+
     elif url.find("/novel/invincible/") != -1:
         path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Invincible/"
+
+    elif url.find("/novel/lord-of-all-realms/") != -1:
+        path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Lord of All Realms/"
+
+    elif url.find("/novel/nine-star-hegemon/") != -1:
+        path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Nine Star Hegemon Body Art/"
 
     elif url.find("/novel/overgeared/") != -1:
         path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Overgeared/"
@@ -110,11 +128,17 @@ def save_chapter(name, content, url):
     elif url.find("/novel/talisman-emperor/") != -1:
         path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Talisman Emperor/"
 
+    elif url.find("/novel/the-charm-of-soul-pets/") != -1:
+        path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/The Charm of Soul Pets/"
+
     elif url.find("/novel/upgrade-specialist-in-another-world/") != -1:
         path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Upgrade Specialist in Another World/"
 
     elif url.find("/novel/martial-god-asura/") != -1:
         path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Slow_Stopped/Martial God Asura/"
+
+    elif url.find("/novel/perfect-world/") != -1:
+        path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Slow_Stopped/Perfect World/"
 
     elif url.find("/novel/the-great-ruler/") != -1:
         path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Slow_Stopped/The Great Ruler/"
@@ -148,13 +172,23 @@ def get_content(url):
     # Name Extraction
     if url.find('novelfull.com/') != -1:
         div = soup.find('div', {"id": "chapter-content"})
+        nameSpan = soup.find('span', {"class": "chapter-text"})
         
         p = div.find_all("p", recursive=MAKE_P_RECURSICE)
 
+        if len(p) < 8:
+            p = div.find_all("p", recursive=True)
         while p[0].get_text().strip() == "":
             del p[0]
-        name = p[0]
-        del p[0]
+
+        temp_chapter_name = nameSpan.get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ")
+        temp_chapter_name_in_body = p[0].get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ")
+        temp_chapter_name = re.sub(r' [ ]+', r' ', temp_chapter_name, flags=re.IGNORECASE)
+        temp_chapter_name_in_body = re.sub(r' [ ]+', r' ', temp_chapter_name_in_body, flags=re.IGNORECASE)
+        if temp_chapter_name == temp_chapter_name_in_body:
+            print "equals"
+            del p[0]
+        name = nameSpan
 
     elif url.find('novel/martial-world/') != -1:
         divSectionContent = soup.find('div', {"class": "section-content"})
@@ -196,14 +230,41 @@ def get_content(url):
             name = p[0]
             del p[0]
         else:
-            temp_chapter_name = name.get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ")
-            temp_chapter_name_in_body = p[0].get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ")
+            temp_chapter_name = name.get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ").replace(u",", u"").replace(u":", u"")
+            temp_chapter_name_in_body = p[0].get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ").replace(u",", u"").replace(u":", u"")
             temp_chapter_name = re.sub(r' [ ]+', r' ', temp_chapter_name, flags=re.IGNORECASE)
             temp_chapter_name_in_body = re.sub(r' [ ]+', r' ', temp_chapter_name_in_body, flags=re.IGNORECASE)
             if temp_chapter_name == temp_chapter_name_in_body:
                 print "equals"
                 name = p[0]
                 del p[0]
+
+    elif url.find('novel/rmji/') != -1:
+        divSectionContent = soup.find('div', {"class": "section-content"})
+        divUpperAll = divSectionContent.find_all('div', {"class": "panel-default"})
+        divUpper = divUpperAll[-1]
+        name = divUpper.h4
+        div = divUpper.find('div', {"class": "fr-view"})
+        p = div.find_all("p", recursive=MAKE_P_RECURSICE)
+
+        if len(p) < 6:
+            div = divUpper.find('div', {"id": "chapterContent"})
+            p = div.find_all("p", recursive=MAKE_P_RECURSICE)
+
+        temp_chapter_name = name.get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ").replace(u",", u"").replace(u":", u"")
+        temp_chapter_name_in_body = p[0].get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ").replace(u",", u"").replace(u":", u"")
+
+        temp_chapter_name = temp_chapter_name.split("Chapter")
+        if len(temp_chapter_name) > 1:
+            del temp_chapter_name[0]
+        temp_chapter_name = "Chapter".join(temp_chapter_name).strip()
+
+        temp_chapter_name = re.sub(r' [ ]+', r' ', temp_chapter_name, flags=re.IGNORECASE)
+        temp_chapter_name_in_body = re.sub(r' [ ]+', r' ', temp_chapter_name_in_body, flags=re.IGNORECASE)
+        if temp_chapter_name == temp_chapter_name_in_body:
+            print "equals"
+            name = p[0]
+            del p[0]
 
     elif url.find('novel/stop-friendly-fire/') != -1:
         divSectionContent = soup.find('div', {"class": "section-content"})
@@ -225,6 +286,51 @@ def get_content(url):
             name = p[0]
             del p[0]
 
+    elif url.find('novel/the-charm-of-soul-pets') != -1:
+        divSectionContent = soup.find('div', {"class": "section-content"})
+        divUpperAll = divSectionContent.find_all('div', {"class": "panel-default"})
+        divUpper = divUpperAll[-1]
+        name = divUpper.h4
+        div = divUpper.find('div', {"class": "fr-view"})
+        p = div.find_all("p", recursive=MAKE_P_RECURSICE)
+        
+        if len(p) < 6:
+            p = div.find_all("p", recursive=True)
+
+        while p[0].get_text().strip() == "":
+            del p[0]
+        temp_chapter_name = name.get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ").replace(u",", u"").replace(u":", u"")
+        temp_chapter_name_in_body = p[0].get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ").replace(u",", u"").replace(u":", u"")
+        
+        temp_chapter_name = temp_chapter_name.split("Chapter")
+        if len(temp_chapter_name) > 1:
+            del temp_chapter_name[0]
+        temp_chapter_name = "Chapter".join(temp_chapter_name).strip()
+        
+        temp_chapter_name_in_body = temp_chapter_name_in_body.split("Chapter")
+        if len(temp_chapter_name_in_body) > 1:
+            del temp_chapter_name_in_body[0]
+        temp_chapter_name_in_body = "Chapter".join(temp_chapter_name_in_body).strip()
+        
+        temp_chapter_name = re.sub(r' [ ]+', r' ', temp_chapter_name, flags=re.IGNORECASE)
+        temp_chapter_name_in_body = re.sub(r' [ ]+', r' ', temp_chapter_name_in_body, flags=re.IGNORECASE)
+
+        if temp_chapter_name == temp_chapter_name_in_body:
+            print "equals"
+            name = p[0]
+            del p[0]
+
+    elif url.find('novel/city-of-sin/') != -1:
+        divSectionContent = soup.find('div', {"class": "section-content"})
+        divUpperAll = divSectionContent.find_all('div', {"class": "panel-default"})
+        divUpper = divUpperAll[-1]
+        name = divUpper.h4
+        div = divUpper.find('div', {"class": "fr-view"})
+        p = div.find_all("p", recursive=MAKE_P_RECURSICE)
+
+        while p[0].get_text().strip() == "":
+            del p[0]
+
     elif url.find('wuxiaworld.com') != -1:
         divSectionContent = soup.find('div', {"class": "section-content"})
         divUpperAll = divSectionContent.find_all('div', {"class": "panel-default"})
@@ -235,16 +341,27 @@ def get_content(url):
 
         while p[0].get_text().strip() == "":
             del p[0]
-        # print name.get_text()
-        # print p[0].get_text()
-        temp_chapter_name = name.get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ")
-        temp_chapter_name_in_body = p[0].get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ")
+        temp_chapter_name = name.get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ").replace(u",", u"").replace(u":", u"")
+        temp_chapter_name_in_body = p[0].get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ").replace(u",", u"").replace(u":", u"")
+
+        temp_chapter_name = temp_chapter_name.split("Chapter")
+        if len(temp_chapter_name) > 1:
+            del temp_chapter_name[0]
+        temp_chapter_name = "Chapter".join(temp_chapter_name).strip()
+
+        temp_chapter_name_in_body = temp_chapter_name_in_body.split("Chapter")
+        if len(temp_chapter_name_in_body) > 1:
+            del temp_chapter_name_in_body[0]
+        temp_chapter_name_in_body = "Chapter".join(temp_chapter_name_in_body).strip()
+
         temp_chapter_name = re.sub(r' [ ]+', r' ', temp_chapter_name, flags=re.IGNORECASE)
         temp_chapter_name_in_body = re.sub(r' [ ]+', r' ', temp_chapter_name_in_body, flags=re.IGNORECASE)
+
         if temp_chapter_name == temp_chapter_name_in_body:
             print "equals"
             name = p[0]
             del p[0]
+
     elif url.find('wdqk-index') != -1:
         temp = p[0]
         if temp is not None and temp.get_text().find('Chapter') != -1:
@@ -278,34 +395,46 @@ def get_content(url):
     if url.find('perfect-world') != -1:
         name = p[0].get_text()
         del p[0]
-    name = name.replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"/", u"-").replace(u"\\", u" -").replace(u'\u2019', "'").replace(u'\u2018', "'").replace(u'\u201D', '"').replace(u'\u201C', '"')
-    name = re.sub(r' [ ]+', r' ', name)
-    while not name or name == " " or name == "":
-        name = p[0]
-        del p[0]
-        name = name.get_text()
+
+    if url.find('novel/city-of-sin/') != -1:
+        name = name + " - " + p[0].get_text()
         name = name.replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"/", u"-").replace(u"\\", u" -").replace(u'\u2019', "'").replace(u'\u2018', "'").replace(u'\u201D', '"').replace(u'\u201C', '"')
         name = re.sub(r' [ ]+', r' ', name)
-    name = re.sub(r':', '-', name)
-    if url.find('novel/stop-friendly-fire') != -1:
-        name = name.replace(">", "").replace("<", "")
-    name = name.split("Chapter")
-    if len(name) > 1:
-        del name[0]
-    name = "Chapter".join(name)
-    # name = re.sub(r'^[\w\s\S\W]*Chapter\s', '', name)
-    name = re.sub(r'^AST ([0-9]{1,5})', r'\1', name, flags=re.IGNORECASE)
-    name = re.sub(r'^0', '', name)
-    name = name.strip()
-    if url.find('http://www.radianttranslations.com') != -1:
-        tempName = url
-        tempName = re.sub(r'^[\w\s\S\W-]*chapter-', '', tempName)
-        tempName = tempName.replace(u"-", u".").replace(u"/", u"")
-        name = tempName + " " + name
+        name = re.sub(r'^0+', '', name)
+        name = name.strip()
+        del p[0]
+    else:
+        name = name.replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"/", u"-").replace(u"\\", u" -").replace(u'\u2019', "'").replace(u'\u2018', "'").replace(u'\u201D', '"').replace(u'\u201C', '"')
+        name = re.sub(r' [ ]+', r' ', name)
+        while not name or name == " " or name == "":
+            name = p[0]
+            del p[0]
+            name = name.get_text()
+            name = name.replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"/", u"-").replace(u"\\", u" -").replace(u'\u2019', "'").replace(u'\u2018', "'").replace(u'\u201D', '"').replace(u'\u201C', '"')
+            name = re.sub(r' [ ]+', r' ', name)
+        name = re.sub(r':', '-', name)
+        if url.find('novel/stop-friendly-fire') != -1:
+            name = name.replace(">", "").replace("<", "")
+        name = name.split("Chapter")
+        if len(name) > 1:
+            del name[0]
+        name = "Chapter".join(name)
+        # name = re.sub(r'^[\w\s\S\W]*Chapter\s', '', name, 1)
+        name = re.sub(r'^AST ([0-9]{1,5})', r'\1', name)
+        name = re.sub(r'^0+', '', name)
+        name = name.strip()
+        if url.find('http://www.radianttranslations.com') != -1:
+            tempName = url
+            tempName = re.sub(r'^[\w\s\S\W-]*chapter-', '', tempName)
+            tempName = tempName.replace(u"-", u".").replace(u"/", u"")
+            name = tempName + " " + name
         
     # Body Extraction
     content = ""
     for i in p:
+        # Webnovel Pirate tag
+        if i.pirate:
+            i.pirate.decompose()
         if i.sup:
             if i.sup.a:
                 i.sup.a.unwrap()
@@ -322,9 +451,9 @@ def get_content(url):
         if tempLower.find('patreon') != -1 and tempLower.find('support') != -1:
             break
         t = t.replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"  ", u" ").replace(u"  ", u" ").replace(u"  ", u" ").replace(u"\u2013", u"-")
-        t = re.sub(r'^\s*', r'', t)
-        t = re.sub(r'\s*$', r'', t)
-        t = re.sub(r'^ +$', r'', t)
+        t = re.sub(r'^\s+', r'', t)
+        t = re.sub(r'\s+$', r'', t)
+        t = re.sub(r'^\s+$', r'', t)
         t = t.strip()
         if t == "":
             continue
