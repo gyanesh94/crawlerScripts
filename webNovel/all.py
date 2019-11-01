@@ -38,6 +38,7 @@ if not os.path.exists(SAVE_DIRECTORY):
 
 url_list = [
     ["A Record of a Mortal's Journey to Immortality", "https://www.wuxiaworld.com/novel/rmji/rmji-chapter-{}"],
+    ["Ancient Strengthening Technique", "https://www.wuxiaworld.com/novel/ancient-strengthening-technique/ast-chapter-{}"],
     ["Imperial God Emperor", "https://www.wuxiaworld.com/novel/imperial-god-emperor/ige-chapter-{}"],
     ["Invincible", "https://www.wuxiaworld.com/novel/invincible/inv-chapter-{}"],
     ["Talisman Emperor", "https://www.wuxiaworld.com/novel/talisman-emperor/te-chapter-{}"],
@@ -49,7 +50,7 @@ url_list = [
     ["Chaotic Sword God", "http://gravitytales.com/chaotic-sword-god/csg-chapter-{}/"],
     ["Emperor's Domination", "http://www.wuxiaworld.com/emperor-index/emperor-chapter-{}/"],
     ["Legend of the Dragon King", "http://www.wuxiaworld.com/ldk-index/ldk-chapter-{}/"],
-    ["Martial God Asura", "http://www.wuxiaworld.com/mga-index/mga-chapter-{}/"],
+    ["Martial God Asura", "https://www.wuxiaworld.com/novel/martial-god-asura/mga-chapter-{}/"],
     ["Perfect World", "http://www.wuxiaworld.com/pw-index/pw-chapter-{}/"],
     ["Sovereign of the Three Realms", "http://www.wuxiaworld.com/sotr-index/sotr-chapter-{}/"],
     ["The Great Ruler", "http://www.wuxiaworld.com/tgr-index/tgr-chapter-{}/"],
@@ -118,7 +119,10 @@ def save_chapter(name, content, url):
     elif url.find("/novel/ancient-strengthening-technique/") != -1:
         path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Ancient Strengthening Technique/"
 
-    elif url.find('novel/city-of-sin/') != -1:
+    elif url.find('/novel/archfiend/') != -1:
+        path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Archfiend/"
+
+    elif url.find('/novel/city-of-sin/') != -1:
         path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/City of Sin/"
 
     elif url.find("/novel/dragon-maken-war/") != -1:
@@ -145,8 +149,14 @@ def save_chapter(name, content, url):
     elif url.find("/novel/renegade-immortal/") != -1:
         path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Renegade Immortal/"
 
+    elif url.find("/novel/sage-monarch/") != -1:
+        path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Sage Monarch/"
+
     elif url.find("/novel/spirit-realm/") != -1:
         path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Spirit Realm/"
+
+    elif url.find("/novel/spirit-vessel/") != -1:
+        path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Spirit Vessel/"
 
     elif url.find("/novel/stop-friendly-fire/") != -1:
         path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Stop, Friendly Fire!/"
@@ -157,17 +167,26 @@ def save_chapter(name, content, url):
     elif url.find("/novel/the-charm-of-soul-pets/") != -1:
         path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/The Charm of Soul Pets/"
 
-    elif url.find("/novel/upgrade-specialist-in-another-world/") != -1:
-        path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Upgrade Specialist in Another World/"
+    elif url.find("/novel/the-godsfall-chronicles/") != -1:
+        path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/The Godsfall Chronicles/"
+
+    elif url.find("/novel/the-novels-extra/") != -1:
+        path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/The Novel's Extra/"
+
+    elif url.find("/novel/trash-of-the-counts-family/") != -1:
+        path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Trash of the Count's Family/"
 
     elif url.find("/novel/martial-god-asura/") != -1:
-        path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Slow_Stopped/Martial God Asura/"
+        path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Martial God Asura/"
 
     elif url.find("/novel/perfect-world/") != -1:
-        path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Slow_Stopped/Perfect World/"
+        path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Perfect World/"
 
     elif url.find("/novel/the-great-ruler/") != -1:
-        path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Slow_Stopped/The Great Ruler/"
+        path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/The Great Ruler/"
+
+    elif url.find("/novel/the-unrivaled-tang-sect/") != -1:
+        path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/The Unrivaled Tang Sect/"
 
     else:
         path = SAVE_DIRECTORY
