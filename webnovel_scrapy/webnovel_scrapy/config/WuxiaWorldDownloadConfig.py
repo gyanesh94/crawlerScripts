@@ -36,5 +36,5 @@ NOVEL_URLS.append({
     CHAPTER_URL_IN_SEQUENTIAL: True,
     CHAPTER_URL: "https://www.wuxiaworld.com/novel/trash-of-the-counts-family/tcf-chapter-{}",
     CHAPTER_START: 1,
-    CHAPTER_END: 447
+    CHAPTER_END: 444
 })
