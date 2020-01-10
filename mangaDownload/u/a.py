@@ -1,7 +1,7 @@
 #!/Users/gyanesh/miniconda2/bin/python
 
 from bs4 import BeautifulSoup
-import urllib2
+# import urllib2
 import logging
 import requests
 import os
@@ -112,7 +112,7 @@ def get_images(href, name, pdf, convert, choice=None):
         os.mkdir(name)
     os.chdir(name)
     i = 0
-    print name
+    print(name)
     for page in pages:
         tmpName = "{name} Page {index:03}.{ext}".format(name=name, index=i, ext=page[1])
         tmpName = tmpName.replace("-", " ").replace("  ", " ").replace("  ", " ")
@@ -120,7 +120,7 @@ def get_images(href, name, pdf, convert, choice=None):
         i = i + 1
         # os.system(axel)
         cmd = "curl --cookie '{cookie_arg}' -A '{user_agent}' -s '{url}' > '{name}'".format(cookie_arg=cookie_arg, user_agent=user_agent, url=page[0], name=tmpName)
-        print cmd
+        print(cmd)
         # subprocess.call(cmd)
         subprocess.call(["curl", "--cookie", cookie_arg, "-A", user_agent, "-s", "-o", tmpName, page[0]])
         sleep(1)
@@ -131,11 +131,11 @@ def get_images(href, name, pdf, convert, choice=None):
     elif choice == 'a' or choice == 'A':
         pass
     elif pdf:
-        print "test"
+        print("test")
         convertToPdf("./" + name)
     else:
         zipCmd = "zip '{name}'.cbz -r '{name}'".format(name=name)
-        print zipCmd
+        print(zipCmd)
         os.system(zipCmd)
 
 signal.signal(signal.SIGINT, signal_handler)
@@ -152,7 +152,7 @@ if url:
     if chapters:
         i = len(chapters) - 1
         for ch in reversed(chapters):
-            print i, ch[1]
+            print(i, ch[1])
             i -= 1
         choices = raw_input().split()
         if choices:
@@ -174,5 +174,5 @@ if url:
                     choices = map(lambda x: int(x), choices)
                     for choice in choices:
                         chapter = chapters[choice]
-                        # print chapter
+                        # print(chapter)
                         get_images(chapter[0], chapter[1], pdf, convert)

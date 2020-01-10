@@ -113,9 +113,6 @@ def save_chapter(name, content, url):
     elif url.find("/novel/lord-of-all-realms/") != -1:
         path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Lord of All Realms/"
 
-    elif url.find("/novel/nine-star-hegemon/") != -1:
-        path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Nine Star Hegemon Body Art/"
-
     elif url.find("/novel/overgeared/") != -1:
         path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Overgeared/"
 
@@ -172,6 +169,22 @@ def save_chapter(name, content, url):
     text.close()
 
 
+def replace_ul(elem, soup):
+    return
+    ul_s = elem.find_all("ul", recursive=MAKE_P_RECURSICE)
+    for ul in ul_s:
+        new_elem = soup.new_tag("p")
+        text = ""
+        li_s = ul.find_all("li", recursive=MAKE_P_RECURSICE)
+        for li in li_s:
+            t = li.get_text()
+            text = "{}- {}\n".format(text, li.get_text())
+        text = text.strip()
+        new_elem.string = text
+        elem.ul.replace_with(new_elem)
+        # print(ul)
+
+
 def get_content(url):
     src = get_src(url)
     p = []
@@ -214,6 +227,7 @@ def get_content(url):
         divUpper = divUpperAll[-1]
         name = divUpper.h4
         div = divUpper.find('div', {"class": "fr-view"})
+        replace_ul(div, soup)
         p = div.find_all("p", recursive=MAKE_P_RECURSICE)
 
         while p[0].get_text().strip() == "":
@@ -237,6 +251,7 @@ def get_content(url):
         divUpper = divUpperAll[-1]
         name = divUpper.h4
         div = divUpper.find('div', {"class": "fr-view"})
+        replace_ul(div, soup)
         p = div.find_all("p", recursive=MAKE_P_RECURSICE)
 
         if len(p) < 6:
@@ -263,6 +278,7 @@ def get_content(url):
         divUpper = divUpperAll[-1]
         name = divUpper.h4
         div = divUpper.find('div', {"class": "fr-view"})
+        replace_ul(div, soup)
         p = div.find_all("p", recursive=MAKE_P_RECURSICE)
 
         if len(p) < 6:
@@ -290,6 +306,7 @@ def get_content(url):
         divUpper = divUpperAll[-1]
         name = divUpper.h4
         div = divUpper.find('div', {"class": "fr-view"})
+        replace_ul(div, soup)
         p = div.find_all("p", recursive=MAKE_P_RECURSICE)
 
         if len(p) < 10 and url.find('novel/stop-friendly-fire') != -1:
@@ -310,6 +327,7 @@ def get_content(url):
         divUpper = divUpperAll[-1]
         name = divUpper.h4
         div = divUpper.find('div', {"class": "fr-view"})
+        replace_ul(div, soup)
         p = div.find_all("p", recursive=MAKE_P_RECURSICE)
         
         if len(p) < 6:
@@ -344,6 +362,7 @@ def get_content(url):
         divUpper = divUpperAll[-1]
         name = divUpper.h4
         div = divUpper.find('div', {"class": "fr-view"})
+        replace_ul(div, soup)
         p = div.find_all("p", recursive=MAKE_P_RECURSICE)
 
         while p[0].get_text().strip() == "":
@@ -355,6 +374,7 @@ def get_content(url):
         divUpper = divUpperAll[-1]
         name = divUpper.h4
         div = divUpper.find('div', {"class": "fr-view"})
+        replace_ul(div, soup)
         p = div.find_all("p", recursive=MAKE_P_RECURSICE)
 
         while p[0].get_text().strip() == "":
@@ -465,39 +485,38 @@ def get_content(url):
             t = i.get_text(separator="\n")
         else:
             t = i.get_text()
-        tempLower = t.lower()
-        if tempLower.find('patreon') != -1 and tempLower.find('support') != -1:
-            break
-        t = t.replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"  ", u" ").replace(u"  ", u" ").replace(u"  ", u" ").replace(u"\u2013", u"-")
+        # tempLower = t.lower()
+        # if tempLower.find('patreon') != -1 and tempLower.find('support') != -1:
+        #     break
+        t = t.replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"  ", u" ").replace(u"  ", u" ").replace(u"  ", u" ").replace(u"\u2013", u"-").replace(u"\xa0", u" ")
         t = re.sub(r'^\s+', r'', t)
         t = re.sub(r'\s+$', r'', t)
-        t = re.sub(r'^\s+$', r'', t)
-        t = t.strip()
+        # t = re.sub(r'^\s+$', r'', t)
+        # t = t.strip()
         if t == "":
             continue
         content += t + "\n\n"
-    content = content.replace(u"\xa0", u" ")
-    content = content.replace(u"\u3000", u" ")
     content = content.strip()
+
     # content = re.sub(r'^(Edited|Translated)\sby\s?:\s?.*$\n*', '', content)
-    content = re.sub(r'([\w\W\s\S]*)Do you want to read up to [0-9]{1,2} unreleased chapters\? Support UTS on Patreon!', r'\1', content, flags=re.IGNORECASE)
-    content = content.strip()
-    content = re.sub(r'([\w\W\s\S]*)Advertisement\Z', r'\1', content, flags=re.IGNORECASE)
-    content = content.strip()
-    content = re.sub(r'([\w\W\s\S]*)\>\s*Teaser\s*for\s*Next\s*Chapter\s*\<\Z', r'\1', content, flags=re.IGNORECASE)
-    content = content.strip()
-    content = re.sub(r'([\w\W\s\S]*)This\s*Chapter.?s\s*Teaser\Z', r'\1', content, flags=re.IGNORECASE)
-    content = content.strip()
+    # content = re.sub(r'([\w\W\s\S]*)Do you want to read up to [0-9]{1,2} unreleased chapters\? Support UTS on Patreon!', r'\1', content, flags=re.IGNORECASE)
+    # content = content.strip()
+    # content = re.sub(r'([\w\W\s\S]*)Advertisement\Z', r'\1', content, flags=re.IGNORECASE)
+    # content = content.strip()
+    # content = re.sub(r'([\w\W\s\S]*)\>\s*Teaser\s*for\s*Next\s*Chapter\s*\<\Z', r'\1', content, flags=re.IGNORECASE))
+    # content = content.strip()
+    # content = re.sub(r'([\w\W\s\S]*)This\s*Chapter.?s\s*Teaser\Z', r'\1', content, flags=re.IGNORECASE))
+    # content = content.strip()
     content = re.sub(r'([\w\W\s\S]*)Previous(\sChapter)?[\s]*Next\sChapter\Z', r'\1', content, flags=re.IGNORECASE)
-    content = content.strip()
+    # content = content.strip()
     content = re.sub(r'([\w\W\s\S]*)\[Previous\sChapter\][\s]*\[Table\sof\sContents\][\s]*\[Next\sChapter\]\Z', r'\1', content, flags=re.IGNORECASE)
-    content = content.strip()
+    # content = content.strip()
     content = re.sub(r'([\w\W\s\S]*)Previous(\sChapter)?[\s]*\|[\s]*Index[\s]*\|[\s]*Next\sChapter\Z', r'\1', content, flags=re.IGNORECASE)
-    content = content.strip()
+    # content = content.strip()
     content = re.sub(r'([\w\W\s\S]*)«(\s)?Previous(\sChapter)?[\s]*\|[\s]*Next\sChapter(\s)?»\Z', r'\1', content, flags=re.IGNORECASE)
-    content = content.strip()
+    # content = content.strip()
     content = re.sub(r'([\w\W\s\S]*).Previous\s*Chapter[\s]*\|[\s]*Next\s*Chapter.?\Z', r'\1', content, flags=re.IGNORECASE)
-    content = content.strip()
+    # content = content.strip()
     content = re.sub(r'\n +\n', r'\n\n', content, flags=re.IGNORECASE)
     content = re.sub(r'\n\n[\n]+', r'\n\n', content, flags=re.IGNORECASE)
     content = content.strip()

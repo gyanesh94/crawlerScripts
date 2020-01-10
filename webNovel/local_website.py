@@ -19,13 +19,11 @@ import argparse
 import re
 import signal
 import os
-import requests
-import cfscrape
 import time
 from listings_download import *
 from multiprocessing import Pool
 
-SKIP_DEFAULT = False
+SKIP_DEFAULT = True
 MAKE_P_RECURSICE = False
 
 if LIST_TRUE or SKIP_DEFAULT:
@@ -33,60 +31,14 @@ if LIST_TRUE or SKIP_DEFAULT:
 else:
     SAVE_DIRECTORY = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/"
 
+TEMP_DIRECTORY = "/Users/gyanesh/Documents/Web Novels/temp/"
+LOCAL_WEBSITE = True
+
 if not os.path.exists(SAVE_DIRECTORY):
     os.makedirs(SAVE_DIRECTORY)
 
-url_list = [
-    ["A Record of a Mortal's Journey to Immortality", "https://www.wuxiaworld.com/novel/rmji/rmji-chapter-{}"],
-    ["Ancient Strengthening Technique", "https://www.wuxiaworld.com/novel/ancient-strengthening-technique/ast-chapter-{}"],
-    ["Imperial God Emperor", "https://www.wuxiaworld.com/novel/imperial-god-emperor/ige-chapter-{}"],
-    ["Invincible", "https://www.wuxiaworld.com/novel/invincible/inv-chapter-{}"],
-    ["Talisman Emperor", "https://www.wuxiaworld.com/novel/talisman-emperor/te-chapter-{}"],
-    ["Renegade Immortal", "https://www.wuxiaworld.com/novel/renegade-immortal/rge-chapter-{}"],
-    ["Spirit Realm", "https://www.wuxiaworld.com/novel/spirit-realm/sr-chapter-{}"],
-    ["Ancient Strengthening Technique", "https://www.wuxiaworld.com/novel/ancient-strengthening-technique/ast-chapter-{}"],
-    ["SYWZ", "http://gravitytales.com/novel/shen-yin-wang-zuo/sywz-chapter-{}"],
-    ["Against the Gods", "http://www.wuxiaworld.com/atg-index/atg-chapter-{}/"],
-    ["Chaotic Sword God", "http://gravitytales.com/chaotic-sword-god/csg-chapter-{}/"],
-    ["Emperor's Domination", "http://www.wuxiaworld.com/emperor-index/emperor-chapter-{}/"],
-    ["Legend of the Dragon King", "http://www.wuxiaworld.com/ldk-index/ldk-chapter-{}/"],
-    ["Martial God Asura", "https://www.wuxiaworld.com/novel/martial-god-asura/mga-chapter-{}/"],
-    ["Perfect World", "http://www.wuxiaworld.com/pw-index/pw-chapter-{}/"],
-    ["Sovereign of the Three Realms", "http://www.wuxiaworld.com/sotr-index/sotr-chapter-{}/"],
-    ["The Great Ruler", "http://www.wuxiaworld.com/tgr-index/tgr-chapter-{}/"],
-    ["Dragon Maken War", "https://www.wuxiaworld.com/novel/dragon-maken-war/dmw-chapter-{}"],
-    ["OverGeared", "https://www.wuxiaworld.com/novel/overgeared/og-chapter-{}"],
-]
-
-
-def signal_handler(signal, frame):
-    print('You pressed Ctrl+C!')
-    exit()
-
-
 def print_html(html):
     print(html.prettify())
-
-
-def get_url():
-    parser = argparse.ArgumentParser(description='Fetch Url')
-    parser.add_argument('-u', action="store", default=None, dest='url', help="give url")
-    url = parser.parse_args().url
-    return url
-
-
-def get_src(url):
-    r = requests.get(url)
-    if r.status_code == 503:
-        print("test")
-        scraper = cfscrape.create_scraper()
-        s = scraper.get(url)
-        s.encoding = 'utf-8'
-        return s.text
-    elif r.status_code == 200:
-        r.encoding = 'utf-8'
-        return r.text
-    exit()
 
 
 def str_encode(name):
@@ -191,8 +143,13 @@ def save_chapter(name, content, url):
 
     else:
         path = SAVE_DIRECTORY
+
+    if LOCAL_WEBSITE:
+        if not os.path.exists(TEMP_DIRECTORY):
+            os.makedirs(TEMP_DIRECTORY)
+        path = TEMP_DIRECTORY
+
     name = os.path.join(path, name)
-    print(name)
     text = open(name + ".txt", "wb")
     text.write(content)
     text.close()
@@ -219,11 +176,10 @@ def replace_hr(elem, soup):
         new_elem.string = "-------"
         elem.hr.replace_with(new_elem)
 
-
-def get_content(url, getName=""):
+def get_content(url, content, getName=""):
     print(url)
-    src = get_src(url)
-    soup = BeautifulSoup(src, 'lxml')
+    # src = get_src(url)
+    soup = BeautifulSoup(content, 'lxml')
     p = []
     div = soup.find("div", {"class": "entry-content"})
     if div is not None:
@@ -270,8 +226,6 @@ def get_content(url, getName=""):
             divUpper = divUpperAll[-1]
             name = divUpper.h4
             div = divUpper.find('div', {"class": "fr-view"})
-            replace_ul(div, soup)
-            replace_hr(div, soup)
             p = div.find_all("p", recursive=MAKE_P_RECURSICE)
 
             while p[0].get_text().strip() == "":
@@ -295,8 +249,6 @@ def get_content(url, getName=""):
             divUpper = divUpperAll[-1]
             name = divUpper.h4
             div = divUpper.find('div', {"class": "fr-view"})
-            replace_ul(div, soup)
-            replace_hr(div, soup)
             p = div.find_all("p", recursive=MAKE_P_RECURSICE)
 
             if len(p) < 6:
@@ -323,8 +275,6 @@ def get_content(url, getName=""):
             divUpper = divUpperAll[-1]
             name = divUpper.h4
             div = divUpper.find('div', {"class": "fr-view"})
-            replace_ul(div, soup)
-            replace_hr(div, soup)
             p = div.find_all("p", recursive=MAKE_P_RECURSICE)
 
             if len(p) < 6:
@@ -352,8 +302,6 @@ def get_content(url, getName=""):
             divUpper = divUpperAll[-1]
             name = divUpper.h4
             div = divUpper.find('div', {"class": "fr-view"})
-            replace_ul(div, soup)
-            replace_hr(div, soup)
             p = div.find_all("p", recursive=MAKE_P_RECURSICE)
 
             if len(p) < 10 and url.find('novel/stop-friendly-fire') != -1:
@@ -374,8 +322,6 @@ def get_content(url, getName=""):
             divUpper = divUpperAll[-1]
             name = divUpper.h4
             div = divUpper.find('div', {"class": "fr-view"})
-            replace_ul(div, soup)
-            replace_hr(div, soup)
             p = div.find_all("p", recursive=MAKE_P_RECURSICE)
 
             if len(p) < 6:
@@ -410,8 +356,6 @@ def get_content(url, getName=""):
             divUpper = divUpperAll[-1]
             name = divUpper.h4
             div = divUpper.find('div', {"class": "fr-view"})
-            replace_ul(div, soup)
-            replace_hr(div, soup)
             p = div.find_all("p", recursive=MAKE_P_RECURSICE)
 
             while p[0].get_text().strip() == "":
@@ -425,8 +369,6 @@ def get_content(url, getName=""):
             divUpper = divUpperAll[-1]
             name = divUpper.h4
             div = divUpper.find('div', {"class": "fr-view"})
-            replace_ul(div, soup)
-            replace_hr(div, soup)
             p = div.find_all("p", recursive=MAKE_P_RECURSICE)
 
             while p[0].get_text().strip() == "":
@@ -625,73 +567,93 @@ def download_chapter(url):
     save_chapter(name, content, url)
 
 
-if LIST_TRUE:
-    if SKIP_NAME:
-        for l in LIST:
-            name, content = get_content(l[0], l[1])
-            save_chapter(name, content, l[0])
-    else:
-        if len(LIST) < 3:
-            for url in LIST:
-                name, content = get_content(url)
-                save_chapter(name, content, url)
-                time.sleep(1)
-        else:
-            pool = Pool(3)
-            try:
-                pool.map(download_chapter, LIST, chunksize=1)
-            except KeyboardInterrupt:
-                print("Caught KeyboardInterrupt, terminating workers")
-                pool.terminate()
-            else:
-                print("Normal termination")
-                pool.close()
-            pool.join()
-    exit()
+def convert_local_html_to_txt():
+    d = "/Users/gyanesh/Documents/Web Novels/tcf/"
+    url = "https://www.wuxiaworld.com/novel/trash-of-the-counts-family"
+    # for i in range(1, 441):
+    for i in range(201, 441):
+        with open(os.path.join(d, f'story_{i}.html'), 'rb') as story_summary_file:
+            content = story_summary_file.read()
+            name, content = get_content(url, content)
+            save_chapter(name, content, url)
+    for i in range(1, 84):
+        with open(os.path.join(d, f'story_{i}.html'), 'rb') as story_summary_file:
+            content = story_summary_file.read()
+            name, content = get_content(url, content)
+            save_chapter(name, content, url)
 
 
-def get_urls():
-    i = 0
-    for temp in url_list:
-        print(i, temp[0])
-        i = i + 1
-    url = url_list[input("Index= ")][1]
-    start = input("Start= ")
-    end = raw_input("End= ")
-    if end == "":
-        end = start
-    else:
-        end = int(end)
-    l = []
-    for i in range(start, end + 1):
-        l += [url.format(i)]
-    return l
+# if LIST_TRUE:
+#     if SKIP_NAME:
+#         for l in LIST:
+#             name, content = get_content(l[0], l[1])
+#             save_chapter(name, content, l[0])
+#     else:
+#         if len(LIST) < 3:
+#             for url in LIST:
+#                 name, content = get_content(url)
+#                 save_chapter(name, content, url)
+#                 time.sleep(1)
+#         else:
+#             pool = Pool(3)
+#             try:
+#                 pool.map(download_chapter, LIST, chunksize=1)
+#             except KeyboardInterrupt:
+#                 print("Caught KeyboardInterrupt, terminating workers")
+#                 pool.terminate()
+#             else:
+#                 print("Normal termination")
+#                 pool.close()
+#             pool.join()
+#     exit()
 
 
-tempUrl = get_url()
+# def get_urls():
+#     i = 0
+#     for temp in url_list:
+#         print(i, temp[0])
+#         i = i + 1
+#     url = url_list[input("Index= ")][1]
+#     start = input("Start= ")
+#     end = raw_input("End= ")
+#     if end == "":
+#         end = start
+#     else:
+#         end = int(end)
+#     l = []
+#     for i in range(start, end + 1):
+#         l += [url.format(i)]
+#     return l
 
-if LIST is not None and LIST != []:
-    urls = LIST
-elif tempUrl is None:
-    urls = get_urls()
-else:
-    urls = [tempUrl]
 
-signal.signal(signal.SIGINT, signal_handler)
+# tempUrl = get_url()
 
-if len(urls) < 3:
-    for url in urls:
-        name, content = get_content(url)
-        save_chapter(name, content, url)
-        time.sleep(1)
-else:
-    pool = Pool(3)
-    try:
-        pool.map(download_chapter, urls, chunksize=1)
-    except KeyboardInterrupt:
-        print("Caught KeyboardInterrupt, terminating workers")
-        pool.terminate()
-    else:
-        print("Normal termination")
-        pool.close()
-    pool.join()
+# if LIST is not None and LIST != []:
+#     urls = LIST
+# elif tempUrl is None:
+#     urls = get_urls()
+# else:
+#     urls = [tempUrl]
+
+# signal.signal(signal.SIGINT, signal_handler)
+
+# if len(urls) < 3:
+#     for url in urls:
+#         name, content = get_content(url)
+#         save_chapter(name, content, url)
+#         time.sleep(1)
+# else:
+#     pool = Pool(3)
+#     try:
+#         pool.map(download_chapter, urls, chunksize=1)
+#     except KeyboardInterrupt:
+#         print("Caught KeyboardInterrupt, terminating workers")
+#         pool.terminate()
+#     else:
+#         print("Normal termination")
+#         pool.close()
+#     pool.join()
+
+
+if __name__ == '__main__':
+    convert_local_html_to_txt()

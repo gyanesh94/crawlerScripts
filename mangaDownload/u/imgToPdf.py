@@ -23,7 +23,7 @@ def convertToPdf(d):
         ppath = os.path.join(d, p)
         if os.path.isfile(ppath) and p != ".DS_Store" and re.match(r'^.*\.(jpg|jpeg|png)$', p):
             pics.append(ppath)
-    print pics
+    print(pics)
     if not pics:
         return
     pdf_bytes = img2pdf.convert(pics)
