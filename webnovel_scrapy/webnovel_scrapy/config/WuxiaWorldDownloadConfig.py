@@ -18,36 +18,383 @@ SUMMARY_PAGE_A_LINK_XPATH = "//div[@class='panel-group']//div[@class='panel-body
 
 # Novels Data
 NOVEL_URLS = []
+COMPLETED_NOVEL_URLS = []
+PREVIEW_NOVEL_URLS = []
 
 NOVEL_URLS.append({
-    NOVEL_NAME: "Renegade Immortal",
-    SUMMARY_URL: "https://www.wuxiaworld.com/novel/renegade-immortal",
+    NOVEL_NAME: "A Record of a Mortal's Journey to Immortality",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/rmji",
     CHAPTER_URL_IN_SEQUENTIAL: True,
-    CHAPTER_URL: "https://www.wuxiaworld.com/novel/renegade-immortal/rge-chapter-{}",
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/rmji/rmji-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 1220
+})
+
+NOVEL_URLS.append({
+    NOVEL_NAME: "Against the Gods",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/against-the-gods",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/against-the-gods/atg-chapter-{}",
     CHAPTER_START: 0,
-    CHAPTER_END: 2089,
+    CHAPTER_END: 1624,
     URL_EXCLUDE_LIST: (
-        'https://www.wuxiaworld.com/novel/renegade-immortal/rge-chapter-0',
-        'https://www.wuxiaworld.com/novel/renegade-immortal/rge-chapter-1455',
-        'https://www.wuxiaworld.com/novel/renegade-immortal/rge-chapter-17405',
-        'https://www.wuxiaworld.com/novel/renegade-immortal/rge-chapter-717',
-        'https://www.wuxiaworld.com/novel/renegade-immortal/rge-chapter-1740',
+        "https://www.wuxiaworld.com/novel/against-the-gods/atg-chapter-1044",
+        "https://www.wuxiaworld.com/novel/against-the-gods/atg-chapter-1043"
     )
 })
 
 NOVEL_URLS.append({
+    NOVEL_NAME: "Almighty Sword Domain",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/almighty-sword-domain",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/almighty-sword-domain/asd-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 117
+})
+
+NOVEL_URLS.append({
+    NOVEL_NAME: "Archfiend",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/archfiend",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/archfiend/af-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 501,
+    URL_EXCLUDE_LIST: (
+        "https://www.wuxiaworld.com/novel/archfiend/af-chapter-153",
+        "https://www.wuxiaworld.com/novel/archfiend/af-chapter-59",
+        "https://www.wuxiaworld.com/novel/archfiend/af-chapter-288",
+        "https://www.wuxiaworld.com/novel/archfiend/af-chapter-87",
+        "https://www.wuxiaworld.com/novel/archfiend/af-chapter-454"
+    )
+})
+
+NOVEL_URLS.append({
+    NOVEL_NAME: "City of Sin",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/city-of-sin",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/city-of-sin/cos-chapter-{}",
+    CHAPTER_START: 0,
+    CHAPTER_END: 1325,
+    URL_EXCLUDE_LIST: (
+        "https://www.wuxiaworld.com/novel/city-of-sin/cos-chapter-27",
+        "https://www.wuxiaworld.com/novel/city-of-sin/cos-chapter-29",
+        "https://www.wuxiaworld.com/novel/city-of-sin/cos-chapter-36",
+        "https://www.wuxiaworld.com/novel/city-of-sin/cos-chapter-23",
+        "https://www.wuxiaworld.com/novel/city-of-sin/cos-chapter-39",
+        "https://www.wuxiaworld.com/novel/city-of-sin/cos-chapter-22",
+        "https://www.wuxiaworld.com/novel/city-of-sin/cos-chapter-7",
+        "https://www.wuxiaworld.com/novel/city-of-sin/cos-chapter-30",
+        "https://www.wuxiaworld.com/novel/city-of-sin/cos-chapter-37",
+        "https://www.wuxiaworld.com/novel/city-of-sin/cos-chapter-194",
+        "https://www.wuxiaworld.com/novel/city-of-sin/cos-chapter-45",
+        "https://www.wuxiaworld.com/novel/city-of-sin/cos-chapter-31",
+        "https://www.wuxiaworld.com/novel/city-of-sin/cos-chapter-24",
+        "https://www.wuxiaworld.com/novel/city-of-sin/cos-chapter-28"
+    )
+})
+
+COMPLETED_NOVEL_URLS.append({
     NOVEL_NAME: "Desolate Era",
     SUMMARY_URL: "https://www.wuxiaworld.com/novel/desolate-era",
     CHAPTER_URL_IN_SEQUENTIAL: False
 })
 
 NOVEL_URLS.append({
-    NOVEL_NAME: "Trash of the Count's Family",
-    SUMMARY_URL: "https://www.wuxiaworld.com/novel/trash-of-the-counts-family",
+    NOVEL_NAME: "Divine Throne of Primordial Blood",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/divine-throne-of-primordial-blood",
+    CHAPTER_URL_IN_SEQUENTIAL: False
+})
+
+NOVEL_URLS.append({
+    NOVEL_NAME: "Dragon Prince Yuan",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/dragon-prince-yuan",
     CHAPTER_URL_IN_SEQUENTIAL: True,
-    CHAPTER_URL: "https://www.wuxiaworld.com/novel/trash-of-the-counts-family/tcf-chapter-{}",
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/dragon-prince-yuan/yz-chapter-{}",
     CHAPTER_START: 1,
-    CHAPTER_END: 444
+    CHAPTER_END: 423
+})
+
+PREVIEW_NOVEL_URLS.append({
+    NOVEL_NAME: "Dragon Talisman",
+    SUMMARY_URL: "https://www.wuxiaworld.com/preview/dragon-talisman",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/preview/dragon-talisman/dt-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 43
+})
+
+NOVEL_URLS.append({
+    NOVEL_NAME: "Dungeon Predator",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/dungeon-predator",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/dungeon-predator/dp-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 21
+})
+
+NOVEL_URLS.append({
+    NOVEL_NAME: "Emperor's Domination",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/emperors-domination",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/emperors-domination/emperor-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 2689
+})
+
+NOVEL_URLS.append({
+    NOVEL_NAME: "Everlasting",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/everlasting",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/everlasting/ev-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 250
+})
+
+NOVEL_URLS.append({
+    NOVEL_NAME: "Everyone is Young Except for Me",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/everyone-is-young-except-for-me",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/everyone-is-young-except-for-me/eyem-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 18
+})
+
+PREVIEW_NOVEL_URLS.append({
+    NOVEL_NAME: "Game of Divine Thrones",
+    SUMMARY_URL: "https://www.wuxiaworld.com/preview/game-of-divine-thrones",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/preview/game-of-divine-thrones/gdt-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 5
+})
+
+NOVEL_URLS.append({
+    NOVEL_NAME: "Gate of Revelation",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/gate-of-revelation",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/gate-of-revelation/gor-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 753,
+    URL_EXCLUDE_LIST: (
+        "https://www.wuxiaworld.com/novel/gate-of-revelation/gor-chapter-352",
+        "https://www.wuxiaworld.com/novel/gate-of-revelation/gor-chapter-156",
+        "https://www.wuxiaworld.com/novel/gate-of-revelation/gor-chapter-608",
+        "https://www.wuxiaworld.com/novel/gate-of-revelation/gor-chapter-603",
+        "https://www.wuxiaworld.com/novel/gate-of-revelation/gor-chapter-325",
+        "https://www.wuxiaworld.com/novel/gate-of-revelation/gor-chapter-336",
+        "https://www.wuxiaworld.com/novel/gate-of-revelation/gor-chapter-607",
+        "https://www.wuxiaworld.com/novel/gate-of-revelation/gor-chapter-151",
+        "https://www.wuxiaworld.com/novel/gate-of-revelation/gor-chapter-268",
+        "https://www.wuxiaworld.com/novel/gate-of-revelation/gor-chapter-239",
+        "https://www.wuxiaworld.com/novel/gate-of-revelation/gor-chapter-143",
+        "https://www.wuxiaworld.com/novel/gate-of-revelation/gor-chapter-256",
+        "https://www.wuxiaworld.com/novel/gate-of-revelation/gor-chapter-192",
+        "https://www.wuxiaworld.com/novel/gate-of-revelation/gor-chapter-146",
+        "https://www.wuxiaworld.com/novel/gate-of-revelation/gor-chapter-353",
+        "https://www.wuxiaworld.com/novel/gate-of-revelation/gor-chapter-171",
+        "https://www.wuxiaworld.com/novel/gate-of-revelation/gor-chapter-270",
+        "https://www.wuxiaworld.com/novel/gate-of-revelation/gor-chapter-158",
+        "https://www.wuxiaworld.com/novel/gate-of-revelation/gor-chapter-155",
+        "https://www.wuxiaworld.com/novel/gate-of-revelation/gor-chapter-173",
+        "https://www.wuxiaworld.com/novel/gate-of-revelation/gor-chapter-241",
+        "https://www.wuxiaworld.com/novel/gate-of-revelation/gor-chapter-175",
+        "https://www.wuxiaworld.com/novel/gate-of-revelation/gor-chapter-612",
+        "https://www.wuxiaworld.com/novel/gate-of-revelation/gor-chapter-625",
+        "https://www.wuxiaworld.com/novel/gate-of-revelation/gor-chapter-170",
+        "https://www.wuxiaworld.com/novel/gate-of-revelation/gor-chapter-630",
+        "https://www.wuxiaworld.com/novel/gate-of-revelation/gor-chapter-272",
+        "https://www.wuxiaworld.com/novel/gate-of-revelation/gor-chapter-162",
+        "https://www.wuxiaworld.com/novel/gate-of-revelation/gor-chapter-152",
+        "https://www.wuxiaworld.com/novel/gate-of-revelation/gor-chapter-157",
+        "https://www.wuxiaworld.com/novel/gate-of-revelation/gor-chapter-321",
+        "https://www.wuxiaworld.com/novel/gate-of-revelation/gor-chapter-382",
+        "https://www.wuxiaworld.com/novel/gate-of-revelation/gor-chapter-144",
+        "https://www.wuxiaworld.com/novel/gate-of-revelation/gor-chapter-253",
+        "https://www.wuxiaworld.com/novel/gate-of-revelation/gor-chapter-164",
+        "https://www.wuxiaworld.com/novel/gate-of-revelation/gor-chapter-601",
+        "https://www.wuxiaworld.com/novel/gate-of-revelation/gor-chapter-223"
+    )
+})
+
+NOVEL_URLS.append({
+    NOVEL_NAME: "Heaven's Devourer",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/heavens-devourer",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/heavens-devourer/hd-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 503
+})
+
+PREVIEW_NOVEL_URLS.append({
+    NOVEL_NAME: "Immortal Devil Transformation",
+    SUMMARY_URL: "https://www.wuxiaworld.com/preview/immortal-devil-transformation",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/preview/immortal-devil-transformation/idt-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 37
+})
+
+COMPLETED_NOVEL_URLS.append({
+    NOVEL_NAME: "Imperial God Emperor",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/imperial-god-emperor",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/imperial-god-emperor/ige-chapter-{}",
+    CHAPTER_START: 0,
+    CHAPTER_END: 1384,
+    URL_EXCLUDE_LIST: (
+        "https://www.wuxiaworld.com/novel/imperial-god-emperor/ige-chapter-1017",
+        "https://www.wuxiaworld.com/novel/imperial-god-emperor/ige-chapter-1252",
+        "https://www.wuxiaworld.com/novel/imperial-god-emperor/ige-chapter-1304",
+        "https://www.wuxiaworld.com/novel/imperial-god-emperor/ige-chapter-131",
+        "https://www.wuxiaworld.com/novel/imperial-god-emperor/ige-chapter-132",
+        "https://www.wuxiaworld.com/novel/imperial-god-emperor/ige-chapter-262",
+        "https://www.wuxiaworld.com/novel/imperial-god-emperor/ige-chapter-286",
+        "https://www.wuxiaworld.com/novel/imperial-god-emperor/ige-chapter-288",
+        "https://www.wuxiaworld.com/novel/imperial-god-emperor/ige-chapter-290",
+        "https://www.wuxiaworld.com/novel/imperial-god-emperor/ige-chapter-306",
+        "https://www.wuxiaworld.com/novel/imperial-god-emperor/ige-chapter-319",
+        "https://www.wuxiaworld.com/novel/imperial-god-emperor/ige-chapter-340",
+        "https://www.wuxiaworld.com/novel/imperial-god-emperor/ige-chapter-365",
+        "https://www.wuxiaworld.com/novel/imperial-god-emperor/ige-chapter-378",
+        "https://www.wuxiaworld.com/novel/imperial-god-emperor/ige-chapter-380",
+        "https://www.wuxiaworld.com/novel/imperial-god-emperor/ige-chapter-381",
+        "https://www.wuxiaworld.com/novel/imperial-god-emperor/ige-chapter-382",
+        "https://www.wuxiaworld.com/novel/imperial-god-emperor/ige-chapter-383",
+        "https://www.wuxiaworld.com/novel/imperial-god-emperor/ige-chapter-384",
+        "https://www.wuxiaworld.com/novel/imperial-god-emperor/ige-chapter-385",
+        "https://www.wuxiaworld.com/novel/imperial-god-emperor/ige-chapter-386",
+        "https://www.wuxiaworld.com/novel/imperial-god-emperor/ige-chapter-387",
+        "https://www.wuxiaworld.com/novel/imperial-god-emperor/ige-chapter-388",
+        "https://www.wuxiaworld.com/novel/imperial-god-emperor/ige-chapter-389",
+        "https://www.wuxiaworld.com/novel/imperial-god-emperor/ige-chapter-390",
+        "https://www.wuxiaworld.com/novel/imperial-god-emperor/ige-chapter-391",
+        "https://www.wuxiaworld.com/novel/imperial-god-emperor/ige-chapter-392",
+        "https://www.wuxiaworld.com/novel/imperial-god-emperor/ige-chapter-393",
+        "https://www.wuxiaworld.com/novel/imperial-god-emperor/ige-chapter-394",
+        "https://www.wuxiaworld.com/novel/imperial-god-emperor/ige-chapter-395",
+        "https://www.wuxiaworld.com/novel/imperial-god-emperor/ige-chapter-396",
+        "https://www.wuxiaworld.com/novel/imperial-god-emperor/ige-chapter-397",
+        "https://www.wuxiaworld.com/novel/imperial-god-emperor/ige-chapter-418",
+        "https://www.wuxiaworld.com/novel/imperial-god-emperor/ige-chapter-423",
+        "https://www.wuxiaworld.com/novel/imperial-god-emperor/ige-chapter-780",
+        "https://www.wuxiaworld.com/novel/imperial-god-emperor/ige-chapter-963",                
+    )
+})
+
+NOVEL_URLS.append({
+    NOVEL_NAME: "Invincible",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/invincible",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/invincible/inv-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 1327,
+    URL_EXCLUDE_LIST: (
+        "https://www.wuxiaworld.com/novel/invincible/inv-chapter-477"
+    )
+})
+
+NOVEL_URLS.append({
+    NOVEL_NAME: "Legend of the Dragon King",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/legend-of-the-dragon-king",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/legend-of-the-dragon-king/ldk-chapter-{}",
+    CHAPTER_START: 0,
+    CHAPTER_END: 640,
+    URL_EXCLUDE_LIST: (
+        "https://www.wuxiaworld.com/novel/legend-of-the-dragon-king/ldk-chapter-374",
+        "https://www.wuxiaworld.com/novel/legend-of-the-dragon-king/ldk-chapter-521"
+    )
+})
+
+NOVEL_URLS.append({
+    NOVEL_NAME: "Lord of All Realms",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/lord-of-all-realms",
+    CHAPTER_URL_IN_SEQUENTIAL: False,
+})
+
+NOVEL_URLS.append({
+    NOVEL_NAME: "Martial God Asura",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/martial-god-asura",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/martial-god-asura/mga-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 3932,
+    URL_EXCLUDE_LIST: (
+        "https://www.wuxiaworld.com/novel/martial-god-asura/mga-chapter-1632"
+    )
+})
+
+NOVEL_URLS.append({
+    NOVEL_NAME: "Monarch of Evernight",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/monarch-of-evernight",
+    CHAPTER_URL_IN_SEQUENTIAL: False,
+})
+
+PREVIEW_NOVEL_URLS.append({
+    NOVEL_NAME: "Moon's Labyrinths",
+    SUMMARY_URL: "https://www.wuxiaworld.com/preview/moons-labyrinths",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/preview/moons-labyrinths/ml-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 10
+})
+
+NOVEL_URLS.append({
+    NOVEL_NAME: "Nine Star Hegemon Body Art",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/nine-star-hegemon",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/nine-star-hegemon/nshba-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 1004
+})
+
+NOVEL_URLS.append({
+    NOVEL_NAME: "Overgeared",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/overgeared",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/overgeared/og-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 1156
+})
+
+PREVIEW_NOVEL_URLS.append({
+    NOVEL_NAME: "Overlord of Blood and Iron",
+    SUMMARY_URL: "https://www.wuxiaworld.com/preview/overlord-of-blood-and-iron",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/preview/overlord-of-blood-and-iron/obi-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 20
+})
+
+NOVEL_URLS.append({
+    NOVEL_NAME: "Perfect World",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/perfect-world",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/perfect-world/pw-chapter-{}",
+    CHAPTER_START: 0,
+    CHAPTER_END: 1757,
+    URL_EXCLUDE_LIST: (
+        "https://www.wuxiaworld.com/novel/perfect-world/pw-chapter-477",
+        "https://www.wuxiaworld.com/novel/perfect-world/pw-chapter-478"
+    )
+})
+
+NOVEL_URLS.append({
+    NOVEL_NAME: "Physician's Odyssey",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/physicians-odyssey",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/physicians-odyssey/po-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 385
+})
+
+NOVEL_URLS.append({
+    NOVEL_NAME: "Ranker's Return",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/rankers-return",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/rankers-return/rr-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 17
 })
 
 NOVEL_URLS.append({
@@ -56,5 +403,235 @@ NOVEL_URLS.append({
     CHAPTER_URL_IN_SEQUENTIAL: True,
     CHAPTER_URL: "https://www.wuxiaworld.com/novel/rebirth-of-the-thief-who-roamed-the-world/rotwrtw-chapter-{}",
     CHAPTER_START: 1,
-    CHAPTER_END: 959
+    CHAPTER_END: 971
+})
+
+PREVIEW_NOVEL_URLS.append({
+    NOVEL_NAME: "Refining the Mountains and Rivers",
+    SUMMARY_URL: "https://www.wuxiaworld.com/preview/refining-the-mountains-and-rivers",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/preview/refining-the-mountains-and-rivers/rmr-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 22
+})
+
+COMPLETED_NOVEL_URLS.append({
+    NOVEL_NAME: "Renegade Immortal",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/renegade-immortal",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/renegade-immortal/rge-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 2089,
+    URL_EXCLUDE_LIST: (
+        'https://www.wuxiaworld.com/novel/renegade-immortal/rge-chapter-1455',
+        'https://www.wuxiaworld.com/novel/renegade-immortal/rge-chapter-717',
+    )
+})
+
+NOVEL_URLS.append({
+    NOVEL_NAME: "Sage Monarch",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/sage-monarch",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/sage-monarch/sm-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 632
+})
+
+NOVEL_URLS.append({
+    NOVEL_NAME: "Sovereign of the Three Realms",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/sovereign-of-the-three-realms",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/sovereign-of-the-three-realms/sotr-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 2200,
+    URL_EXCLUDE_LIST: (
+        "https://www.wuxiaworld.com/novel/sovereign-of-the-three-realms/sotr-chapter-878",
+        "https://www.wuxiaworld.com/novel/sovereign-of-the-three-realms/sotr-chapter-835",
+        "https://www.wuxiaworld.com/novel/sovereign-of-the-three-realms/sotr-chapter-877"
+    )
+})
+
+NOVEL_URLS.append({
+    NOVEL_NAME: "Spirit Realm",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/spirit-realm",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/spirit-realm/sr-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 1832,
+    URL_EXCLUDE_LIST: (
+        "https://www.wuxiaworld.com/novel/spirit-realm/sr-chapter-833"
+    )
+})
+
+NOVEL_URLS.append({
+    NOVEL_NAME: "Spirit Vessel",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/spirit-vessel",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/spirit-vessel/sv-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 659
+})
+
+NOVEL_URLS.append({
+    NOVEL_NAME: "Tales of Demons & Gods",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/tales-of-demons-and-gods",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/tales-of-demons-and-gods/tdg-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 486,
+    URL_EXCLUDE_LIST: (
+        "https://www.wuxiaworld.com/novel/tales-of-demons-and-gods/tdg-chapter-278",
+        "https://www.wuxiaworld.com/novel/tales-of-demons-and-gods/tdg-chapter-485"
+    )
+})
+
+NOVEL_URLS.append({
+    NOVEL_NAME: "Talisman Emperor",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/talisman-emperor",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/talisman-emperor/te-chapter-{}",
+    CHAPTER_START: 61,
+    CHAPTER_END: 1693
+})
+
+NOVEL_URLS.append({
+    NOVEL_NAME: "The Charm of Soul Pets",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 1094,
+    URL_EXCLUDE_LIST: (
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-523",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-119",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-492",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-526",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-494",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-566",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-197",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-631",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-201",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-238",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-955",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-1",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-264",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-493",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-683",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-559",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-783",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-291",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-811",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-802",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-383",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-855",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-1012",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-276",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-603",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-744",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-852",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-861",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-588",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-293",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-175",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-226",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-853",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-209",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-602",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-648",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-292",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-250",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-273",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-208",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-629",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-907",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-225",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-272",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-813",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-294",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-827",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-643",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-634",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-598",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-987",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-246",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-202",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-690",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-873",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-479",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-567",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-1057",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-505",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-251",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-104",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-174",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-350",
+        "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets/tcosp-book-2-chapter-854"
+    )
+})
+
+NOVEL_URLS.append({
+    NOVEL_NAME: "The Divine Elements",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/the-divine-elements",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/the-divine-elements/tde-chapter-{}",
+    CHAPTER_START: 0,
+    CHAPTER_END: 231,
+    URL_EXCLUDE_LIST: (
+        "https://www.wuxiaworld.com/novel/the-divine-elements/tde-chapter-115",
+        "https://www.wuxiaworld.com/novel/the-divine-elements/tde-chapter-178"
+    )
+})
+
+NOVEL_URLS.append({
+    NOVEL_NAME: "The Godsfall Chronicles",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/the-godsfall-chronicles",
+    CHAPTER_URL_IN_SEQUENTIAL: False
+})
+
+NOVEL_URLS.append({
+    NOVEL_NAME: "The Grandmaster Strategist",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/the-grandmaster-strategist",
+    CHAPTER_URL_IN_SEQUENTIAL: False
+})
+
+NOVEL_URLS.append({
+    NOVEL_NAME: "The Second Coming of Gluttony",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/the-second-coming-of-gluttony",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/the-second-coming-of-gluttony/scog-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 208
+})
+
+PREVIEW_NOVEL_URLS.append({
+    NOVEL_NAME: "Tomb Raider King",
+    SUMMARY_URL: "https://www.wuxiaworld.com/preview/tomb-raider-king",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/preview/tomb-raider-king/trk-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 10
+})
+
+NOVEL_URLS.append({
+    NOVEL_NAME: "TranXending Vision",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/tranxending-vision",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/tranxending-vision/tv-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 728
+})
+
+NOVEL_URLS.append({
+    NOVEL_NAME: "Trash of the Count's Family",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/trash-of-the-counts-family",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/trash-of-the-counts-family/tcf-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 454
+})
+
+NOVEL_URLS.append({
+    NOVEL_NAME: "Upgrade Specialist in Another World",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/upgrade-specialist-in-another-world",
+    CHAPTER_URL_IN_SEQUENTIAL: False
 })
