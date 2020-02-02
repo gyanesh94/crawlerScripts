@@ -7,7 +7,7 @@ from urllib.parse import urljoin, urlsplit
 import scrapy
 from scrapy.http import Request
 
-from webnovel_scrapy.config.WuxiaWorldDownloadConfig import *
+from webnovel_scrapy.config.KobatoChanConfig import *
 from webnovel_scrapy.extraFunctions.functionsLxml import *
 
 
@@ -42,20 +42,20 @@ def create_meta(full_path, novel_index):
     return meta
 
 
-class WuxiaWorldDownloadSpider(scrapy.Spider):
-    name = "WuxiaWorldDownloadSpider"
+class KobatoChanSpider(scrapy.Spider):
+    name = "KobatoChanSpider"
 
     def __init__(self, summary_url=None, **kw):
         self.summary_url = summary_url
         self.URLS = defaultdict(set)
-        super(WuxiaWorldDownloadSpider, self).__init__(**kw)
+        super(KobatoChanSpider, self).__init__(**kw)
 
     def start_requests(self):
         if self.summary_url:
             full_path = get_full_novel_path(self.summary_url)
             meta = create_meta(full_path, 0)
-            urlRequest = [Request(self.summary_url, meta=meta, callback=self.parse)]
-            return urlRequest
+            url_request = [Request(self.summary_url, meta=meta, callback=self.parse)]
+            return url_request
 
         print("0: Update all Novels")
         for index, novel in enumerate(NOVEL_URLS):
@@ -63,18 +63,18 @@ class WuxiaWorldDownloadSpider(scrapy.Spider):
 
         selected_index = int(input("Input= "))
 
-        urlRequest = []
+        url_request = []
         if selected_index < 0 or selected_index > len(NOVEL_URLS):
             logging.warning("Wrong Index")
             return []
         elif selected_index == 0:
             for index in range(len(NOVEL_URLS)):
                 summary_request = self.get_selected_novel_request(index)
-                urlRequest.append(summary_request)
+                url_request.append(summary_request)
         else:
             summary_request = self.get_selected_novel_request(selected_index - 1)
-            urlRequest.append(summary_request)
-        return urlRequest
+            url_request.append(summary_request)
+        return url_request
 
     def get_selected_novel_request(self, selected_index):
         selected_novel = NOVEL_URLS[selected_index]
@@ -105,10 +105,11 @@ class WuxiaWorldDownloadSpider(scrapy.Spider):
 
         self.extract_urls_from_summary_page(response, full_path, novel_index)
 
-        urlRequest = [Request(url, meta=meta, callback=self.parse_novel_chapter) for url in self.URLS[novel_index]]
+        url_request = [Request(url, meta=meta, callback=self.parse_novel_chapter) for url in self.URLS[novel_index]]
+        print(meta)
         print(self.URLS[novel_index])
         print()
-        return urlRequest
+        return url_request
 
     def extract_urls_from_summary_page(self, response, full_path, novel_index):
         parsed_content = parseHtml(response.body)
