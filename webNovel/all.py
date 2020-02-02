@@ -177,9 +177,6 @@ def save_chapter(name, content, url):
     elif url.find("/novel/the-novels-extra/") != -1:
         path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/The Novel's Extra/"
 
-    elif url.find("/novel/trash-of-the-counts-family/") != -1:
-        path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Trash of the Count's Family/"
-
     elif url.find("/novel/martial-god-asura/") != -1:
         path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Martial God Asura/"
 
@@ -592,6 +589,8 @@ def get_content(url, getName=""):
     # Foot note Extraction
     foot = soup.find("div", {"class": "footnotes"})
     if foot:
+        content = re.sub(r'\n----+\Z', r'', content, flags=re.IGNORECASE)
+        content = content.strip()
         content += "\n\n" + "-----------" + "\n"
         lis = foot.find_all("li")
         i = 1
@@ -605,6 +604,8 @@ def get_content(url, getName=""):
     if url.find('wuxiaworld.com') != -1:
         foot = soup.select('div[id*="footnote"]')
         if foot and len(foot) != 0:
+            content = re.sub(r'\n----+\Z', r'', content, flags=re.IGNORECASE)
+            content = content.strip()
             content += "\n\n" + "-----------" + "\n"
         for i in foot:
             p = i.find_all("p", recursive=False)

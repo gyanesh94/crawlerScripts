@@ -451,7 +451,7 @@ NOVEL_URLS.append({
     )
 })
 
-NOVEL_URLS.append({
+COMPLETED_NOVEL_URLS.append({
     NOVEL_NAME: "Spirit Realm",
     SUMMARY_URL: "https://www.wuxiaworld.com/novel/spirit-realm",
     CHAPTER_URL_IN_SEQUENTIAL: True,

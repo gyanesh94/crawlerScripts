@@ -34,6 +34,9 @@ else:
 TEMP_DIRECTORY = "/Users/gyanesh/Documents/Web Novels/temp/"
 LOCAL_WEBSITE = True
 
+FILE_NAMES = [
+]
+
 if not os.path.exists(SAVE_DIRECTORY):
     os.makedirs(SAVE_DIRECTORY)
 
@@ -568,19 +571,19 @@ def download_chapter(url):
 
 
 def convert_local_html_to_txt():
-    d = "/Users/gyanesh/Documents/Web Novels/tcf/"
-    url = "https://www.wuxiaworld.com/novel/trash-of-the-counts-family"
-    # for i in range(1, 441):
-    for i in range(201, 441):
-        with open(os.path.join(d, f'story_{i}.html'), 'rb') as story_summary_file:
+    d = "/Users/gyanesh/Documents/Web Novels/websites/www.wuxiaworld.com/novel/the-second-coming-of-gluttony/"
+    url = "https://www.wuxiaworld.com/novel/the-second-coming-of-gluttony/"
+    for i in FILE_NAMES:
+        with open(os.path.join(d, i), 'rb') as story_summary_file:
             content = story_summary_file.read()
             name, content = get_content(url, content)
             save_chapter(name, content, url)
-    for i in range(1, 84):
-        with open(os.path.join(d, f'story_{i}.html'), 'rb') as story_summary_file:
-            content = story_summary_file.read()
-            name, content = get_content(url, content)
-            save_chapter(name, content, url)
+        
+    # for i in range(1, 84):
+    #     with open(os.path.join(d, f'story_{i}.html'), 'rb') as story_summary_file:
+    #         content = story_summary_file.read()
+    #         name, content = get_content(url, content)
+    #         save_chapter(name, content, url)
 
 
 # if LIST_TRUE:

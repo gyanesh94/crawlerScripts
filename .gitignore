@@ -4,6 +4,7 @@
 
 ## IDE
 .pyc
+**/.idea/
 
 
 ## android
@@ -43,7 +44,7 @@ captures/
 
 # Intellij
 *.iml
-.idea/workspace.xml
+**/.idea/workspace.xml
 
 # Keystore files
 *.jks
