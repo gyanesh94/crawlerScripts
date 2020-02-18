@@ -93,6 +93,15 @@ NOVEL_URLS.append({
     )
 })
 
+NOVEL_URLS.append({
+    NOVEL_NAME: "Demoness's Art of Vengeance",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/demoness-art-of-vengeance",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/demoness-art-of-vengeance/dav-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 25
+})
+
 COMPLETED_NOVEL_URLS.append({
     NOVEL_NAME: "Desolate Era",
     SUMMARY_URL: "https://www.wuxiaworld.com/novel/desolate-era",
@@ -159,6 +168,15 @@ NOVEL_URLS.append({
     CHAPTER_END: 18
 })
 
+NOVEL_URLS.append({
+    NOVEL_NAME: "Fortunately, I Met You",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/fortunately-i-met-you",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/fortunately-i-met-you/fimy-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 25
+})
+
 PREVIEW_NOVEL_URLS.append({
     NOVEL_NAME: "Game of Divine Thrones",
     SUMMARY_URL: "https://www.wuxiaworld.com/preview/game-of-divine-thrones",
@@ -217,12 +235,27 @@ NOVEL_URLS.append({
 })
 
 NOVEL_URLS.append({
+    NOVEL_NAME: "Genius Detective",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/genius-detective",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/genius-detective/gd-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 25
+})
+
+NOVEL_URLS.append({
     NOVEL_NAME: "Heaven's Devourer",
     SUMMARY_URL: "https://www.wuxiaworld.com/novel/heavens-devourer",
     CHAPTER_URL_IN_SEQUENTIAL: True,
     CHAPTER_URL: "https://www.wuxiaworld.com/novel/heavens-devourer/hd-chapter-{}",
     CHAPTER_START: 1,
     CHAPTER_END: 503
+})
+
+COMPLETED_NOVEL_URLS.append({
+    NOVEL_NAME: "Heavenly Jewel Change",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/heavenly-jewel-change",
+    CHAPTER_URL_IN_SEQUENTIAL: False
 })
 
 PREVIEW_NOVEL_URLS.append({
@@ -398,12 +431,21 @@ NOVEL_URLS.append({
 })
 
 NOVEL_URLS.append({
+    NOVEL_NAME: "Rebirth of a Fashionista- This Life Is Soo Last Season",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/rebirth-of-a-fashionista-this-live-is-so-last-season",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/rebirth-of-a-fashionista-this-live-is-so-last-season/rof-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 30
+})
+
+COMPLETED_NOVEL_URLS.append({
     NOVEL_NAME: "Rebirth of the Thief Who Roamed the World",
     SUMMARY_URL: "https://www.wuxiaworld.com/novel/rebirth-of-the-thief-who-roamed-the-world",
     CHAPTER_URL_IN_SEQUENTIAL: True,
     CHAPTER_URL: "https://www.wuxiaworld.com/novel/rebirth-of-the-thief-who-roamed-the-world/rotwrtw-chapter-{}",
     CHAPTER_START: 1,
-    CHAPTER_END: 971
+    CHAPTER_END: 995
 })
 
 PREVIEW_NOVEL_URLS.append({
@@ -492,6 +534,15 @@ NOVEL_URLS.append({
     CHAPTER_URL: "https://www.wuxiaworld.com/novel/talisman-emperor/te-chapter-{}",
     CHAPTER_START: 61,
     CHAPTER_END: 1693
+})
+
+NOVEL_URLS.append({
+    NOVEL_NAME: "The Attack of the Wastrel",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/the-attack-of-the-wastrel",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/the-attack-of-the-wastrel/aotw-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 25
 })
 
 NOVEL_URLS.append({
