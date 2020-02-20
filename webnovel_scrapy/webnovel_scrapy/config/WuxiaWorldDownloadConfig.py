@@ -20,6 +20,7 @@ SUMMARY_PAGE_A_LINK_XPATH = "//div[@class='panel-group']//div[@class='panel-body
 NOVEL_URLS = []
 COMPLETED_NOVEL_URLS = []
 PREVIEW_NOVEL_URLS = []
+STOPPED_NOVEL_URLS = []
 
 NOVEL_URLS.append({
     NOVEL_NAME: "A Record of a Mortal's Journey to Immortality",
@@ -243,6 +244,15 @@ NOVEL_URLS.append({
     CHAPTER_END: 25
 })
 
+PREVIEW_NOVEL_URLS.append({
+    NOVEL_NAME: "Heaven Defying Wastrel- Poison Physician Consort",
+    SUMMARY_URL: "https://www.wuxiaworld.com/preview/heaven-defying-wastrel-poison-physician-consort",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/preview/heaven-defying-wastrel-poison-physician-consort/hdw-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 5
+})
+
 NOVEL_URLS.append({
     NOVEL_NAME: "Heaven's Devourer",
     SUMMARY_URL: "https://www.wuxiaworld.com/novel/heavens-devourer",
@@ -256,6 +266,15 @@ COMPLETED_NOVEL_URLS.append({
     NOVEL_NAME: "Heavenly Jewel Change",
     SUMMARY_URL: "https://www.wuxiaworld.com/novel/heavenly-jewel-change",
     CHAPTER_URL_IN_SEQUENTIAL: False
+})
+
+PREVIEW_NOVEL_URLS.append({
+    NOVEL_NAME: "I Am Overlord",
+    SUMMARY_URL: "https://www.wuxiaworld.com/preview/i-am-overlord",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/preview/i-am-overlord/iao-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 5
 })
 
 PREVIEW_NOVEL_URLS.append({
@@ -345,6 +364,15 @@ NOVEL_URLS.append({
     CHAPTER_URL_IN_SEQUENTIAL: False,
 })
 
+PREVIEW_NOVEL_URLS.append({
+    NOVEL_NAME: "Love Code at the End of the World",
+    SUMMARY_URL: "https://www.wuxiaworld.com/preview/love-code-at-the-end-of-the-world",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/preview/love-code-at-the-end-of-the-world/lcew-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 5
+})
+
 NOVEL_URLS.append({
     NOVEL_NAME: "Martial God Asura",
     SUMMARY_URL: "https://www.wuxiaworld.com/novel/martial-god-asura",
@@ -379,6 +407,15 @@ NOVEL_URLS.append({
     CHAPTER_URL: "https://www.wuxiaworld.com/novel/nine-star-hegemon/nshba-chapter-{}",
     CHAPTER_START: 1,
     CHAPTER_END: 1004
+})
+
+PREVIEW_NOVEL_URLS.append({
+    NOVEL_NAME: "Otherworldly Merchant",
+    SUMMARY_URL: "https://www.wuxiaworld.com/preview/otherworldly-merchant",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/preview/otherworldly-merchant/om-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 5
 })
 
 NOVEL_URLS.append({
@@ -514,6 +551,12 @@ NOVEL_URLS.append({
     CHAPTER_END: 659
 })
 
+COMPLETED_NOVEL_URLS.append({
+    NOVEL_NAME: "Stellar Transformations",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/stellar-transformations",
+    CHAPTER_URL_IN_SEQUENTIAL: False
+})
+
 NOVEL_URLS.append({
     NOVEL_NAME: "Tales of Demons & Gods",
     SUMMARY_URL: "https://www.wuxiaworld.com/novel/tales-of-demons-and-gods",
@@ -620,7 +663,7 @@ NOVEL_URLS.append({
     )
 })
 
-NOVEL_URLS.append({
+STOPPED_NOVEL_URLS.append({
     NOVEL_NAME: "The Divine Elements",
     SUMMARY_URL: "https://www.wuxiaworld.com/novel/the-divine-elements",
     CHAPTER_URL_IN_SEQUENTIAL: True,
@@ -652,6 +695,24 @@ NOVEL_URLS.append({
     CHAPTER_URL: "https://www.wuxiaworld.com/novel/the-second-coming-of-gluttony/scog-chapter-{}",
     CHAPTER_START: 1,
     CHAPTER_END: 208
+})
+
+COMPLETED_NOVEL_URLS.append({
+    NOVEL_NAME: "The Sword and The Shadow",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/the-sword-and-the-shadow",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/the-sword-and-the-shadow/ts2-chapter-{}",
+    CHAPTER_START: 0,
+    CHAPTER_END: 669
+})
+
+PREVIEW_NOVEL_URLS.append({
+    NOVEL_NAME: "The Underworld Detective",
+    SUMMARY_URL: "https://www.wuxiaworld.com/preview/the-underworld-detective",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/preview/the-underworld-detective/ud-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 5
 })
 
 PREVIEW_NOVEL_URLS.append({
