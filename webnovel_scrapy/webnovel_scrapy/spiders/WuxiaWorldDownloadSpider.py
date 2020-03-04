@@ -106,7 +106,7 @@ class WuxiaWorldDownloadSpider(scrapy.Spider):
         self.extract_urls_from_summary_page(response, full_path, novel_index)
 
         urlRequest = [Request(url, meta=meta, callback=self.parse_novel_chapter) for url in self.URLS[novel_index]]
-        print(self.URLS[novel_index])
+        print(f"{NOVEL_URLS[novel_index][NOVEL_NAME]}: {self.URLS[novel_index]}")
         print()
         return urlRequest
 

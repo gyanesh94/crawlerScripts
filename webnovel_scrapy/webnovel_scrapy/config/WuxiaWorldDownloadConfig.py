@@ -69,13 +69,13 @@ NOVEL_URLS.append({
     )
 })
 
-NOVEL_URLS.append({
+COMPLETED_NOVEL_URLS.append({
     NOVEL_NAME: "City of Sin",
     SUMMARY_URL: "https://www.wuxiaworld.com/novel/city-of-sin",
     CHAPTER_URL_IN_SEQUENTIAL: True,
     CHAPTER_URL: "https://www.wuxiaworld.com/novel/city-of-sin/cos-chapter-{}",
     CHAPTER_START: 0,
-    CHAPTER_END: 1325,
+    CHAPTER_END: 1420,
     URL_EXCLUDE_LIST: (
         "https://www.wuxiaworld.com/novel/city-of-sin/cos-chapter-27",
         "https://www.wuxiaworld.com/novel/city-of-sin/cos-chapter-29",
@@ -107,6 +107,22 @@ COMPLETED_NOVEL_URLS.append({
     NOVEL_NAME: "Desolate Era",
     SUMMARY_URL: "https://www.wuxiaworld.com/novel/desolate-era",
     CHAPTER_URL_IN_SEQUENTIAL: False
+})
+
+NOVEL_URLS.append({
+    NOVEL_NAME: "Destroyer of Ice and Fire",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/destroyer-of-ice-and-fire",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/destroyer-of-ice-and-fire/dif-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 463,
+    URL_EXCLUDE_LIST: (
+        "https://www.wuxiaworld.com/novel/destroyer-of-ice-and-fire/dif-chapter-44",
+        "https://www.wuxiaworld.com/novel/destroyer-of-ice-and-fire/dif-chapter-154",
+        "https://www.wuxiaworld.com/novel/destroyer-of-ice-and-fire/dif-chapter-329",
+        "https://www.wuxiaworld.com/novel/destroyer-of-ice-and-fire/dif-chapter-330",
+        "https://www.wuxiaworld.com/novel/destroyer-of-ice-and-fire/dif-chapter-331"
+    )
 })
 
 NOVEL_URLS.append({
@@ -485,11 +501,11 @@ COMPLETED_NOVEL_URLS.append({
     CHAPTER_END: 995
 })
 
-PREVIEW_NOVEL_URLS.append({
+NOVEL_URLS.append({
     NOVEL_NAME: "Refining the Mountains and Rivers",
-    SUMMARY_URL: "https://www.wuxiaworld.com/preview/refining-the-mountains-and-rivers",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/refining-the-mountains-and-rivers",
     CHAPTER_URL_IN_SEQUENTIAL: True,
-    CHAPTER_URL: "https://www.wuxiaworld.com/preview/refining-the-mountains-and-rivers/rmr-chapter-{}",
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/refining-the-mountains-and-rivers/rmr-chapter-{}",
     CHAPTER_START: 1,
     CHAPTER_END: 22
 })
@@ -746,4 +762,13 @@ NOVEL_URLS.append({
     NOVEL_NAME: "Upgrade Specialist in Another World",
     SUMMARY_URL: "https://www.wuxiaworld.com/novel/upgrade-specialist-in-another-world",
     CHAPTER_URL_IN_SEQUENTIAL: False
+})
+
+PREVIEW_NOVEL_URLS.append({
+    NOVEL_NAME: "VRMMO: The Unrivaled",
+    SUMMARY_URL: "https://www.wuxiaworld.com/preview/vrmmo-the-unrivaled",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/preview/vrmmo-the-unrivaled/vrtu-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 19
 })
