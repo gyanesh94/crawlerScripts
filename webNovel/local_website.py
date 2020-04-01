@@ -101,6 +101,12 @@ def save_chapter(name, content, url):
 
     elif url.find("/novel/overgeared/") != -1:
         path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Overgeared/"
+        """
+        og-chapter-335      # numbering
+        og-chapter-355
+        og-chapter-748
+        og-chapter-806
+        """
 
     elif url.find("/novel/renegade-immortal/") != -1:
         path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Renegade Immortal/"
@@ -179,6 +185,18 @@ def replace_hr(elem, soup):
         new_elem.string = "-------"
         elem.hr.replace_with(new_elem)
 
+
+def replace_em(elem, soup):
+    em_s = elem.find_all("em", recursive=MAKE_P_RECURSICE)
+    for em in em_s:
+        text = em.get_text().replace(u'\u2060', ' ').replace(u'\xc2\xa0', ' ').replace(u'\xa0', ' ')
+        if len(text):
+            if text[-1] == " ":
+                em.string = f"'{text[:-1]}' "
+            else:
+                em.string = f"'{text}'"
+
+
 def get_content(url, content, getName=""):
     print(url)
     # src = get_src(url)
@@ -229,6 +247,8 @@ def get_content(url, content, getName=""):
             divUpper = divUpperAll[-1]
             name = divUpper.h4
             div = divUpper.find('div', {"class": "fr-view"})
+            replace_ul(div, soup)
+            replace_hr(div, soup)
             p = div.find_all("p", recursive=MAKE_P_RECURSICE)
 
             while p[0].get_text().strip() == "":
@@ -252,6 +272,8 @@ def get_content(url, content, getName=""):
             divUpper = divUpperAll[-1]
             name = divUpper.h4
             div = divUpper.find('div', {"class": "fr-view"})
+            replace_ul(div, soup)
+            replace_hr(div, soup)
             p = div.find_all("p", recursive=MAKE_P_RECURSICE)
 
             if len(p) < 6:
@@ -278,6 +300,8 @@ def get_content(url, content, getName=""):
             divUpper = divUpperAll[-1]
             name = divUpper.h4
             div = divUpper.find('div', {"class": "fr-view"})
+            replace_ul(div, soup)
+            replace_hr(div, soup)
             p = div.find_all("p", recursive=MAKE_P_RECURSICE)
 
             if len(p) < 6:
@@ -305,6 +329,8 @@ def get_content(url, content, getName=""):
             divUpper = divUpperAll[-1]
             name = divUpper.h4
             div = divUpper.find('div', {"class": "fr-view"})
+            replace_ul(div, soup)
+            replace_hr(div, soup)
             p = div.find_all("p", recursive=MAKE_P_RECURSICE)
 
             if len(p) < 10 and url.find('novel/stop-friendly-fire') != -1:
@@ -325,6 +351,8 @@ def get_content(url, content, getName=""):
             divUpper = divUpperAll[-1]
             name = divUpper.h4
             div = divUpper.find('div', {"class": "fr-view"})
+            replace_ul(div, soup)
+            replace_hr(div, soup)
             p = div.find_all("p", recursive=MAKE_P_RECURSICE)
 
             if len(p) < 6:
@@ -359,6 +387,8 @@ def get_content(url, content, getName=""):
             divUpper = divUpperAll[-1]
             name = divUpper.h4
             div = divUpper.find('div', {"class": "fr-view"})
+            replace_ul(div, soup)
+            replace_hr(div, soup)
             p = div.find_all("p", recursive=MAKE_P_RECURSICE)
 
             while p[0].get_text().strip() == "":
@@ -372,6 +402,8 @@ def get_content(url, content, getName=""):
             divUpper = divUpperAll[-1]
             name = divUpper.h4
             div = divUpper.find('div', {"class": "fr-view"})
+            replace_ul(div, soup)
+            replace_hr(div, soup)
             p = div.find_all("p", recursive=MAKE_P_RECURSICE)
 
             while p[0].get_text().strip() == "":
@@ -490,6 +522,7 @@ def get_content(url, content, getName=""):
         if i.strong:
             i.strong.unwrap()
         if i.em:
+            replace_em(i, soup)
             i.em.unwrap()
         if i.br:
             t = i.get_text(separator="\n")
@@ -501,6 +534,7 @@ def get_content(url, content, getName=""):
         t = t.replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"  ", u" ").replace(u"  ", u" ").replace(u"  ", u" ").replace(u"\u2013", u"-").replace(u"\xa0", u" ")
         t = re.sub(r'^\s+', r'', t)
         t = re.sub(r'\s+$', r'', t)
+        t = re.sub(r"''+", r"'", t)
         # t = re.sub(r'^\s+$', r'', t)
         # t = t.strip()
         if t == "":
@@ -534,6 +568,8 @@ def get_content(url, content, getName=""):
     # Foot note Extraction
     foot = soup.find("div", {"class": "footnotes"})
     if foot:
+        content = re.sub(r'\n----+\Z', r'', content, flags=re.IGNORECASE)
+        content = content.strip()
         content += "\n\n" + "-----------" + "\n"
         lis = foot.find_all("li")
         i = 1
@@ -547,6 +583,8 @@ def get_content(url, content, getName=""):
     if url.find('wuxiaworld.com') != -1:
         foot = soup.select('div[id*="footnote"]')
         if foot and len(foot) != 0:
+            content = re.sub(r'\n----+\Z', r'', content, flags=re.IGNORECASE)
+            content = content.strip()
             content += "\n\n" + "-----------" + "\n"
         for i in foot:
             p = i.find_all("p", recursive=False)
@@ -571,16 +609,16 @@ def download_chapter(url):
 
 
 def convert_local_html_to_txt():
-    d = "/Users/gyanesh/Documents/Web Novels/websites/www.wuxiaworld.com/novel/the-second-coming-of-gluttony/"
-    url = "https://www.wuxiaworld.com/novel/the-second-coming-of-gluttony/"
+    d = "/Users/gyanesh/Documents/Web Novels/websites/www.wuxiaworld.com/novel/trash-of-the-counts-family/"
+    url = "https://www.wuxiaworld.com/novel/trash-of-the-counts-family/"
     for i in FILE_NAMES:
         with open(os.path.join(d, i), 'rb') as story_summary_file:
             content = story_summary_file.read()
             name, content = get_content(url, content)
             save_chapter(name, content, url)
         
-    # for i in range(1, 84):
-    #     with open(os.path.join(d, f'story_{i}.html'), 'rb') as story_summary_file:
+    # for i in range(1401, 1814):
+    #     with open(os.path.join(d, f'pw-chapter-{i}.html'), 'rb') as story_summary_file:
     #         content = story_summary_file.read()
     #         name, content = get_content(url, content)
     #         save_chapter(name, content, url)

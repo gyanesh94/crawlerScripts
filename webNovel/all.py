@@ -220,6 +220,17 @@ def replace_hr(elem, soup):
         elem.hr.replace_with(new_elem)
 
 
+def replace_em(elem, soup):
+    em_s = elem.find_all("em", recursive=MAKE_P_RECURSICE)
+    for em in em_s:
+        text = em.get_text().replace(u'\u2060', ' ').replace(u'\xc2\xa0', ' ').replace(u'\xa0', ' ')
+        if len(text):
+            if text[-1] == " ":
+                em.string = f"'{text[:-1]}' "
+            else:
+                em.string = f"'{text}'"
+
+
 def get_content(url, getName=""):
     print(url)
     src = get_src(url)
@@ -545,6 +556,7 @@ def get_content(url, getName=""):
         if i.strong:
             i.strong.unwrap()
         if i.em:
+            replace_em(i, soup)
             i.em.unwrap()
         if i.br:
             t = i.get_text(separator="\n")
@@ -556,6 +568,7 @@ def get_content(url, getName=""):
         t = t.replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"  ", u" ").replace(u"  ", u" ").replace(u"  ", u" ").replace(u"\u2013", u"-").replace(u"\xa0", u" ")
         t = re.sub(r'^\s+', r'', t)
         t = re.sub(r'\s+$', r'', t)
+        t = re.sub(r"''+", r"'", t)
         # t = re.sub(r'^\s+$', r'', t)
         # t = t.strip()
         if t == "":
@@ -674,9 +687,7 @@ def get_urls():
 
 tempUrl = get_url()
 
-if LIST is not None and LIST != []:
-    urls = LIST
-elif tempUrl is None:
+if tempUrl is None:
     urls = get_urls()
 else:
     urls = [tempUrl]
