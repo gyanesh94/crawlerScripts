@@ -194,13 +194,13 @@ NOVEL_URLS.append({
     CHAPTER_END: 25
 })
 
-PREVIEW_NOVEL_URLS.append({
+NOVEL_URLS.append({
     NOVEL_NAME: "Game of Divine Thrones",
-    SUMMARY_URL: "https://www.wuxiaworld.com/preview/game-of-divine-thrones",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/game-of-divine-thrones",
     CHAPTER_URL_IN_SEQUENTIAL: True,
-    CHAPTER_URL: "https://www.wuxiaworld.com/preview/game-of-divine-thrones/gdt-chapter-{}",
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/game-of-divine-thrones/gdt-chapter-{}",
     CHAPTER_START: 1,
-    CHAPTER_END: 5
+    CHAPTER_END: 7
 })
 
 NOVEL_URLS.append({
@@ -260,11 +260,11 @@ NOVEL_URLS.append({
     CHAPTER_END: 25
 })
 
-PREVIEW_NOVEL_URLS.append({
+NOVEL_URLS.append({
     NOVEL_NAME: "Heaven Defying Wastrel- Poison Physician Consort",
-    SUMMARY_URL: "https://www.wuxiaworld.com/preview/heaven-defying-wastrel-poison-physician-consort",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/heaven-defying-wastrel-poison-physician-consort",
     CHAPTER_URL_IN_SEQUENTIAL: True,
-    CHAPTER_URL: "https://www.wuxiaworld.com/preview/heaven-defying-wastrel-poison-physician-consort/hdw-chapter-{}",
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/heaven-defying-wastrel-poison-physician-consort/hdw-chapter-{}",
     CHAPTER_START: 1,
     CHAPTER_END: 5
 })
@@ -284,22 +284,22 @@ COMPLETED_NOVEL_URLS.append({
     CHAPTER_URL_IN_SEQUENTIAL: False
 })
 
-PREVIEW_NOVEL_URLS.append({
+NOVEL_URLS.append({
     NOVEL_NAME: "I Am Overlord",
-    SUMMARY_URL: "https://www.wuxiaworld.com/preview/i-am-overlord",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/i-am-overlord",
     CHAPTER_URL_IN_SEQUENTIAL: True,
-    CHAPTER_URL: "https://www.wuxiaworld.com/preview/i-am-overlord/iao-chapter-{}",
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/i-am-overlord/iao-chapter-{}",
     CHAPTER_START: 1,
     CHAPTER_END: 5
 })
 
-PREVIEW_NOVEL_URLS.append({
+NOVEL_URLS.append({
     NOVEL_NAME: "Immortal Devil Transformation",
-    SUMMARY_URL: "https://www.wuxiaworld.com/preview/immortal-devil-transformation",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/immortal-devil-transformation",
     CHAPTER_URL_IN_SEQUENTIAL: True,
-    CHAPTER_URL: "https://www.wuxiaworld.com/preview/immortal-devil-transformation/idt-chapter-{}",
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/immortal-devil-transformation/idt-chapter-{}",
     CHAPTER_START: 1,
-    CHAPTER_END: 37
+    CHAPTER_END: 56
 })
 
 COMPLETED_NOVEL_URLS.append({
@@ -374,17 +374,26 @@ NOVEL_URLS.append({
     )
 })
 
+PREVIEW_NOVEL_URLS.append({
+    NOVEL_NAME: "Life, Once Again!",
+    SUMMARY_URL: "https://www.wuxiaworld.com/preview/life-once-again",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/preview/life-once-again/loa-chapter-{}",
+    CHAPTER_START: 0,
+    CHAPTER_END: 8
+})
+
 NOVEL_URLS.append({
     NOVEL_NAME: "Lord of All Realms",
     SUMMARY_URL: "https://www.wuxiaworld.com/novel/lord-of-all-realms",
     CHAPTER_URL_IN_SEQUENTIAL: False,
 })
 
-PREVIEW_NOVEL_URLS.append({
+NOVEL_URLS.append({
     NOVEL_NAME: "Love Code at the End of the World",
-    SUMMARY_URL: "https://www.wuxiaworld.com/preview/love-code-at-the-end-of-the-world",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/love-code-at-the-end-of-the-world",
     CHAPTER_URL_IN_SEQUENTIAL: True,
-    CHAPTER_URL: "https://www.wuxiaworld.com/preview/love-code-at-the-end-of-the-world/lcew-chapter-{}",
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/love-code-at-the-end-of-the-world/lcew-chapter-{}",
     CHAPTER_START: 1,
     CHAPTER_END: 5
 })
@@ -407,13 +416,22 @@ NOVEL_URLS.append({
     CHAPTER_URL_IN_SEQUENTIAL: False,
 })
 
-PREVIEW_NOVEL_URLS.append({
+NOVEL_URLS.append({
     NOVEL_NAME: "Moon's Labyrinths",
-    SUMMARY_URL: "https://www.wuxiaworld.com/preview/moons-labyrinths",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/moons-labyrinths",
     CHAPTER_URL_IN_SEQUENTIAL: True,
-    CHAPTER_URL: "https://www.wuxiaworld.com/preview/moons-labyrinths/ml-chapter-{}",
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/moons-labyrinths/ml-chapter-{}",
     CHAPTER_START: 1,
-    CHAPTER_END: 10
+    CHAPTER_END: 11
+})
+
+PREVIEW_NOVEL_URLS.append({
+    NOVEL_NAME: "Necropolis Immortal",
+    SUMMARY_URL: "https://www.wuxiaworld.com/preview/necropolis-immortal",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/preview/necropolis-immortal/necro-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 8
 })
 
 NOVEL_URLS.append({
@@ -425,11 +443,11 @@ NOVEL_URLS.append({
     CHAPTER_END: 1004
 })
 
-PREVIEW_NOVEL_URLS.append({
+NOVEL_URLS.append({
     NOVEL_NAME: "Otherworldly Merchant",
-    SUMMARY_URL: "https://www.wuxiaworld.com/preview/otherworldly-merchant",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/otherworldly-merchant",
     CHAPTER_URL_IN_SEQUENTIAL: True,
-    CHAPTER_URL: "https://www.wuxiaworld.com/preview/otherworldly-merchant/om-chapter-{}",
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/otherworldly-merchant/om-chapter-{}",
     CHAPTER_START: 1,
     CHAPTER_END: 5
 })
@@ -443,13 +461,13 @@ NOVEL_URLS.append({
     CHAPTER_END: 1156
 })
 
-PREVIEW_NOVEL_URLS.append({
+NOVEL_URLS.append({
     NOVEL_NAME: "Overlord of Blood and Iron",
-    SUMMARY_URL: "https://www.wuxiaworld.com/preview/overlord-of-blood-and-iron",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/overlord-of-blood-and-iron",
     CHAPTER_URL_IN_SEQUENTIAL: True,
-    CHAPTER_URL: "https://www.wuxiaworld.com/preview/overlord-of-blood-and-iron/obi-chapter-{}",
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/overlord-of-blood-and-iron/obi-chapter-{}",
     CHAPTER_START: 1,
-    CHAPTER_END: 20
+    CHAPTER_END: 90
 })
 
 NOVEL_URLS.append({
@@ -538,7 +556,7 @@ NOVEL_URLS.append({
     CHAPTER_URL_IN_SEQUENTIAL: True,
     CHAPTER_URL: "https://www.wuxiaworld.com/novel/sovereign-of-the-three-realms/sotr-chapter-{}",
     CHAPTER_START: 1,
-    CHAPTER_END: 2200,
+    CHAPTER_END: 2323,
     URL_EXCLUDE_LIST: (
         "https://www.wuxiaworld.com/novel/sovereign-of-the-three-realms/sotr-chapter-878",
         "https://www.wuxiaworld.com/novel/sovereign-of-the-three-realms/sotr-chapter-835",
@@ -722,20 +740,20 @@ COMPLETED_NOVEL_URLS.append({
     CHAPTER_END: 669
 })
 
-PREVIEW_NOVEL_URLS.append({
+NOVEL_URLS.append({
     NOVEL_NAME: "The Underworld Detective",
-    SUMMARY_URL: "https://www.wuxiaworld.com/preview/the-underworld-detective",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/the-underworld-detective",
     CHAPTER_URL_IN_SEQUENTIAL: True,
-    CHAPTER_URL: "https://www.wuxiaworld.com/preview/the-underworld-detective/ud-chapter-{}",
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/the-underworld-detective/ud-chapter-{}",
     CHAPTER_START: 1,
     CHAPTER_END: 5
 })
 
-PREVIEW_NOVEL_URLS.append({
+NOVEL_URLS.append({
     NOVEL_NAME: "Tomb Raider King",
-    SUMMARY_URL: "https://www.wuxiaworld.com/preview/tomb-raider-king",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/tomb-raider-king",
     CHAPTER_URL_IN_SEQUENTIAL: True,
-    CHAPTER_URL: "https://www.wuxiaworld.com/preview/tomb-raider-king/trk-chapter-{}",
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/tomb-raider-king/trk-chapter-{}",
     CHAPTER_START: 1,
     CHAPTER_END: 10
 })
