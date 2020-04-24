@@ -261,15 +261,6 @@ NOVEL_URLS.append({
 })
 
 NOVEL_URLS.append({
-    NOVEL_NAME: "Heaven Defying Wastrel- Poison Physician Consort",
-    SUMMARY_URL: "https://www.wuxiaworld.com/novel/heaven-defying-wastrel-poison-physician-consort",
-    CHAPTER_URL_IN_SEQUENTIAL: True,
-    CHAPTER_URL: "https://www.wuxiaworld.com/novel/heaven-defying-wastrel-poison-physician-consort/hdw-chapter-{}",
-    CHAPTER_START: 1,
-    CHAPTER_END: 5
-})
-
-NOVEL_URLS.append({
     NOVEL_NAME: "Heaven's Devourer",
     SUMMARY_URL: "https://www.wuxiaworld.com/novel/heavens-devourer",
     CHAPTER_URL_IN_SEQUENTIAL: True,
@@ -298,7 +289,7 @@ NOVEL_URLS.append({
     SUMMARY_URL: "https://www.wuxiaworld.com/novel/immortal-devil-transformation",
     CHAPTER_URL_IN_SEQUENTIAL: True,
     CHAPTER_URL: "https://www.wuxiaworld.com/novel/immortal-devil-transformation/idt-chapter-{}",
-    CHAPTER_START: 1,
+    CHAPTER_START: 20,
     CHAPTER_END: 56
 })
 
@@ -374,13 +365,13 @@ NOVEL_URLS.append({
     )
 })
 
-PREVIEW_NOVEL_URLS.append({
+NOVEL_URLS.append({
     NOVEL_NAME: "Life, Once Again!",
-    SUMMARY_URL: "https://www.wuxiaworld.com/preview/life-once-again",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/life-once-again",
     CHAPTER_URL_IN_SEQUENTIAL: True,
-    CHAPTER_URL: "https://www.wuxiaworld.com/preview/life-once-again/loa-chapter-{}",
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/life-once-again/loa-chapter-{}",
     CHAPTER_START: 0,
-    CHAPTER_END: 8
+    CHAPTER_END: 9
 })
 
 NOVEL_URLS.append({
@@ -425,13 +416,25 @@ NOVEL_URLS.append({
     CHAPTER_END: 11
 })
 
-PREVIEW_NOVEL_URLS.append({
+NOVEL_URLS.append({
     NOVEL_NAME: "Necropolis Immortal",
-    SUMMARY_URL: "https://www.wuxiaworld.com/preview/necropolis-immortal",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/necropolis-immortal",
     CHAPTER_URL_IN_SEQUENTIAL: True,
-    CHAPTER_URL: "https://www.wuxiaworld.com/preview/necropolis-immortal/necro-chapter-{}",
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/necropolis-immortal/necro-chapter-{}",
     CHAPTER_START: 1,
-    CHAPTER_END: 8
+    CHAPTER_END: 34
+})
+
+NOVEL_URLS.append({
+    NOVEL_NAME: "Netherworld Investigator",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/netherworld-investigator",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/netherworld-investigator/ni-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 33,
+    URL_EXCLUDE_LIST: {
+        'https://www.wuxiaworld.com/novel/netherworld-investigator/ni-chapter-22'
+    }
 })
 
 NOVEL_URLS.append({
@@ -493,6 +496,15 @@ NOVEL_URLS.append({
 })
 
 NOVEL_URLS.append({
+    NOVEL_NAME: "Poison Physician Consort",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/poison-physician-consort",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/poison-physician-consort/ppc-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 26
+})
+
+NOVEL_URLS.append({
     NOVEL_NAME: "Ranker's Return",
     SUMMARY_URL: "https://www.wuxiaworld.com/novel/rankers-return",
     CHAPTER_URL_IN_SEQUENTIAL: True,
@@ -550,7 +562,7 @@ NOVEL_URLS.append({
     CHAPTER_END: 632
 })
 
-NOVEL_URLS.append({
+COMPLETED_NOVEL_URLS.append({
     NOVEL_NAME: "Sovereign of the Three Realms",
     SUMMARY_URL: "https://www.wuxiaworld.com/novel/sovereign-of-the-three-realms",
     CHAPTER_URL_IN_SEQUENTIAL: True,
@@ -741,15 +753,6 @@ COMPLETED_NOVEL_URLS.append({
 })
 
 NOVEL_URLS.append({
-    NOVEL_NAME: "The Underworld Detective",
-    SUMMARY_URL: "https://www.wuxiaworld.com/novel/the-underworld-detective",
-    CHAPTER_URL_IN_SEQUENTIAL: True,
-    CHAPTER_URL: "https://www.wuxiaworld.com/novel/the-underworld-detective/ud-chapter-{}",
-    CHAPTER_START: 1,
-    CHAPTER_END: 5
-})
-
-NOVEL_URLS.append({
     NOVEL_NAME: "Tomb Raider King",
     SUMMARY_URL: "https://www.wuxiaworld.com/novel/tomb-raider-king",
     CHAPTER_URL_IN_SEQUENTIAL: True,
@@ -782,11 +785,11 @@ NOVEL_URLS.append({
     CHAPTER_URL_IN_SEQUENTIAL: False
 })
 
-PREVIEW_NOVEL_URLS.append({
+NOVEL_URLS.append({
     NOVEL_NAME: "VRMMO: The Unrivaled",
-    SUMMARY_URL: "https://www.wuxiaworld.com/preview/vrmmo-the-unrivaled",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/vrmmo-the-unrivaled",
     CHAPTER_URL_IN_SEQUENTIAL: True,
-    CHAPTER_URL: "https://www.wuxiaworld.com/preview/vrmmo-the-unrivaled/vrtu-chapter-{}",
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/vrmmo-the-unrivaled/vrtu-chapter-{}",
     CHAPTER_START: 1,
-    CHAPTER_END: 19
+    CHAPTER_END: 60
 })
