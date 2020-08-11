@@ -609,19 +609,19 @@ def download_chapter(url):
 
 
 def convert_local_html_to_txt():
-    d = "/Users/gyanesh/Documents/Web Novels/websites/www.wuxiaworld.com/novel/trash-of-the-counts-family/"
-    url = "https://www.wuxiaworld.com/novel/trash-of-the-counts-family/"
-    for i in FILE_NAMES:
-        with open(os.path.join(d, i), 'rb') as story_summary_file:
-            content = story_summary_file.read()
-            name, content = get_content(url, content)
-            save_chapter(name, content, url)
-        
-    # for i in range(1401, 1814):
-    #     with open(os.path.join(d, f'pw-chapter-{i}.html'), 'rb') as story_summary_file:
+    d = "/Users/gyanesh/Documents/Web Novels/websites/www.wuxiaworld.com/novel/overgeared/"
+    url = "https://www.wuxiaworld.com/novel/overgeared"
+    # for i in FILE_NAMES:
+    #     with open(os.path.join(d, i), 'rb') as story_summary_file:
     #         content = story_summary_file.read()
     #         name, content = get_content(url, content)
     #         save_chapter(name, content, url)
+
+    for i in range(1232, 1245):
+        with open(os.path.join(d, f'og-chapter-{i}.html'), 'rb') as story_summary_file:
+            content = story_summary_file.read()
+            name, content = get_content(url, content)
+            save_chapter(name, content, url)
 
 
 # if LIST_TRUE:

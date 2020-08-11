@@ -148,9 +148,6 @@ def save_chapter(name, content, url):
     elif url.find("/novel/lord-of-all-realms/") != -1:
         path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Lord of All Realms/"
 
-    elif url.find("/novel/overgeared/") != -1:
-        path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Overgeared/"
-
     elif url.find("/novel/renegade-immortal/") != -1:
         path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Renegade Immortal/"
 

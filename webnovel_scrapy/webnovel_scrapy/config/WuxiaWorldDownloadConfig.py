@@ -70,6 +70,24 @@ NOVEL_URLS.append({
 })
 
 COMPLETED_NOVEL_URLS.append({
+    NOVEL_NAME: "Battle Through the Heavens",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/battle-through-the-heavens",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/battle-through-the-heavens/btth-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 1648,
+})
+
+NOVEL_URLS.append({
+    NOVEL_NAME: "Beastmaster of the Ages",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/beastmaster-of-the-ages",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/beastmaster-of-the-ages/bota-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 68,
+})
+
+COMPLETED_NOVEL_URLS.append({
     NOVEL_NAME: "City of Sin",
     SUMMARY_URL: "https://www.wuxiaworld.com/novel/city-of-sin",
     CHAPTER_URL_IN_SEQUENTIAL: True,
@@ -183,6 +201,15 @@ NOVEL_URLS.append({
     CHAPTER_URL: "https://www.wuxiaworld.com/novel/everyone-is-young-except-for-me/eyem-chapter-{}",
     CHAPTER_START: 1,
     CHAPTER_END: 18
+})
+
+NOVEL_URLS.append({
+    NOVEL_NAME: "Fields of Gold",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/fields-of-gold",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/fields-of-gold/fog-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 469
 })
 
 NOVEL_URLS.append({
@@ -389,6 +416,12 @@ NOVEL_URLS.append({
     CHAPTER_END: 5
 })
 
+PREVIEW_NOVEL_URLS.append({
+    NOVEL_NAME: "Magic Apprentice",
+    SUMMARY_URL: "https://www.wuxiaworld.com/preview/magic-apprentice",
+    CHAPTER_URL_IN_SEQUENTIAL: False
+})
+
 NOVEL_URLS.append({
     NOVEL_NAME: "Martial God Asura",
     SUMMARY_URL: "https://www.wuxiaworld.com/novel/martial-god-asura",
@@ -495,6 +528,15 @@ NOVEL_URLS.append({
     CHAPTER_END: 385
 })
 
+PREVIEW_NOVEL_URLS.append({
+    NOVEL_NAME: "Phoenix's Requiem",
+    SUMMARY_URL: "https://www.wuxiaworld.com/preview/phoenixs-requiem",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/preview/phoenixs-requiem/pr-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 11
+})
+
 NOVEL_URLS.append({
     NOVEL_NAME: "Poison Physician Consort",
     SUMMARY_URL: "https://www.wuxiaworld.com/novel/poison-physician-consort",
@@ -553,6 +595,15 @@ COMPLETED_NOVEL_URLS.append({
     )
 })
 
+PREVIEW_NOVEL_URLS.append({
+    NOVEL_NAME: "Rise",
+    SUMMARY_URL: "https://www.wuxiaworld.com/preview/rise",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/preview/rise/rise-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 11
+})
+
 NOVEL_URLS.append({
     NOVEL_NAME: "Sage Monarch",
     SUMMARY_URL: "https://www.wuxiaworld.com/novel/sage-monarch",
@@ -595,6 +646,15 @@ NOVEL_URLS.append({
     CHAPTER_URL: "https://www.wuxiaworld.com/novel/spirit-vessel/sv-chapter-{}",
     CHAPTER_START: 1,
     CHAPTER_END: 659
+})
+
+PREVIEW_NOVEL_URLS.append({
+    NOVEL_NAME: "Star Odyssey",
+    SUMMARY_URL: "https://www.wuxiaworld.com/preview/star-odyssey",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/preview/star-odyssey/so-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 30
 })
 
 COMPLETED_NOVEL_URLS.append({
@@ -722,7 +782,7 @@ STOPPED_NOVEL_URLS.append({
     )
 })
 
-NOVEL_URLS.append({
+COMPLETED_NOVEL_URLS.append({
     NOVEL_NAME: "The Godsfall Chronicles",
     SUMMARY_URL: "https://www.wuxiaworld.com/novel/the-godsfall-chronicles",
     CHAPTER_URL_IN_SEQUENTIAL: False
@@ -786,10 +846,28 @@ NOVEL_URLS.append({
 })
 
 NOVEL_URLS.append({
+    NOVEL_NAME: "VRMMO: Passing of the Sword",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/vrmmo-passing-of-the-sword",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/vrmmo-passing-of-the-sword/vrps-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 15
+})
+
+NOVEL_URLS.append({
     NOVEL_NAME: "VRMMO: The Unrivaled",
     SUMMARY_URL: "https://www.wuxiaworld.com/novel/vrmmo-the-unrivaled",
     CHAPTER_URL_IN_SEQUENTIAL: True,
     CHAPTER_URL: "https://www.wuxiaworld.com/novel/vrmmo-the-unrivaled/vrtu-chapter-{}",
     CHAPTER_START: 1,
     CHAPTER_END: 60
+})
+
+PREVIEW_NOVEL_URLS.append({
+    NOVEL_NAME: "Yama Rising",
+    SUMMARY_URL: "https://www.wuxiaworld.com/preview/yama-rising",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/preview/yama-rising/yr-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 30
 })
