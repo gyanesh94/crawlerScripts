@@ -127,7 +127,7 @@ COMPLETED_NOVEL_URLS.append({
     CHAPTER_URL_IN_SEQUENTIAL: False
 })
 
-NOVEL_URLS.append({
+COMPLETED_NOVEL_URLS.append({
     NOVEL_NAME: "Destroyer of Ice and Fire",
     SUMMARY_URL: "https://www.wuxiaworld.com/novel/destroyer-of-ice-and-fire",
     CHAPTER_URL_IN_SEQUENTIAL: True,
@@ -212,7 +212,7 @@ NOVEL_URLS.append({
     CHAPTER_END: 469
 })
 
-NOVEL_URLS.append({
+COMPLETED_NOVEL_URLS.append({
     NOVEL_NAME: "Fortunately, I Met You",
     SUMMARY_URL: "https://www.wuxiaworld.com/novel/fortunately-i-met-you",
     CHAPTER_URL_IN_SEQUENTIAL: True,
@@ -595,13 +595,13 @@ COMPLETED_NOVEL_URLS.append({
     )
 })
 
-PREVIEW_NOVEL_URLS.append({
+NOVEL_URLS.append({
     NOVEL_NAME: "Rise",
-    SUMMARY_URL: "https://www.wuxiaworld.com/preview/rise",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/rise",
     CHAPTER_URL_IN_SEQUENTIAL: True,
-    CHAPTER_URL: "https://www.wuxiaworld.com/preview/rise/rise-chapter-{}",
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/rise/rise-chapter-{}",
     CHAPTER_START: 1,
-    CHAPTER_END: 11
+    CHAPTER_END: 15
 })
 
 NOVEL_URLS.append({
@@ -611,6 +611,15 @@ NOVEL_URLS.append({
     CHAPTER_URL: "https://www.wuxiaworld.com/novel/sage-monarch/sm-chapter-{}",
     CHAPTER_START: 1,
     CHAPTER_END: 632
+})
+
+PREVIEW_NOVEL_URLS.append({
+    NOVEL_NAME: "Sovereign of the Era",
+    SUMMARY_URL: "https://www.wuxiaworld.com/preview/sovereign-of-the-era",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/preview/sovereign-of-the-era/sote-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 32
 })
 
 COMPLETED_NOVEL_URLS.append({
@@ -648,13 +657,13 @@ NOVEL_URLS.append({
     CHAPTER_END: 659
 })
 
-PREVIEW_NOVEL_URLS.append({
+NOVEL_URLS.append({
     NOVEL_NAME: "Star Odyssey",
-    SUMMARY_URL: "https://www.wuxiaworld.com/preview/star-odyssey",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/star-odyssey",
     CHAPTER_URL_IN_SEQUENTIAL: True,
-    CHAPTER_URL: "https://www.wuxiaworld.com/preview/star-odyssey/so-chapter-{}",
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/star-odyssey/so-chapter-{}",
     CHAPTER_START: 1,
-    CHAPTER_END: 30
+    CHAPTER_END: 80
 })
 
 COMPLETED_NOVEL_URLS.append({
@@ -683,6 +692,12 @@ NOVEL_URLS.append({
     CHAPTER_URL: "https://www.wuxiaworld.com/novel/talisman-emperor/te-chapter-{}",
     CHAPTER_START: 61,
     CHAPTER_END: 1693
+})
+
+COMPLETED_NOVEL_URLS.append({
+    NOVEL_NAME: "Terror Infinity",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/terror-infinity",
+    CHAPTER_URL_IN_SEQUENTIAL: False,
 })
 
 NOVEL_URLS.append({
@@ -839,7 +854,7 @@ NOVEL_URLS.append({
     CHAPTER_END: 454
 })
 
-NOVEL_URLS.append({
+COMPLETED_NOVEL_URLS.append({
     NOVEL_NAME: "Upgrade Specialist in Another World",
     SUMMARY_URL: "https://www.wuxiaworld.com/novel/upgrade-specialist-in-another-world",
     CHAPTER_URL_IN_SEQUENTIAL: False
@@ -863,11 +878,11 @@ NOVEL_URLS.append({
     CHAPTER_END: 60
 })
 
-PREVIEW_NOVEL_URLS.append({
+NOVEL_URLS.append({
     NOVEL_NAME: "Yama Rising",
-    SUMMARY_URL: "https://www.wuxiaworld.com/preview/yama-rising",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/yama-rising",
     CHAPTER_URL_IN_SEQUENTIAL: True,
-    CHAPTER_URL: "https://www.wuxiaworld.com/preview/yama-rising/yr-chapter-{}",
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/yama-rising/yr-chapter-{}",
     CHAPTER_START: 1,
-    CHAPTER_END: 30
+    CHAPTER_END: 80
 })
