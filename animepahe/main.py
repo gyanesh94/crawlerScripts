@@ -1,16 +1,23 @@
 from Anime import Anime
+from ClassJSONEncoder import ClassJSONEncoder
 from config import CURRENT_DOWNLOAD
 from Episode import Episode
 from Exceptions.AnimeIdNotFound import AnimeIdNotFound
-from helper_functions import episode_list_url, extract_text, get_src, list_empty, parse_html, print_object, print_text
+from helper_functions import download_link_url, episode_list_url, extract_text, get_src, list_empty, parse_html, print_object, print_text
+
+from time import sleep
 
 import json
+import os
 import re
 
 
 class Download:
     def __init__(self, current_anime: Anime):
         self.current_anime: Anime = current_anime
+        self.file_path = f"{os.path.expanduser('~')}/Downloads/animepahe/{self.current_anime.anime_name}"
+        if not os.path.exists(self.file_path):
+            os.makedirs(self.file_path)
 
     def dowload_anime_page(self):
         self.src = get_src(self.current_anime.anime_url)
@@ -45,7 +52,23 @@ class Download:
             if data.get("next_page_url", None) is None or page >= data.get("last_page", 0):
                 return
             episode_api_url = episode_list_url(self.current_anime.anime_id, (page := page + 1))
-
+    
+    def get_download_urls(self):
+        episode: Episode
+        for episode in self.current_anime.episode_list:
+            print_object(episode)
+            download_api_url = download_link_url(self.current_anime.anime_id, episode.session)
+            src = get_src(download_api_url)
+            data: dict = json.loads(src)
+            download_links_data: list = data.get("data", [])
+            episode.add_download_links(download_links_data)
+            sleep(0.3)
+    
+    def dump_json_to_file(self):
+        with open(os.path.join(self.file_path, "summary.txt"), "w") as f:
+            f.write(self.current_anime.summary)
+        with open(os.path.join(self.file_path, f"{self.current_anime.anime_name}.json"), "w") as f:
+            f.write(json.dumps(self.current_anime.episode_list, indent=2, cls=ClassJSONEncoder))
 
 
 def main():
@@ -54,6 +77,8 @@ def main():
     f.get_anime_id()
     f.get_anime_summary()
     f.get_episode_urls()
+    f.get_download_urls()
+    f.dump_json_to_file()
 
 
 if __name__ == "__main__":
