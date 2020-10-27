@@ -1,6 +1,10 @@
 LIST_TRUE = False
 SKIP_NAME = False
 
+HTML_SAVE_PATH = "/Users/gyanesh/Documents/Web Novels/websites"
+HTML_FOLDER_NAME = "Long Live Summons/1200-1300"
+HTML_SAVE_FLAG = True
+
 """
 If only LIST_TRUE is true list format will be
 

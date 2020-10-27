@@ -24,6 +24,7 @@ import cfscrape
 import time
 from listings_download import *
 from multiprocessing import Pool
+from urllib.parse import urlsplit
 
 SKIP_DEFAULT = False
 MAKE_P_RECURSICE = False
@@ -88,6 +89,19 @@ def get_src(url):
         r.encoding = 'utf-8'
         return r.text
     exit()
+
+
+def save_website(url, txt, name):
+    url = urlsplit(url)
+    domain = url.hostname
+    novel_path = url.path[1:]
+    if HTML_FOLDER_NAME:
+        novel_path = HTML_FOLDER_NAME
+    full_path = os.path.join(HTML_SAVE_PATH, domain, novel_path)
+    if not os.path.exists(full_path):
+        os.makedirs(full_path)
+    with open(os.path.join(full_path, name + ".html"), 'w') as chapter_file:
+        chapter_file.write(txt)
 
 
 def str_encode(name):
@@ -253,7 +267,22 @@ def get_content(url, getName=""):
         name = re.sub(r'^0', '', name, flags=re.IGNORECASE)
         name = name.strip()
     else:
-        if url.find('novelfull.com/') != -1:
+        if url.find('comrademao.com/') != -1:
+            div = soup.findAll(lambda tag:tag.name == "div" and len(tag.attrs) == 1 and re.search('^[0-9]+$', tag.get("readability", "")))
+            if not div:
+                exit()
+            div = div[0]
+
+            p = div.find_all("p", recursive=MAKE_P_RECURSICE)
+
+            if len(p) < 8:
+                p = div.find_all("p", recursive=True)
+            while p[0].get_text().strip() == "":
+                del p[0]
+
+            name = p[0]
+            del p[0]
+        elif url.find('novelfull.com/') != -1:
             div = soup.find('div', {"id": "chapter-content"})
             nameSpan = soup.find('span', {"class": "chapter-text"})
             
@@ -516,7 +545,7 @@ def get_content(url, getName=""):
             name = name.strip()
             del p[0]
         else:
-            name = name.replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"/", u"-").replace(u"\\", u" -").replace(u'\u2019', "'").replace(u'\u2018', "'").replace(u'\u201D', '"').replace(u'\u201C', '"')
+            name = name.replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"/", u"-").replace(u"\\", u" -").replace(u'\u2019', "'").replace(u'\u2018', "'").replace(u'\u201D', '"').replace(u'\u201C', '"').replace(u'\u3011', "]").replace(u'\u3010', "[")
             name = re.sub(r' [ ]+', r' ', name)
             while not name or name == " " or name == "":
                 name = p[0]
@@ -540,6 +569,10 @@ def get_content(url, getName=""):
                 tempName = re.sub(r'^[\w\s\S\W-]*chapter-', '', tempName)
                 tempName = tempName.replace(u"-", u".").replace(u"/", u"")
                 name = tempName + " " + name
+
+    if HTML_SAVE_FLAG:
+        save_website(url, src, name)
+        return None, None
 
     # Body Extraction
     content = ""
@@ -637,24 +670,82 @@ def get_content(url, getName=""):
 
 def download_chapter(url):
     name, content = get_content(url)
+    if name is None:
+        time.sleep(1)
+        return
     save_chapter(name, content, url)
 
-
-if LIST_TRUE:
-    if SKIP_NAME:
-        for l in LIST:
-            name, content = get_content(l[0], l[1])
-            save_chapter(name, content, l[0])
-    else:
-        if len(LIST) < 3:
-            for url in LIST:
-                name, content = get_content(url)
-                save_chapter(name, content, url)
-                time.sleep(1)
+def main():
+    if LIST_TRUE:
+        if SKIP_NAME:
+            for l in LIST:
+                name, content = get_content(l[0], l[1])
+                if name is None:
+                    time.sleep(1)
+                    continue
+                save_chapter(name, content, l[0])
         else:
-            pool = Pool(3)
+            if len(LIST) < 3:
+                for url in LIST:
+                    name, content = get_content(url)
+                    if name is None:
+                        time.sleep(1)
+                        continue
+                    save_chapter(name, content, url)
+                    time.sleep(1)
+            else:
+                with Pool(3) as pool:
+                    try:
+                        pool.map(download_chapter, LIST, chunksize=1)
+                    except KeyboardInterrupt:
+                        print("Caught KeyboardInterrupt, terminating workers")
+                        pool.terminate()
+                    else:
+                        print("Normal termination")
+                        pool.close()
+                    pool.join()
+        exit()
+
+
+    def get_urls():
+        i = 0
+        for temp in url_list:
+            print(i, temp[0])
+            i = i + 1
+        url = url_list[input("Index= ")][1]
+        start = input("Start= ")
+        end = raw_input("End= ")
+        if end == "":
+            end = start
+        else:
+            end = int(end)
+        l = []
+        for i in range(start, end + 1):
+            l += [url.format(i)]
+        return l
+
+
+    tempUrl = get_url()
+
+    if tempUrl is None:
+        urls = get_urls()
+    else:
+        urls = [tempUrl]
+
+    signal.signal(signal.SIGINT, signal_handler)
+
+    if len(urls) < 3:
+        for url in urls:
+            name, content = get_content(url)
+            if name is None:
+                time.sleep(1)
+                continue
+            save_chapter(name, content, url)
+            time.sleep(1)
+    else:
+        with Pool(3) as pool:
             try:
-                pool.map(download_chapter, LIST, chunksize=1)
+                pool.map(download_chapter, urls, chunksize=1)
             except KeyboardInterrupt:
                 print("Caught KeyboardInterrupt, terminating workers")
                 pool.terminate()
@@ -662,49 +753,7 @@ if LIST_TRUE:
                 print("Normal termination")
                 pool.close()
             pool.join()
-    exit()
 
 
-def get_urls():
-    i = 0
-    for temp in url_list:
-        print(i, temp[0])
-        i = i + 1
-    url = url_list[input("Index= ")][1]
-    start = input("Start= ")
-    end = raw_input("End= ")
-    if end == "":
-        end = start
-    else:
-        end = int(end)
-    l = []
-    for i in range(start, end + 1):
-        l += [url.format(i)]
-    return l
-
-
-tempUrl = get_url()
-
-if tempUrl is None:
-    urls = get_urls()
-else:
-    urls = [tempUrl]
-
-signal.signal(signal.SIGINT, signal_handler)
-
-if len(urls) < 3:
-    for url in urls:
-        name, content = get_content(url)
-        save_chapter(name, content, url)
-        time.sleep(1)
-else:
-    pool = Pool(3)
-    try:
-        pool.map(download_chapter, urls, chunksize=1)
-    except KeyboardInterrupt:
-        print("Caught KeyboardInterrupt, terminating workers")
-        pool.terminate()
-    else:
-        print("Normal termination")
-        pool.close()
-    pool.join()
+if __name__ == '__main__':
+    main()
