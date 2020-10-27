@@ -48,6 +48,7 @@ class Download:
                 if episode.id == -1 or not len(episode.session):
                     print_text(f"**** Warn: Anime: {self.current_anime.anime_name}, episode not found. API: {episode_api_url}, index: {index}")
                 else:
+                    episode.set_name(self.current_anime.anime_name)
                     self.current_anime.episode_list.append(episode)
             if data.get("next_page_url", None) is None or page >= data.get("last_page", 0):
                 return

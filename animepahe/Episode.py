@@ -54,6 +54,10 @@ class Episode:
                 dowloadLink.parse_from_dict(resolution, download_link)
                 self.download_detail.append(dowloadLink)
 
+    def set_name(self, name):
+        if not self.name:
+            self.name = name
+
     def __repr__(self):
         return str(self)
 
