@@ -112,7 +112,7 @@ COMPLETED_NOVEL_URLS.append({
     )
 })
 
-NOVEL_URLS.append({
+COMPLETED_NOVEL_URLS.append({
     NOVEL_NAME: "Demoness's Art of Vengeance",
     SUMMARY_URL: "https://www.wuxiaworld.com/novel/demoness-art-of-vengeance",
     CHAPTER_URL_IN_SEQUENTIAL: True,
@@ -143,7 +143,7 @@ COMPLETED_NOVEL_URLS.append({
     )
 })
 
-NOVEL_URLS.append({
+COMPLETED_NOVEL_URLS.append({
     NOVEL_NAME: "Divine Throne of Primordial Blood",
     SUMMARY_URL: "https://www.wuxiaworld.com/novel/divine-throne-of-primordial-blood",
     CHAPTER_URL_IN_SEQUENTIAL: False
@@ -209,7 +209,7 @@ NOVEL_URLS.append({
     CHAPTER_URL_IN_SEQUENTIAL: True,
     CHAPTER_URL: "https://www.wuxiaworld.com/novel/fields-of-gold/fog-chapter-{}",
     CHAPTER_START: 1,
-    CHAPTER_END: 469
+    CHAPTER_END: 554
 })
 
 COMPLETED_NOVEL_URLS.append({
@@ -320,6 +320,15 @@ NOVEL_URLS.append({
     CHAPTER_END: 56
 })
 
+PREVIEW_NOVEL_URLS.append({
+    NOVEL_NAME: "Immortal Soaring Blade",
+    SUMMARY_URL: "https://www.wuxiaworld.com/preview/immortal-soaring-blade",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/preview/immortal-soaring-blade/isb-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 50
+})
+
 COMPLETED_NOVEL_URLS.append({
     NOVEL_NAME: "Imperial God Emperor",
     SUMMARY_URL: "https://www.wuxiaworld.com/novel/imperial-god-emperor",
@@ -377,6 +386,15 @@ NOVEL_URLS.append({
     URL_EXCLUDE_LIST: (
         "https://www.wuxiaworld.com/novel/invincible/inv-chapter-477"
     )
+})
+
+PREVIEW_NOVEL_URLS.append({
+    NOVEL_NAME: "Keyboard Immortal",
+    SUMMARY_URL: "https://www.wuxiaworld.com/preview/keyboard-immortal",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/preview/keyboard-immortal/ki-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 47
 })
 
 NOVEL_URLS.append({
@@ -506,7 +524,7 @@ NOVEL_URLS.append({
     CHAPTER_END: 90
 })
 
-NOVEL_URLS.append({
+COMPLETED_NOVEL_URLS.append({
     NOVEL_NAME: "Perfect World",
     SUMMARY_URL: "https://www.wuxiaworld.com/novel/perfect-world",
     CHAPTER_URL_IN_SEQUENTIAL: True,
@@ -534,7 +552,7 @@ PREVIEW_NOVEL_URLS.append({
     CHAPTER_URL_IN_SEQUENTIAL: True,
     CHAPTER_URL: "https://www.wuxiaworld.com/preview/phoenixs-requiem/pr-chapter-{}",
     CHAPTER_START: 1,
-    CHAPTER_END: 11
+    CHAPTER_END: 50
 })
 
 NOVEL_URLS.append({
@@ -685,7 +703,7 @@ NOVEL_URLS.append({
     )
 })
 
-NOVEL_URLS.append({
+COMPLETED_NOVEL_URLS.append({
     NOVEL_NAME: "Talisman Emperor",
     SUMMARY_URL: "https://www.wuxiaworld.com/novel/talisman-emperor",
     CHAPTER_URL_IN_SEQUENTIAL: True,
@@ -700,7 +718,7 @@ COMPLETED_NOVEL_URLS.append({
     CHAPTER_URL_IN_SEQUENTIAL: False,
 })
 
-NOVEL_URLS.append({
+COMPLETED_NOVEL_URLS.append({
     NOVEL_NAME: "The Attack of the Wastrel",
     SUMMARY_URL: "https://www.wuxiaworld.com/novel/the-attack-of-the-wastrel",
     CHAPTER_URL_IN_SEQUENTIAL: True,
@@ -818,6 +836,15 @@ NOVEL_URLS.append({
     CHAPTER_END: 208
 })
 
+PREVIEW_NOVEL_URLS.append({
+    NOVEL_NAME: "The Sovereign's Ascension",
+    SUMMARY_URL: "https://www.wuxiaworld.com/preview/the-sovereigns-ascension",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/preview/the-sovereigns-ascension/tsa-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 50
+})
+
 COMPLETED_NOVEL_URLS.append({
     NOVEL_NAME: "The Sword and The Shadow",
     SUMMARY_URL: "https://www.wuxiaworld.com/novel/the-sword-and-the-shadow",
@@ -884,5 +911,5 @@ NOVEL_URLS.append({
     CHAPTER_URL_IN_SEQUENTIAL: True,
     CHAPTER_URL: "https://www.wuxiaworld.com/novel/yama-rising/yr-chapter-{}",
     CHAPTER_START: 1,
-    CHAPTER_END: 80
+    CHAPTER_END: 198
 })

@@ -221,7 +221,53 @@ def get_content(url, content, getName=""):
         name = re.sub(r'^0', '', name, flags=re.IGNORECASE)
         name = name.strip()
     else:
-        if url.find('novelfull.com/') != -1:
+        print(url)
+        if url.find('www.centinni.com/') != -1:
+            div_header = soup.find('div', {"class": "entry-header"})
+            li = div_header.find('li', {"class": "active"})
+            if not li:
+                exit()
+
+            div_entry_content = soup.find("div", {"class": "entry-content"})
+            div = div_entry_content.find("div", {"class": "text-left"})
+            p = div.find_all("p", recursive=MAKE_P_RECURSICE)
+
+            if len(p) < 8:
+                p = div.find_all("p", recursive=True)
+            while p[0].get_text().strip() == "":
+                del p[0]
+
+            name = li
+        elif url.find('wangmamaread.com') != -1:
+            h3 = soup.find('h3', {"class": "entry-title"})
+            if not h3:
+                exit()
+
+            div = soup.find("div", {"class": "entry-content"})
+            p = div.find_all("p", recursive=MAKE_P_RECURSICE)
+
+            if len(p) < 8:
+                p = div.find_all("p", recursive=True)
+            while p[0].get_text().strip() == "":
+                del p[0]
+
+            name = h3
+        elif url.find('comrademao.com/') != -1:
+            div = soup.findAll(lambda tag:tag.name == "div" and len(tag.attrs) == 1 and re.search('^[0-9]+$', tag.get("readability", "")))
+            if not div:
+                exit()
+            div = div[0]
+
+            p = div.find_all("p", recursive=MAKE_P_RECURSICE)
+
+            if len(p) < 8:
+                p = div.find_all("p", recursive=True)
+            while p[0].get_text().strip() == "":
+                del p[0]
+
+            name = p[0]
+            del p[0]
+        elif url.find('novelfull.com/') != -1:
             div = soup.find('div', {"id": "chapter-content"})
             nameSpan = soup.find('span', {"class": "chapter-text"})
             
@@ -484,7 +530,7 @@ def get_content(url, content, getName=""):
             name = name.strip()
             del p[0]
         else:
-            name = name.replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"/", u"-").replace(u"\\", u" -").replace(u'\u2019', "'").replace(u'\u2018', "'").replace(u'\u201D', '"').replace(u'\u201C', '"')
+            name = name.replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"/", u"-").replace(u"\\", u" -").replace(u'\u2019', "'").replace(u'\u2018', "'").replace(u'\u201D', '"').replace(u'\u201C', '"').replace(u'\u3011', "]").replace(u'\u3010', "[")
             name = re.sub(r' [ ]+', r' ', name)
             while not name or name == " " or name == "":
                 name = p[0]
@@ -609,19 +655,21 @@ def download_chapter(url):
 
 
 def convert_local_html_to_txt():
-    d = "/Users/gyanesh/Documents/Web Novels/websites/www.wuxiaworld.com/novel/overgeared/"
-    url = "https://www.wuxiaworld.com/novel/overgeared"
-    # for i in FILE_NAMES:
-    #     with open(os.path.join(d, i), 'rb') as story_summary_file:
-    #         content = story_summary_file.read()
-    #         name, content = get_content(url, content)
-    #         save_chapter(name, content, url)
-
-    for i in range(1232, 1245):
-        with open(os.path.join(d, f'og-chapter-{i}.html'), 'rb') as story_summary_file:
+    # d = "/Users/gyanesh/Documents/Web Novels/websites/comrademao.com/Long Live Summons/701-800/"
+    # url = "https://comrademao.com/"
+    d = "/Users/gyanesh/Documents/Web Novels/websites/www.centinni.com/Long Live Summons/761-798/"
+    url = "https://www.centinni.com/"
+    for i in FILE_NAMES:
+        with open(os.path.join(d, i), 'rb') as story_summary_file:
             content = story_summary_file.read()
             name, content = get_content(url, content)
             save_chapter(name, content, url)
+
+    # for i in range(1232, 1245):
+    #     with open(os.path.join(d, f'og-chapter-{i}.html'), 'rb') as story_summary_file:
+    #         content = story_summary_file.read()
+    #         name, content = get_content(url, content)
+    #         save_chapter(name, content, url)
 
 
 # if LIST_TRUE:

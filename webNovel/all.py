@@ -267,7 +267,38 @@ def get_content(url, getName=""):
         name = re.sub(r'^0', '', name, flags=re.IGNORECASE)
         name = name.strip()
     else:
-        if url.find('comrademao.com/') != -1:
+        print(url)
+        if url.find('www.centinni.com/') != -1:
+            div_header = soup.find('div', {"class": "entry-header"})
+            li = div_header.find('li', {"class": "active"})
+            if not li:
+                exit()
+
+            div_entry_content = soup.find("div", {"class": "entry-content"})
+            div = div_entry_content.find("div", {"class": "text-left"})
+            p = div.find_all("p", recursive=MAKE_P_RECURSICE)
+
+            if len(p) < 8:
+                p = div.find_all("p", recursive=True)
+            while p[0].get_text().strip() == "":
+                del p[0]
+
+            name = li
+        elif url.find('wangmamaread.com') != -1:
+            h3 = soup.find('h3', {"class": "entry-title"})
+            if not h3:
+                exit()
+
+            div = soup.find("div", {"class": "entry-content"})
+            p = div.find_all("p", recursive=MAKE_P_RECURSICE)
+
+            if len(p) < 8:
+                p = div.find_all("p", recursive=True)
+            while p[0].get_text().strip() == "":
+                del p[0]
+
+            name = h3
+        elif url.find('comrademao.com/') != -1:
             div = soup.findAll(lambda tag:tag.name == "div" and len(tag.attrs) == 1 and re.search('^[0-9]+$', tag.get("readability", "")))
             if not div:
                 exit()
