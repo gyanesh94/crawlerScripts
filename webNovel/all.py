@@ -91,13 +91,13 @@ def get_src(url):
     exit()
 
 
-def save_website(url, txt, name):
+def save_website(url, txt, name, save_path=HTML_SAVE_PATH, save_folder=HTML_FOLDER_NAME):
     url = urlsplit(url)
     domain = url.hostname
     novel_path = url.path[1:]
-    if HTML_FOLDER_NAME:
-        novel_path = HTML_FOLDER_NAME
-    full_path = os.path.join(HTML_SAVE_PATH, domain, novel_path)
+    if save_folder:
+        novel_path = save_folder
+    full_path = os.path.join(save_path, domain, novel_path)
     if not os.path.exists(full_path):
         os.makedirs(full_path)
     with open(os.path.join(full_path, name + ".html"), 'w') as chapter_file:
@@ -155,9 +155,6 @@ def save_chapter(name, content, url):
 
     elif url.find("/novel/invincible/") != -1:
         path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Invincible/"
-
-    elif url.find("/novel/legend-of-the-dragon-king/") != -1:
-        path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Legend of the Dragon King/"
 
     elif url.find("/novel/lord-of-all-realms/") != -1:
         path = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/Ongoing/Lord of All Realms/"
@@ -260,6 +257,8 @@ def get_content(url, getName=""):
     if url.find('gravitytales.com') == -1:
         p = p[1:]
 
+    save_path = None
+    save_folder = None
     # Name Extraction
     if SKIP_NAME and LIST_TRUE:
         name = re.sub(r':', '-', getName, flags=re.IGNORECASE)
@@ -267,7 +266,6 @@ def get_content(url, getName=""):
         name = re.sub(r'^0', '', name, flags=re.IGNORECASE)
         name = name.strip()
     else:
-        print(url)
         if url.find('www.centinni.com/') != -1:
             div_header = soup.find('div', {"class": "entry-header"})
             li = div_header.find('li', {"class": "active"})
@@ -284,6 +282,8 @@ def get_content(url, getName=""):
                 del p[0]
 
             name = li
+            save_path = HTML_SAVE_PATH
+            save_folder = "Long Live Summons"
         elif url.find('wangmamaread.com') != -1:
             h3 = soup.find('h3', {"class": "entry-title"})
             if not h3:
@@ -601,9 +601,11 @@ def get_content(url, getName=""):
                 tempName = tempName.replace(u"-", u".").replace(u"/", u"")
                 name = tempName + " " + name
 
-    if HTML_SAVE_FLAG:
+    if HTML_SAVE_ONLY_FLAG:
         save_website(url, src, name)
         return None, None
+    if SAVE_HTML_WITH_DOWNLOAD:
+        save_website(url, src, name, save_path or HTML_SAVE_PATH, save_folder or HTML_FOLDER_NAME)
 
     # Body Extraction
     content = ""
