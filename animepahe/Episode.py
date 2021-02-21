@@ -4,12 +4,16 @@ class DowloadLink:
         self.audio = ""
         self.disc = ""
         self.kwik = ""
+        self.kwik_shst = ""
+        self.kwik_adfly = ""
     
     def parse_from_dict(self, resolution: str, data: dict):
         self.resolution = resolution
         self.audio = data.get("audio", "")
         self.disc = data.get("disc", "")
         self.kwik = data.get("kwik", "").replace("kwik.cx/e/", "kwik.cx/f/")
+        self.kwik_shst = data.get("kwik_shst", "")
+        self.kwik_adfly = data.get("kwik_adfly", "")
 
     def __repr__(self):
         return str(self)
@@ -25,6 +29,10 @@ class DowloadLink:
             l.append(f"ID: {self.disc}")
         if self.kwik:
             l.append(f"kwik: {self.kwik}")
+        if self.kwik_shst:
+            l.append(f"kwik_shst: {self.kwik_shst}")
+        if self.kwik_adfly:
+            l.append(f"kwik_adfly: {self.kwik_adfly}")
 
         s = f"DowloadLink({', '.join(l)})"
         return s
