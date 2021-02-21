@@ -17,10 +17,18 @@ NOVEL_LOCAL_FULL_PATH = "full_path"
 SUMMARY_PAGE_A_LINK_XPATH = "//div[@class='panel-group']//div[@class='panel-body']//a"
 
 # Novels Data
-NOVEL_URLS = []
-COMPLETED_NOVEL_URLS = []
-PREVIEW_NOVEL_URLS = []
-STOPPED_NOVEL_URLS = []
+NOVEL_URLS = []             # Novel in progress and downloading
+COMPLETED_NOVEL_URLS = []   # Novel fully completed and downloaded
+PREVIEW_NOVEL_URLS = []     # Still in Preview stage and download not started
+BLOCKED_NOVEL_URLS = []     # Novel fully completed and Karma required, Not download
+STOPPED_NOVEL_URLS = []     # Novel still on Wuxia but not updated. Downloaded till latest chapter
+REMOVED_NOVEL_URLS = []     # Novel removed from Wuxia.
+
+COMPLETED_NOVEL_URLS.append({
+    NOVEL_NAME: "7 Killers",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/7-killers",
+    CHAPTER_URL_IN_SEQUENTIAL: False,
+})
 
 NOVEL_URLS.append({
     NOVEL_NAME: "A Record of a Mortal's Journey to Immortality",
@@ -29,6 +37,24 @@ NOVEL_URLS.append({
     CHAPTER_URL: "https://www.wuxiaworld.com/novel/rmji/rmji-chapter-{}",
     CHAPTER_START: 1,
     CHAPTER_END: 1220
+})
+
+BLOCKED_NOVEL_URLS.append({
+    NOVEL_NAME: "A Will Eternal",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/a-will-eternal",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/a-will-eternal/awe-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 1315
+})
+
+NOVEL_URLS.append({
+    NOVEL_NAME: "Above Your Head",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/above-your-head",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/above-your-head/ayh-chapter-{}",
+    CHAPTER_START: 0,
+    CHAPTER_END: 29
 })
 
 NOVEL_URLS.append({
@@ -53,7 +79,13 @@ NOVEL_URLS.append({
     CHAPTER_END: 117
 })
 
-NOVEL_URLS.append({
+COMPLETED_NOVEL_URLS.append({
+    NOVEL_NAME: "Ancient Strengthening Technique",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/ancient-strengthening-technique",
+    CHAPTER_URL_IN_SEQUENTIAL: False,
+})
+
+STOPPED_NOVEL_URLS.append({
     NOVEL_NAME: "Archfiend",
     SUMMARY_URL: "https://www.wuxiaworld.com/novel/archfiend",
     CHAPTER_URL_IN_SEQUENTIAL: True,
@@ -88,6 +120,12 @@ NOVEL_URLS.append({
 })
 
 COMPLETED_NOVEL_URLS.append({
+    NOVEL_NAME: "Child of Light",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/child-of-light",
+    CHAPTER_URL_IN_SEQUENTIAL: False,
+})
+
+COMPLETED_NOVEL_URLS.append({
     NOVEL_NAME: "City of Sin",
     SUMMARY_URL: "https://www.wuxiaworld.com/novel/city-of-sin",
     CHAPTER_URL_IN_SEQUENTIAL: True,
@@ -112,6 +150,12 @@ COMPLETED_NOVEL_URLS.append({
     )
 })
 
+REMOVED_NOVEL_URLS.append({
+    NOVEL_NAME: "Coiling Dragon",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/coiling-dragon-preview",
+    CHAPTER_URL_IN_SEQUENTIAL: False,
+})
+
 COMPLETED_NOVEL_URLS.append({
     NOVEL_NAME: "Demoness's Art of Vengeance",
     SUMMARY_URL: "https://www.wuxiaworld.com/novel/demoness-art-of-vengeance",
@@ -119,6 +163,12 @@ COMPLETED_NOVEL_URLS.append({
     CHAPTER_URL: "https://www.wuxiaworld.com/novel/demoness-art-of-vengeance/dav-chapter-{}",
     CHAPTER_START: 1,
     CHAPTER_END: 25
+})
+
+BLOCKED_NOVEL_URLS.append({
+    NOVEL_NAME: "Demon Hunter",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/demon-hunter",
+    CHAPTER_URL_IN_SEQUENTIAL: False
 })
 
 COMPLETED_NOVEL_URLS.append({
@@ -149,6 +199,21 @@ COMPLETED_NOVEL_URLS.append({
     CHAPTER_URL_IN_SEQUENTIAL: False
 })
 
+COMPLETED_NOVEL_URLS.append({
+    NOVEL_NAME: "Dragon King With Seven Stars",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/dragon-king-with-seven-stars",
+    CHAPTER_URL_IN_SEQUENTIAL: False
+})
+
+PREVIEW_NOVEL_URLS.append({
+    NOVEL_NAME: "Dragon Poor",
+    SUMMARY_URL: "https://www.wuxiaworld.com/preview/dragon-poor",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/preview/dragon-poor/dp-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 19,
+})
+
 NOVEL_URLS.append({
     NOVEL_NAME: "Dragon Prince Yuan",
     SUMMARY_URL: "https://www.wuxiaworld.com/novel/dragon-prince-yuan",
@@ -158,13 +223,22 @@ NOVEL_URLS.append({
     CHAPTER_END: 423
 })
 
-PREVIEW_NOVEL_URLS.append({
+REMOVED_NOVEL_URLS.append({
     NOVEL_NAME: "Dragon Talisman",
     SUMMARY_URL: "https://www.wuxiaworld.com/preview/dragon-talisman",
     CHAPTER_URL_IN_SEQUENTIAL: True,
     CHAPTER_URL: "https://www.wuxiaworld.com/preview/dragon-talisman/dt-chapter-{}",
     CHAPTER_START: 1,
     CHAPTER_END: 43
+})
+
+NOVEL_URLS.append({
+    NOVEL_NAME: "Duke Pendragon",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/duke-pendragon",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/duke-pendragon/dpd-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 37
 })
 
 NOVEL_URLS.append({
@@ -183,6 +257,15 @@ NOVEL_URLS.append({
     CHAPTER_URL: "https://www.wuxiaworld.com/novel/emperors-domination/emperor-chapter-{}",
     CHAPTER_START: 1,
     CHAPTER_END: 2689
+})
+
+PREVIEW_NOVEL_URLS.append({
+    NOVEL_NAME: "Etranger",
+    SUMMARY_URL: "https://www.wuxiaworld.com/preview/etranger",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/preview/etranger/et-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 22
 })
 
 NOVEL_URLS.append({
@@ -228,6 +311,15 @@ NOVEL_URLS.append({
     CHAPTER_URL: "https://www.wuxiaworld.com/novel/game-of-divine-thrones/gdt-chapter-{}",
     CHAPTER_START: 1,
     CHAPTER_END: 7
+})
+
+PREVIEW_NOVEL_URLS.append({
+    NOVEL_NAME: "Game of the Monarch",
+    SUMMARY_URL: "https://www.wuxiaworld.com/preview/game-of-the-monarch",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/preview/game-of-the-monarch/gotm-chapter-{}",
+    CHAPTER_START: 0,
+    CHAPTER_END: 9
 })
 
 NOVEL_URLS.append({
@@ -302,6 +394,18 @@ COMPLETED_NOVEL_URLS.append({
     CHAPTER_URL_IN_SEQUENTIAL: False
 })
 
+COMPLETED_NOVEL_URLS.append({
+    NOVEL_NAME: "Heroes Shed No Tears",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/heros-shed-no-tears",
+    CHAPTER_URL_IN_SEQUENTIAL: False
+})
+
+COMPLETED_NOVEL_URLS.append({
+    NOVEL_NAME: "Horizon, Bright Moon, Sabre",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/tymyd",
+    CHAPTER_URL_IN_SEQUENTIAL: False
+})
+
 NOVEL_URLS.append({
     NOVEL_NAME: "I Am Overlord",
     SUMMARY_URL: "https://www.wuxiaworld.com/novel/i-am-overlord",
@@ -309,6 +413,12 @@ NOVEL_URLS.append({
     CHAPTER_URL: "https://www.wuxiaworld.com/novel/i-am-overlord/iao-chapter-{}",
     CHAPTER_START: 1,
     CHAPTER_END: 5
+})
+
+BLOCKED_NOVEL_URLS.append({
+    NOVEL_NAME: "I Shall Seal the Heavens",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/i-shall-seal-the-heavens",
+    CHAPTER_URL_IN_SEQUENTIAL: False,
 })
 
 NOVEL_URLS.append({
@@ -320,13 +430,13 @@ NOVEL_URLS.append({
     CHAPTER_END: 56
 })
 
-PREVIEW_NOVEL_URLS.append({
+NOVEL_URLS.append({
     NOVEL_NAME: "Immortal Soaring Blade",
-    SUMMARY_URL: "https://www.wuxiaworld.com/preview/immortal-soaring-blade",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/immortal-soaring-blade",
     CHAPTER_URL_IN_SEQUENTIAL: True,
-    CHAPTER_URL: "https://www.wuxiaworld.com/preview/immortal-soaring-blade/isb-chapter-{}",
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/immortal-soaring-blade/isb-chapter-{}",
     CHAPTER_START: 1,
-    CHAPTER_END: 50
+    CHAPTER_END: 110
 })
 
 COMPLETED_NOVEL_URLS.append({
@@ -388,13 +498,13 @@ NOVEL_URLS.append({
     )
 })
 
-PREVIEW_NOVEL_URLS.append({
+NOVEL_URLS.append({
     NOVEL_NAME: "Keyboard Immortal",
-    SUMMARY_URL: "https://www.wuxiaworld.com/preview/keyboard-immortal",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/keyboard-immortal",
     CHAPTER_URL_IN_SEQUENTIAL: True,
-    CHAPTER_URL: "https://www.wuxiaworld.com/preview/keyboard-immortal/ki-chapter-{}",
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/keyboard-immortal/ki-chapter-{}",
     CHAPTER_START: 1,
-    CHAPTER_END: 47
+    CHAPTER_END: 123
 })
 
 NOVEL_URLS.append({
@@ -419,7 +529,7 @@ NOVEL_URLS.append({
     CHAPTER_END: 9
 })
 
-NOVEL_URLS.append({
+COMPLETED_NOVEL_URLS.append({
     NOVEL_NAME: "Lord of All Realms",
     SUMMARY_URL: "https://www.wuxiaworld.com/novel/lord-of-all-realms",
     CHAPTER_URL_IN_SEQUENTIAL: False,
@@ -434,9 +544,9 @@ NOVEL_URLS.append({
     CHAPTER_END: 5
 })
 
-PREVIEW_NOVEL_URLS.append({
+NOVEL_URLS.append({
     NOVEL_NAME: "Magic Apprentice",
-    SUMMARY_URL: "https://www.wuxiaworld.com/preview/magic-apprentice",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/magic-apprentice",
     CHAPTER_URL_IN_SEQUENTIAL: False
 })
 
@@ -452,6 +562,15 @@ NOVEL_URLS.append({
     )
 })
 
+BLOCKED_NOVEL_URLS.append({
+    NOVEL_NAME: "Martial World",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/martial-world",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/martial-world/mw-chapter-{}",
+    CHAPTER_START: 0,
+    CHAPTER_END: 2256,
+})
+
 NOVEL_URLS.append({
     NOVEL_NAME: "Monarch of Evernight",
     SUMMARY_URL: "https://www.wuxiaworld.com/novel/monarch-of-evernight",
@@ -465,6 +584,12 @@ NOVEL_URLS.append({
     CHAPTER_URL: "https://www.wuxiaworld.com/novel/moons-labyrinths/ml-chapter-{}",
     CHAPTER_START: 1,
     CHAPTER_END: 11
+})
+
+PREVIEW_NOVEL_URLS.append({
+    NOVEL_NAME: "My Civil Servant Life Reborn in the Strange World",
+    SUMMARY_URL: "https://www.wuxiaworld.com/preview/my-civil-servant-life",
+    CHAPTER_URL_IN_SEQUENTIAL: False,
 })
 
 NOVEL_URLS.append({
@@ -515,7 +640,7 @@ NOVEL_URLS.append({
     CHAPTER_END: 1156
 })
 
-NOVEL_URLS.append({
+COMPLETED_NOVEL_URLS.append({
     NOVEL_NAME: "Overlord of Blood and Iron",
     SUMMARY_URL: "https://www.wuxiaworld.com/novel/overlord-of-blood-and-iron",
     CHAPTER_URL_IN_SEQUENTIAL: True,
@@ -546,16 +671,16 @@ NOVEL_URLS.append({
     CHAPTER_END: 385
 })
 
-PREVIEW_NOVEL_URLS.append({
+NOVEL_URLS.append({
     NOVEL_NAME: "Phoenix's Requiem",
-    SUMMARY_URL: "https://www.wuxiaworld.com/preview/phoenixs-requiem",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/phoenixs-requiem",
     CHAPTER_URL_IN_SEQUENTIAL: True,
-    CHAPTER_URL: "https://www.wuxiaworld.com/preview/phoenixs-requiem/pr-chapter-{}",
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/phoenixs-requiem/pr-chapter-{}",
     CHAPTER_START: 1,
-    CHAPTER_END: 50
+    CHAPTER_END: 70
 })
 
-NOVEL_URLS.append({
+COMPLETED_NOVEL_URLS.append({
     NOVEL_NAME: "Poison Physician Consort",
     SUMMARY_URL: "https://www.wuxiaworld.com/novel/poison-physician-consort",
     CHAPTER_URL_IN_SEQUENTIAL: True,
@@ -573,13 +698,13 @@ NOVEL_URLS.append({
     CHAPTER_END: 17
 })
 
-NOVEL_URLS.append({
+BLOCKED_NOVEL_URLS.append({
     NOVEL_NAME: "Rebirth of a Fashionista- This Life Is Soo Last Season",
-    SUMMARY_URL: "https://www.wuxiaworld.com/novel/rebirth-of-a-fashionista-this-live-is-so-last-season",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/rebirth-of-a-fashionista-this-life-is-so-last-season",
     CHAPTER_URL_IN_SEQUENTIAL: True,
-    CHAPTER_URL: "https://www.wuxiaworld.com/novel/rebirth-of-a-fashionista-this-live-is-so-last-season/rof-chapter-{}",
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/rebirth-of-a-fashionista-this-life-is-so-last-season/rof-chapter-{}",
     CHAPTER_START: 1,
-    CHAPTER_END: 30
+    CHAPTER_END: 412
 })
 
 COMPLETED_NOVEL_URLS.append({
@@ -631,7 +756,40 @@ NOVEL_URLS.append({
     CHAPTER_END: 632
 })
 
-PREVIEW_NOVEL_URLS.append({
+NOVEL_URLS.append({
+    NOVEL_NAME: "Second Life Ranker",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/second-life-ranker",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/second-life-ranker/slr-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 310
+})
+
+BLOCKED_NOVEL_URLS.append({
+    NOVEL_NAME: "Seoul Station's Necromancer",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/seoul-stations-necromancer",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/seoul-stations-necromancer/ssn-chapter-{}",
+    CHAPTER_START: 0,
+    CHAPTER_END: 208
+})
+
+BLOCKED_NOVEL_URLS.append({
+    NOVEL_NAME: "Skyfire Avenue",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/skyfire-avenue",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/skyfire-avenue/sfl-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 901
+})
+
+BLOCKED_NOVEL_URLS.append({
+    NOVEL_NAME: "Soul Land 2- The Unrivaled Tang Sect",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/the-unrivaled-tang-sect",
+    CHAPTER_URL_IN_SEQUENTIAL: False,
+})
+
+REMOVED_NOVEL_URLS.append({
     NOVEL_NAME: "Sovereign of the Era",
     SUMMARY_URL: "https://www.wuxiaworld.com/preview/sovereign-of-the-era",
     CHAPTER_URL_IN_SEQUENTIAL: True,
@@ -727,7 +885,7 @@ COMPLETED_NOVEL_URLS.append({
     CHAPTER_END: 25
 })
 
-NOVEL_URLS.append({
+COMPLETED_NOVEL_URLS.append({
     NOVEL_NAME: "The Charm of Soul Pets",
     SUMMARY_URL: "https://www.wuxiaworld.com/novel/the-charm-of-soul-pets",
     CHAPTER_URL_IN_SEQUENTIAL: True,
@@ -827,7 +985,16 @@ NOVEL_URLS.append({
     CHAPTER_URL_IN_SEQUENTIAL: False
 })
 
-NOVEL_URLS.append({
+BLOCKED_NOVEL_URLS.append({
+    NOVEL_NAME: "The Great Ruler",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/the-great-ruler",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/the-great-ruler/tgr-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 1560
+})
+
+COMPLETED_NOVEL_URLS.append({
     NOVEL_NAME: "The Second Coming of Gluttony",
     SUMMARY_URL: "https://www.wuxiaworld.com/novel/the-second-coming-of-gluttony",
     CHAPTER_URL_IN_SEQUENTIAL: True,
@@ -836,13 +1003,10 @@ NOVEL_URLS.append({
     CHAPTER_END: 208
 })
 
-PREVIEW_NOVEL_URLS.append({
+NOVEL_URLS.append({
     NOVEL_NAME: "The Sovereign's Ascension",
-    SUMMARY_URL: "https://www.wuxiaworld.com/preview/the-sovereigns-ascension",
-    CHAPTER_URL_IN_SEQUENTIAL: True,
-    CHAPTER_URL: "https://www.wuxiaworld.com/preview/the-sovereigns-ascension/tsa-chapter-{}",
-    CHAPTER_START: 1,
-    CHAPTER_END: 50
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/the-sovereigns-ascension",
+    CHAPTER_URL_IN_SEQUENTIAL: False,
 })
 
 COMPLETED_NOVEL_URLS.append({
@@ -872,7 +1036,7 @@ NOVEL_URLS.append({
     CHAPTER_END: 728
 })
 
-NOVEL_URLS.append({
+REMOVED_NOVEL_URLS.append({
     NOVEL_NAME: "Trash of the Count's Family",
     SUMMARY_URL: "https://www.wuxiaworld.com/novel/trash-of-the-counts-family",
     CHAPTER_URL_IN_SEQUENTIAL: True,
@@ -887,7 +1051,7 @@ COMPLETED_NOVEL_URLS.append({
     CHAPTER_URL_IN_SEQUENTIAL: False
 })
 
-NOVEL_URLS.append({
+STOPPED_NOVEL_URLS.append({
     NOVEL_NAME: "VRMMO: Passing of the Sword",
     SUMMARY_URL: "https://www.wuxiaworld.com/novel/vrmmo-passing-of-the-sword",
     CHAPTER_URL_IN_SEQUENTIAL: True,
@@ -903,6 +1067,24 @@ NOVEL_URLS.append({
     CHAPTER_URL: "https://www.wuxiaworld.com/novel/vrmmo-the-unrivaled/vrtu-chapter-{}",
     CHAPTER_START: 1,
     CHAPTER_END: 60
+})
+
+BLOCKED_NOVEL_URLS.append({
+    NOVEL_NAME: "Warlock of the Magus World",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/warlock-of-the-magus-world",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/warlock-of-the-magus-world/wmw-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 1200
+})
+
+BLOCKED_NOVEL_URLS.append({
+    NOVEL_NAME: "Wu Dong Qian Kun",
+    SUMMARY_URL: "https://www.wuxiaworld.com/novel/wu-dong-qian-kun",
+    CHAPTER_URL_IN_SEQUENTIAL: True,
+    CHAPTER_URL: "https://www.wuxiaworld.com/novel/wu-dong-qian-kun/wdqk-chapter-{}",
+    CHAPTER_START: 1,
+    CHAPTER_END: 1315
 })
 
 NOVEL_URLS.append({
