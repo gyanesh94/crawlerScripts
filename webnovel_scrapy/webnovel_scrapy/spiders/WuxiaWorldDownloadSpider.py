@@ -61,7 +61,11 @@ class WuxiaWorldDownloadSpider(scrapy.Spider):
         for index, novel in enumerate(NOVEL_URLS):
             print(f"{index + 1}: {novel[NOVEL_NAME]}")
 
-        selected_index = int(input("Input= "))
+        try:
+            selected_index = int(input("Input= "))
+        except ValueError:
+            print("wrong input")
+            exit()
 
         urlRequest = []
         if selected_index < 0 or selected_index > len(NOVEL_URLS):
@@ -107,6 +111,8 @@ class WuxiaWorldDownloadSpider(scrapy.Spider):
 
         urlRequest = [Request(url, meta=meta, callback=self.parse_novel_chapter) for url in self.URLS[novel_index]]
         print(f"{NOVEL_URLS[novel_index][NOVEL_NAME]}: {self.URLS[novel_index]}")
+        if not self.URLS[novel_index] or NOVEL_URLS[novel_index][INDEFINITE_HIATSU]:
+            print(f"Indefinite hiatsu: {NOVEL_URLS[novel_index][INDEFINITE_HIATSU]}")
         print()
         return urlRequest
 

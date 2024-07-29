@@ -4,15 +4,35 @@ from Anime import Anime
 # ^(.*)$
 '''
 {
-        "resolution": "720",
+        "resolution": "(720|360)",
         "audio": "(eng|jpn)",
-        "disc": "BD",
-        "kwik":.*"\n +},\n +
+        "disc": .*,
+        "kwik": .*,
+        "kwik_shst": .*,
+        "kwik_adfly":.*"\n +},\n +
 '''
 
 
+'''
+URL LIST
+
+# For search
+https://animepahe.ru/api?m=search&q=attack
+
+
+
+'''
+
 TEMPLATE = Anime("", "")
-TEMPLATE = Anime("Araburu Kisetsu no Otome-domo yo", "https://animepahe.com/anime/4e675f24-81e1-18da-59c1-8379ff966c9d")
+TEMPLATE = Anime("Shangri-La Frontier_ Kusoge Hunter, Kamige ni Idoman to su", "https://animepahe.ru/anime/c64b2f7c-7f17-3b6a-9733-8fe16de3adf2")
+# TEMPLATE = Anime("Shingeki no Kyojin_ The Final Season Part 2", "https://animepahe.com/anime/7e9214f2-6d97-92f9-cb61-47967ff863ec")
+# TEMPLATE = Anime("Beastars 2nd Season", "https://animepahe.com/anime/571ded38-5a95-ad41-f447-2ce6fa46623d")
+# TEMPLATE = Anime("Beastars", "https://animepahe.com/anime/ae9208a8-910d-1032-4888-521c2d8193c8")
+# TEMPLATE = Anime("Jujutsu Kaisen (TV)", "https://animepahe.com/anime/2e725010-900e-c5c8-6dde-4e9488ff1c0f")
+# TEMPLATE = Anime("Shingeki no Kyojin_ The Final Season", "https://animepahe.com/anime/f751b966-3f43-60ab-dfee-3fa36ac1bd60")
+# TEMPLATE = Anime("SK∞", "https://animepahe.com/anime/3eea35eb-c29f-f30d-b866-7cb5be9d583e")
+# TEMPLATE = Anime("Yuukoku no Moriarty", "https://animepahe.com/anime/3e391206-145c-f867-d7e3-c19cb760a4f6")
+# TEMPLATE = Anime("Araburu Kisetsu no Otome-domo yo", "https://animepahe.com/anime/4e675f24-81e1-18da-59c1-8379ff966c9d")
 # TEMPLATE = Anime("Death Note", "https://animepahe.com/anime/ca9959e4-3380-fe90-0bbf-c0334e55a100")
 # TEMPLATE = Anime("Boruto: Naruto Next Generations", "https://animepahe.com/anime/8b0eb1e8-8fb9-7e44-42a3-923eeb1c904c")
 # TEMPLATE = Anime("Dungeon ni Deai wo Motomeru no wa Machigatteiru Darou ka III", "https://animepahe.com/anime/fecf126a-7d06-262e-517a-98ea161b581b")

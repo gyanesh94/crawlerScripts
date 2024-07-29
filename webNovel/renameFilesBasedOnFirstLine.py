@@ -18,13 +18,14 @@ def renameFiles():
         if os.path.exists(fileNamePath) and os.path.isfile(fileNamePath) and fileName != "" and fileName.find('txt') != -1:
             newName = ""
             with open(fileNamePath, 'r') as f:
-                newName = f.readlines()[0]
+                newName = f.readlines()[0].strip()
             
-            newName = newName.decode('utf-8')
-            newName = newName.replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"/", u"-").replace(u"\\", u" -").replace(u'\u2019', "'").replace(u'\u2018', "'").replace(u'\u201D', '"').replace(u'\u201C', '"')
-            newName = newName.encode('utf-8')
+            # print(newName)
+            # newName = newName.decode('utf-8')
+            newName = newName.replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"/", u"-").replace(u"\\", u" -").replace(u'\u2019', "'").replace(u'\u2018', "'").replace(u'\u201D', "'").replace(u'\u201C', "'").replace(u'\u3011', "]").replace(u'\u3010', "[").replace(u'- -', '-').replace(u'"', "'")
+            # newName = newName.encode('utf-8')
 
-            if re.findall('(?:\s|-|^)[0-9]{1,5}(?:\s|-)', newName) != []:
+            if re.findall('[0-9]{1,5}', newName) != []:
                 newName = re.sub(r' [ ]+', r' ', newName)
                 newName = re.sub(r':', '-', newName)
                 newName = newName.split("Chapter")

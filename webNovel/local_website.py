@@ -14,7 +14,7 @@
 9. Stellar Transformations
 """
 
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, NavigableString
 import argparse
 import re
 import signal
@@ -26,12 +26,14 @@ from multiprocessing import Pool
 SKIP_DEFAULT = True
 MAKE_P_RECURSICE = False
 
+NAME_FROM_HTML = False
+
 if LIST_TRUE or SKIP_DEFAULT:
     SAVE_DIRECTORY = "/Users/gyanesh/Documents/Web Novels/Web Novel alias/"
 else:
     SAVE_DIRECTORY = "/Users/gyanesh/Dropbox/Web Novels/Web Novel alias/New Updates/"
 
-TEMP_DIRECTORY = "/Users/gyanesh/Documents/Web Novels/temp/"
+TEMP_DIRECTORY = "/Users/gyanesh/Documents/Web Novels/Web Novel alias/"
 LOCAL_WEBSITE = True
 
 FILE_NAMES = [
@@ -217,343 +219,544 @@ def get_content(url, content, getName=""):
     # Name Extraction
     if SKIP_NAME and LIST_TRUE:
         name = re.sub(r':', '-', getName, flags=re.IGNORECASE)
+        name = name.replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"/", u"-").replace(u"\\", u" -").replace(u'\u2019', "'").replace(u'\u2018', "'").replace(u'\u201D', "'").replace(u'\u201C', "'").replace(u'\u3011', "]").replace(u'\u3010', "[").replace(u'- -', '-').replace(u'"', "'")
+        name = re.sub(r' [ ]+', r' ', name)
         name = re.sub(r'^[\w\s\S\W]*Chapter\s', '', name, flags=re.IGNORECASE)
         name = re.sub(r'^0', '', name, flags=re.IGNORECASE)
-        name = name.strip()
-    else:
-        print(url)
-        if url.find('www.centinni.com/') != -1:
-            div_header = soup.find('div', {"class": "entry-header"})
-            li = div_header.find('li', {"class": "active"})
-            if not li:
-                exit()
+        skipped_name = name.strip()
 
-            div_entry_content = soup.find("div", {"class": "entry-content"})
-            div = div_entry_content.find("div", {"class": "text-left"})
-            p = div.find_all("p", recursive=MAKE_P_RECURSICE)
+    if url.find('daonovel.com/') != -1:
+        div_header = soup.find('div', {"class": "cha-tit"})
+        header = None
+        if not div_header:
+            div_header = soup.find('div', {"class": "bookname"})
+            header = div_header.find('h1')
+        else:
+            header = div_header.find('h3')
+        if not header:
+            print("daonovel.com header not found")
+            exit()
 
-            if len(p) < 8:
-                p = div.find_all("p", recursive=True)
-            while p[0].get_text().strip() == "":
-                del p[0]
+        # div_entry_content = soup.find("div", {"class": "cha-content"})
+        # div = div_entry_content.find("div", {"class": "cha-words"})
+        # p = div.find_all("p", recursive=MAKE_P_RECURSICE)
 
-            name = li
-        elif url.find('wangmamaread.com') != -1:
-            h3 = soup.find('h3', {"class": "entry-title"})
-            if not h3:
-                exit()
+        # if len(p) < 8:
+        #     p = div.find_all("p", recursive=True)
+        # while p[0].get_text().strip() == "":
+        #     del p[0]
 
-            div = soup.find("div", {"class": "entry-content"})
-            p = div.find_all("p", recursive=MAKE_P_RECURSICE)
+        name = header
 
-            if len(p) < 8:
-                p = div.find_all("p", recursive=True)
-            while p[0].get_text().strip() == "":
-                del p[0]
+    elif url.find('rainingtl.org') != -1:
+        h1_header = soup.find('h1', {"class": "entry-title"})
+        if not h1_header:
+            print("rainingtl name not found")
+            exit()
 
-            name = h3
-        elif url.find('comrademao.com/') != -1:
-            div = soup.findAll(lambda tag:tag.name == "div" and len(tag.attrs) == 1 and re.search('^[0-9]+$', tag.get("readability", "")))
-            if not div:
-                exit()
-            div = div[0]
+        div = soup.find("div", {"class": "entry-content"})
+        p = div.find_all("p", recursive=MAKE_P_RECURSICE)
 
-            p = div.find_all("p", recursive=MAKE_P_RECURSICE)
+        if len(p) < 8:
+            p = div.find_all("p", recursive=True)
+        while p[0].get_text().strip() == "":
+            del p[0]
 
-            if len(p) < 8:
-                p = div.find_all("p", recursive=True)
-            while p[0].get_text().strip() == "":
-                del p[0]
+        name = h1_header
 
+    elif url.find('divinedaolibrary.com/') != -1:
+        h1_header = soup.find('h1', {"class": "entry-title"})
+        if not h1_header:
+            print("divinedaolibrary name not found")
+            exit()
+
+        div = soup.find("div", {"class": "entry-content"})
+        p = div.find_all("p", recursive=MAKE_P_RECURSICE)
+
+        if len(p) < 8:
+            p = div.find_all("p", recursive=True)
+        while p[0].get_text().strip() == "":
+            del p[0]
+
+        name = h1_header
+
+    elif url.find('www.centinni.com/') != -1:
+        div_header = soup.find('div', {"class": "entry-header"})
+        li = div_header.find('li', {"class": "active"})
+        if not li:
+            exit()
+
+        div_entry_content = soup.find("div", {"class": "entry-content"})
+        div = div_entry_content.find("div", {"class": "text-left"})
+        p = div.find_all("p", recursive=MAKE_P_RECURSICE)
+
+        if len(p) < 8:
+            p = div.find_all("p", recursive=True)
+        while p[0].get_text().strip() == "":
+            del p[0]
+
+        name = li
+        save_path = HTML_SAVE_PATH
+        save_folder = "Long Live Summons"
+
+    elif url.find('readlightnovel.') != -1:
+        div_header = soup.find('div', {"class": "section-header-title"})
+        nameSpan = div_header.find('span')
+        if not nameSpan:
+            print(f"nameSpan for {url} not found")
+            return
+
+        div = soup.find("div", {"id": "chapterText"})
+        for elem in div.find_all(["center", "pirate"]):
+            elem.decompose()
+        for elem in div.find_all(["hr"]):
+            new_elem = soup.new_tag("p")
+            new_elem.string = "-------"
+            elem.replace_with(new_elem)
+        for elem in div.find_all(["ul"]):
+            new_elem = soup.new_tag("p")
+            text = ""
+            li_s = elem.find_all("li", recursive=MAKE_P_RECURSICE)
+            for li in li_s:
+                text = f"{text}- {li.get_text()}\n"
+            text = text.strip()
+            new_elem.string = text
+            elem.replace_with(new_elem)
+        for elem in div.find_all(["sup", "a", "strong"]):
+            elem.unwrap()
+        for elem in div.find_all(["em"]):
+            emtext = elem.get_text().replace(u'\u2060', ' ').replace(u'\xc2\xa0', ' ').replace(u'\xa0', ' ')
+            if len(emtext):
+                if emtext[-1] == " ":
+                    elem.string = f"'{emtext[:-1]}' "
+                else:
+                    elem.string = f"'{emtext}'"
+            elem.unwrap()
+        for elem in div.find_all(["p", "div", "h3"]):
+            if elem.get_text().strip() == "SPONSORED CONTENT":
+                elem.decompose()
+                continue
+            elem.replace_with(elem.text + "\n\n")
+        for elem in div.find_all(["br"]):
+            elem.replace_with("\n\n")
+
+        test_list = div.get_text().split("\n")
+        p = list(filter(lambda x: len(x.strip()) > 0, test_list))
+
+        temp_chapter_name = p[0].strip().lower().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ").replace(u"\uFF09", ")").replace(u"\uFF08", "(")
+
+        if temp_chapter_name.startswith("chapter "):
             name = p[0]
             del p[0]
-        elif url.find('novelfull.com/') != -1:
-            div = soup.find('div', {"id": "chapter-content"})
-            nameSpan = soup.find('span', {"class": "chapter-text"})
-            
-            p = div.find_all("p", recursive=MAKE_P_RECURSICE)
-
-            if len(p) < 8:
-                p = div.find_all("p", recursive=True)
-            while p[0].get_text().strip() == "":
-                del p[0]
-
-            temp_chapter_name = nameSpan.get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ")
-            temp_chapter_name_in_body = p[0].get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ")
-            temp_chapter_name = re.sub(r' [ ]+', r' ', temp_chapter_name, flags=re.IGNORECASE)
-            temp_chapter_name_in_body = re.sub(r' [ ]+', r' ', temp_chapter_name_in_body, flags=re.IGNORECASE)
-            if temp_chapter_name == temp_chapter_name_in_body:
-                print("equals")
-                del p[0]
+        else:
             name = nameSpan
 
-        elif url.find('novel/martial-world/') != -1:
-            divSectionContent = soup.find('div', {"class": "section-content"})
-            divUpperAll = divSectionContent.find_all('div', {"class": "panel-default"})
-            divUpper = divUpperAll[-1]
-            name = divUpper.h4
-            div = divUpper.find('div', {"class": "fr-view"})
-            replace_ul(div, soup)
-            replace_hr(div, soup)
-            p = div.find_all("p", recursive=MAKE_P_RECURSICE)
+    elif url.find('mostnovel.com/') != -1:
+        div_header = soup.find('div', {"class": "entry-header"})
+        option = div_header.find('option', {"selected": "selected"})
+        if not option:
+            print("mostnovel name not found")
+            exit()
 
-            while p[0].get_text().strip() == "":
-                del p[0]
-            if re.search(r'^.*Chapter [0-9]{1,3}.*$', p[0].get_text(), flags=re.IGNORECASE):
-                name = p[0]
-                del p[0]
-            else:
-                temp_chapter_name = name.get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ")
-                temp_chapter_name_in_body = p[0].get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ")
-                temp_chapter_name = re.sub(r' [ ]+', r' ', temp_chapter_name, flags=re.IGNORECASE)
-                temp_chapter_name_in_body = re.sub(r' [ ]+', r' ', temp_chapter_name_in_body, flags=re.IGNORECASE)
-                if temp_chapter_name == temp_chapter_name_in_body:
-                    print("equals")
-                    name = p[0]
-                    del p[0]
+        div_entry_content = soup.find("div", {"class": "entry-content"})
+        div = div_entry_content.find("div", {"class": "text-left"})
+        p = div.find_all("p", recursive=MAKE_P_RECURSICE)
 
-        elif url.find('novel/ancient-strengthening-technique/') != -1:
-            divSectionContent = soup.find('div', {"class": "section-content"})
-            divUpperAll = divSectionContent.find_all('div', {"class": "panel-default"})
-            divUpper = divUpperAll[-1]
-            name = divUpper.h4
-            div = divUpper.find('div', {"class": "fr-view"})
-            replace_ul(div, soup)
-            replace_hr(div, soup)
-            p = div.find_all("p", recursive=MAKE_P_RECURSICE)
-
-            if len(p) < 6:
-                div = divUpper.find('div', {"id": "chapterContent"})
-                p = div.find_all("p", recursive=MAKE_P_RECURSICE)
-
-            if re.findall('(?:AST|Chapter).*(?:\s|-|^)[0-9]{1,5}(?:\s|-)', p[0].get_text()) != []:
-                print(re.findall('(?:AST|Chapter).*(?:\s|-|^)[0-9]{1,5}(?:\s|-)', p[0].get_text()))
-                name = p[0]
-                del p[0]
-            else:
-                temp_chapter_name = name.get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ")
-                temp_chapter_name_in_body = p[0].get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ")
-                temp_chapter_name = re.sub(r' [ ]+', r' ', temp_chapter_name, flags=re.IGNORECASE)
-                temp_chapter_name_in_body = re.sub(r' [ ]+', r' ', temp_chapter_name_in_body, flags=re.IGNORECASE)
-                if temp_chapter_name == temp_chapter_name_in_body:
-                    print("equals")
-                    name = p[0]
-                    del p[0]
-
-        elif url.find('novel/rmji/') != -1:
-            divSectionContent = soup.find('div', {"class": "section-content"})
-            divUpperAll = divSectionContent.find_all('div', {"class": "panel-default"})
-            divUpper = divUpperAll[-1]
-            name = divUpper.h4
-            div = divUpper.find('div', {"class": "fr-view"})
-            replace_ul(div, soup)
-            replace_hr(div, soup)
-            p = div.find_all("p", recursive=MAKE_P_RECURSICE)
-
-            if len(p) < 6:
-                div = divUpper.find('div', {"id": "chapterContent"})
-                p = div.find_all("p", recursive=MAKE_P_RECURSICE)
-
-            temp_chapter_name = name.get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ").replace(u",", u"").replace(u":", u"")
-            temp_chapter_name_in_body = p[0].get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ").replace(u",", u"").replace(u":", u"")
-
-            temp_chapter_name = temp_chapter_name.split("Chapter")
-            if len(temp_chapter_name) > 1:
-                del temp_chapter_name[0]
-            temp_chapter_name = "Chapter".join(temp_chapter_name).strip()
-
-            temp_chapter_name = re.sub(r' [ ]+', r' ', temp_chapter_name, flags=re.IGNORECASE)
-            temp_chapter_name_in_body = re.sub(r' [ ]+', r' ', temp_chapter_name_in_body, flags=re.IGNORECASE)
-            if temp_chapter_name == temp_chapter_name_in_body:
-                print("equals")
-                name = p[0]
-                del p[0]
-
-        elif url.find('novel/stop-friendly-fire/') != -1:
-            divSectionContent = soup.find('div', {"class": "section-content"})
-            divUpperAll = divSectionContent.find_all('div', {"class": "panel-default"})
-            divUpper = divUpperAll[-1]
-            name = divUpper.h4
-            div = divUpper.find('div', {"class": "fr-view"})
-            replace_ul(div, soup)
-            replace_hr(div, soup)
-            p = div.find_all("p", recursive=MAKE_P_RECURSICE)
-
-            if len(p) < 10 and url.find('novel/stop-friendly-fire') != -1:
-                p = div.find_all("div", recursive=MAKE_P_RECURSICE) + p
-
-            temp_chapter_name = name.get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ")
-            temp_chapter_name_in_body = p[0].get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ")
-            temp_chapter_name = re.sub(r' [ ]+', r' ', temp_chapter_name, flags=re.IGNORECASE)
-            temp_chapter_name_in_body = re.sub(r' [ ]+', r' ', temp_chapter_name_in_body, flags=re.IGNORECASE)
-            if temp_chapter_name == temp_chapter_name_in_body:
-                print("equals")
-                name = p[0]
-                del p[0]
-
-        elif url.find('novel/the-charm-of-soul-pets') != -1:
-            divSectionContent = soup.find('div', {"class": "section-content"})
-            divUpperAll = divSectionContent.find_all('div', {"class": "panel-default"})
-            divUpper = divUpperAll[-1]
-            name = divUpper.h4
-            div = divUpper.find('div', {"class": "fr-view"})
-            replace_ul(div, soup)
-            replace_hr(div, soup)
-            p = div.find_all("p", recursive=MAKE_P_RECURSICE)
-
-            if len(p) < 6:
-                p = div.find_all("p", recursive=True)
-
-            while p[0].get_text().strip() == "":
-                del p[0]
-            temp_chapter_name = name.get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ").replace(u",", u"").replace(u":", u"")
-            temp_chapter_name_in_body = p[0].get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ").replace(u",", u"").replace(u":", u"")
-
-            temp_chapter_name = temp_chapter_name.split("Chapter")
-            if len(temp_chapter_name) > 1:
-                del temp_chapter_name[0]
-            temp_chapter_name = "Chapter".join(temp_chapter_name).strip()
-
-            temp_chapter_name_in_body = temp_chapter_name_in_body.split("Chapter")
-            if len(temp_chapter_name_in_body) > 1:
-                del temp_chapter_name_in_body[0]
-            temp_chapter_name_in_body = "Chapter".join(temp_chapter_name_in_body).strip()
-
-            temp_chapter_name = re.sub(r' [ ]+', r' ', temp_chapter_name, flags=re.IGNORECASE)
-            temp_chapter_name_in_body = re.sub(r' [ ]+', r' ', temp_chapter_name_in_body, flags=re.IGNORECASE)
-
-            if temp_chapter_name == temp_chapter_name_in_body:
-                print("equals")
-                name = p[0]
-                del p[0]
-
-        elif url.find('novel/demon-hunter/') != -1:
-            divSectionContent = soup.find('div', {"class": "section-content"})
-            divUpperAll = divSectionContent.find_all('div', {"class": "panel-default"})
-            divUpper = divUpperAll[-1]
-            name = divUpper.h4
-            div = divUpper.find('div', {"class": "fr-view"})
-            replace_ul(div, soup)
-            replace_hr(div, soup)
-            p = div.find_all("p", recursive=MAKE_P_RECURSICE)
-
-            while p[0].get_text().strip() == "":
-                del p[0]
-            name = p[0]
+        if len(p) < 8:
+            p = div.find_all("p", recursive=True)
+        while p[0].get_text().strip() == "":
             del p[0]
 
-        elif url.find('novel/city-of-sin/') != -1:
-            divSectionContent = soup.find('div', {"class": "section-content"})
-            divUpperAll = divSectionContent.find_all('div', {"class": "panel-default"})
-            divUpper = divUpperAll[-1]
-            name = divUpper.h4
-            div = divUpper.find('div', {"class": "fr-view"})
-            replace_ul(div, soup)
-            replace_hr(div, soup)
-            p = div.find_all("p", recursive=MAKE_P_RECURSICE)
+        name = option
 
-            while p[0].get_text().strip() == "":
-                del p[0]
+    elif url.find('eatapplepies.com') != -1:
+        h1 = soup.find('h1', {"class": "entry-title"})
+        if not h1:
+            exit()
 
-        elif url.find('wuxiaworld.com') != -1:
-            divSectionContent = soup.find('div', {"class": "section-content"})
-            divUpperAll = divSectionContent.find_all('div', {"class": "panel-default"})
-            divUpper = divUpperAll[-1]
-            name = divUpper.h4
-            div = divUpper.find('div', {"class": "fr-view"})
-            replace_ul(div, soup)
-            replace_hr(div, soup)
-            p = div.find_all("p", recursive=MAKE_P_RECURSICE)
+        div = soup.find("div", {"class": "entry-content"})
+        p = div.find_all("p", recursive=MAKE_P_RECURSICE)
 
-            while p[0].get_text().strip() == "":
-                del p[0]
-            temp_chapter_name = name.get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ").replace(u",", u"").replace(u":", u"")
-            temp_chapter_name_in_body = p[0].get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ").replace(u",", u"").replace(u":", u"")
-            
-            temp_chapter_name = temp_chapter_name.split("Chapter")
-            if len(temp_chapter_name) > 1:
-                del temp_chapter_name[0]
-            temp_chapter_name = "Chapter".join(temp_chapter_name).strip()
-            
-            temp_chapter_name_in_body = temp_chapter_name_in_body.split("Chapter")
-            if len(temp_chapter_name_in_body) > 1:
-                del temp_chapter_name_in_body[0]
-            temp_chapter_name_in_body = "Chapter".join(temp_chapter_name_in_body).strip()
-            
-            temp_chapter_name = re.sub(r' [ ]+', r' ', temp_chapter_name, flags=re.IGNORECASE)
-            temp_chapter_name_in_body = re.sub(r' [ ]+', r' ', temp_chapter_name_in_body, flags=re.IGNORECASE)
+        if len(p) < 8:
+            p = div.find_all("p", recursive=True)
+        while p[0].get_text().strip() == "":
+            del p[0]
 
-            if temp_chapter_name == temp_chapter_name_in_body:
-                print("equals")
-                name = p[0]
-                del p[0]
+        name = h1
 
-        elif url.find('wdqk-index') != -1:
-            temp = p[0]
-            if temp is not None and temp.get_text().find('Chapter') != -1:
-                name = temp
-                del p[0]
-            else:
-                name = soup.find("h1", {"class": "entry-title"})
-        elif url.find('mga-index') != -1:
-            name = p[0].strong.extract()
-        elif url.find('chaotic-sword-god') != -1:
-            temp = p[0]
-            if temp is not None and temp.get_text().find('Chapter') != -1:
-                name = temp
-                del p[0]
-            else:
-                name = soup.find("h4")
-        elif url.find('webnovel.com') != -1:
-            nameDiv = soup.find('div', {"class": "cha-tit"})
-            name = nameDiv.h3
-            div = soup.find('div', {"class": "cha-words"})
-            p = div.find_all("p", recursive=False)
+    elif url.find('wangmamaread.com') != -1:
+        h3 = soup.find('h3', {"class": "entry-title"})
+        if not h3:
+            exit()
+
+        div = soup.find("div", {"class": "entry-content"})
+        p = div.find_all("p", recursive=MAKE_P_RECURSICE)
+
+        if len(p) < 8:
+            p = div.find_all("p", recursive=True)
+        while p[0].get_text().strip() == "":
+            del p[0]
+
+        name = h3
+    elif url.find('comrademao.com/') != -1:
+        div = soup.findAll(lambda tag:tag.name == "div" and len(tag.attrs) == 1 and re.search('^[0-9]+$', tag.get("readability", "")))
+        if not div:
+            exit()
+        div = div[0]
+
+        p = div.find_all("p", recursive=MAKE_P_RECURSICE)
+
+        if len(p) < 8:
+            p = div.find_all("p", recursive=True)
+        while p[0].get_text().strip() == "":
+            del p[0]
+
+        name = p[0]
+        del p[0]
+
+    elif url.find('readnovelfull.com/') != -1:
+        div = soup.find('div', {"class": "cha-content"})
+        nameSpan = soup.find('div', {"class": "cha-tit"})
+
+        p = div.find_all("p", recursive=MAKE_P_RECURSICE)
+
+        if len(p) < 8:
+            p = div.find_all("p", recursive=True)
+        while p[0].get_text().strip() == "":
+            del p[0]
+
+        temp_chapter_name = nameSpan.get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ").replace(u"\uFF09", ")").replace(u"\uFF08", "(")
+        temp_chapter_name_in_body = p[0].get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ").replace(u"\uFF09", ")").replace(u"\uFF08", "(")
+        temp_chapter_name = re.sub(r' [ ]+', r' ', temp_chapter_name, flags=re.IGNORECASE)
+        temp_chapter_name_in_body = re.sub(r' [ ]+', r' ', temp_chapter_name_in_body, flags=re.IGNORECASE)
+        if temp_chapter_name == temp_chapter_name_in_body:
+            print("equals")
+            del p[0]
         else:
+            temp_outer_text = p[0].parent.find(text=True, recursive=False)
+            if temp_outer_text:
+                temp_outer_text = temp_outer_text.strip()
+
+            if temp_outer_text and temp_outer_text.find("full thich ung") == -1:
+                html_temp = "<p></p>"
+                soup_temp = BeautifulSoup(html_temp, 'lxml')
+                ptag_temp = soup.find('p')
+                ptag_temp.insert(0, NavigableString(temp_outer_text))
+                p.insert(0, ptag_temp)
+        name = nameSpan
+
+    elif url.find('novelfull.com/') != -1:
+        div = soup.find('div', {"id": "chapter-content"})
+        nameSpan = ""
+        if url.find('swallowed-star') != -1:
+            temp_div_chapter_name = soup.find('div', {"class": "breadcrumb-container"})
+            temp_li_active = temp_div_chapter_name.find('li', {"class": "active"})
+            nameSpan = temp_li_active.find("span")
+        else:
+            nameSpan = soup.find('span', {"class": "chapter-text"})
+
+        p = div.find_all("p", recursive=MAKE_P_RECURSICE)
+
+        if len(p) < 8:
+            p = div.find_all("p", recursive=True)
+        while p[0].get_text().strip() == "":
+            del p[0]
+
+        temp_chapter_name = nameSpan.get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ").replace(u"\uFF09", ")").replace(u"\uFF08", "(")
+        temp_chapter_name_in_body = p[0].get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ").replace(u"\uFF09", ")").replace(u"\uFF08", "(")
+        temp_chapter_name = re.sub(r' [ ]+', r' ', temp_chapter_name, flags=re.IGNORECASE)
+        temp_chapter_name_in_body = re.sub(r' [ ]+', r' ', temp_chapter_name_in_body, flags=re.IGNORECASE)
+        if temp_chapter_name == temp_chapter_name_in_body:
+            print("equals")
+            del p[0]
+        else:
+            temp_outer_text = p[0].parent.find(text=True, recursive=False)
+            if temp_outer_text:
+                temp_outer_text = temp_outer_text.strip()
+
+            if temp_outer_text and temp_outer_text.find("full thich ung") == -1:
+                html_temp = "<p></p>"
+                soup_temp = BeautifulSoup(html_temp, 'lxml')
+                ptag_temp = soup.find('p')
+                ptag_temp.insert(0, NavigableString(temp_outer_text))
+                p.insert(0, ptag_temp)
+        name = nameSpan
+
+    elif url.find('novel/martial-world/') != -1:
+        divSectionContent = soup.find('div', {"class": "section-content"})
+        divUpperAll = divSectionContent.find_all('div', {"class": "panel-default"})
+        divUpper = divUpperAll[-1]
+        name = divUpper.h4
+        div = divUpper.find('div', {"class": "fr-view"})
+        replace_ul(div, soup)
+        replace_hr(div, soup)
+        p = div.find_all("p", recursive=MAKE_P_RECURSICE)
+
+        while p[0].get_text().strip() == "":
+            del p[0]
+        if re.search(r'^.*Chapter [0-9]{1,3}.*$', p[0].get_text(), flags=re.IGNORECASE):
             name = p[0]
             del p[0]
+        else:
+            temp_chapter_name = name.get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ").replace(u"\uFF09", ")").replace(u"\uFF08", "(")
+            temp_chapter_name_in_body = p[0].get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ").replace(u"\uFF09", ")").replace(u"\uFF08", "(")
+            temp_chapter_name = re.sub(r' [ ]+', r' ', temp_chapter_name, flags=re.IGNORECASE)
+            temp_chapter_name_in_body = re.sub(r' [ ]+', r' ', temp_chapter_name_in_body, flags=re.IGNORECASE)
+            if temp_chapter_name == temp_chapter_name_in_body:
+                print("equals")
+                name = p[0]
+                del p[0]
+
+    elif url.find('novel/ancient-strengthening-technique/') != -1:
+        divSectionContent = soup.find('div', {"class": "section-content"})
+        divUpperAll = divSectionContent.find_all('div', {"class": "panel-default"})
+        divUpper = divUpperAll[-1]
+        name = divUpper.h4
+        div = divUpper.find('div', {"class": "fr-view"})
+        replace_ul(div, soup)
+        replace_hr(div, soup)
+        p = div.find_all("p", recursive=MAKE_P_RECURSICE)
+
+        if len(p) < 6:
+            div = divUpper.find('div', {"id": "chapterContent"})
+            p = div.find_all("p", recursive=MAKE_P_RECURSICE)
+
+        if re.findall('(?:AST|Chapter).*(?:\s|-|^)[0-9]{1,5}(?:\s|-)', p[0].get_text()) != []:
+            print(re.findall('(?:AST|Chapter).*(?:\s|-|^)[0-9]{1,5}(?:\s|-)', p[0].get_text()))
+            name = p[0]
+            del p[0]
+        else:
+            temp_chapter_name = name.get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ").replace(u"\uFF09", ")").replace(u"\uFF08", "(")
+            temp_chapter_name_in_body = p[0].get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ").replace(u"\uFF09", ")").replace(u"\uFF08", "(")
+            temp_chapter_name = re.sub(r' [ ]+', r' ', temp_chapter_name, flags=re.IGNORECASE)
+            temp_chapter_name_in_body = re.sub(r' [ ]+', r' ', temp_chapter_name_in_body, flags=re.IGNORECASE)
+            if temp_chapter_name == temp_chapter_name_in_body:
+                print("equals")
+                name = p[0]
+                del p[0]
+
+    elif url.find('novel/rmji/') != -1:
+        divSectionContent = soup.find('div', {"class": "section-content"})
+        divUpperAll = divSectionContent.find_all('div', {"class": "panel-default"})
+        divUpper = divUpperAll[-1]
+        name = divUpper.h4
+        div = divUpper.find('div', {"class": "fr-view"})
+        replace_ul(div, soup)
+        replace_hr(div, soup)
+        p = div.find_all("p", recursive=MAKE_P_RECURSICE)
+
+        if len(p) < 6:
+            div = divUpper.find('div', {"id": "chapterContent"})
+            p = div.find_all("p", recursive=MAKE_P_RECURSICE)
+
+        temp_chapter_name = name.get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ").replace(u"\uFF09", ")").replace(u"\uFF08", "(").replace(u",", u"").replace(u":", u"")
+        temp_chapter_name_in_body = p[0].get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ").replace(u"\uFF09", ")").replace(u"\uFF08", "(").replace(u",", u"").replace(u":", u"")
+
+        temp_chapter_name = temp_chapter_name.split("Chapter")
+        if len(temp_chapter_name) > 1:
+            del temp_chapter_name[0]
+        temp_chapter_name = "Chapter".join(temp_chapter_name).strip()
+
+        temp_chapter_name = re.sub(r' [ ]+', r' ', temp_chapter_name, flags=re.IGNORECASE)
+        temp_chapter_name_in_body = re.sub(r' [ ]+', r' ', temp_chapter_name_in_body, flags=re.IGNORECASE)
+        if temp_chapter_name == temp_chapter_name_in_body:
+            print("equals")
+            name = p[0]
+            del p[0]
+
+    elif url.find('novel/stop-friendly-fire/') != -1:
+        divSectionContent = soup.find('div', {"class": "section-content"})
+        divUpperAll = divSectionContent.find_all('div', {"class": "panel-default"})
+        divUpper = divUpperAll[-1]
+        name = divUpper.h4
+        div = divUpper.find('div', {"class": "fr-view"})
+        replace_ul(div, soup)
+        replace_hr(div, soup)
+        p = div.find_all("p", recursive=MAKE_P_RECURSICE)
+
+        if len(p) < 10 and url.find('novel/stop-friendly-fire') != -1:
+            p = div.find_all("div", recursive=MAKE_P_RECURSICE) + p
+
+        temp_chapter_name = name.get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ").replace(u"\uFF09", ")").replace(u"\uFF08", "(")
+        temp_chapter_name_in_body = p[0].get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ").replace(u"\uFF09", ")").replace(u"\uFF08", "(")
+        temp_chapter_name = re.sub(r' [ ]+', r' ', temp_chapter_name, flags=re.IGNORECASE)
+        temp_chapter_name_in_body = re.sub(r' [ ]+', r' ', temp_chapter_name_in_body, flags=re.IGNORECASE)
+        if temp_chapter_name == temp_chapter_name_in_body:
+            print("equals")
+            name = p[0]
+            del p[0]
+
+    elif url.find('novel/the-charm-of-soul-pets') != -1:
+        divSectionContent = soup.find('div', {"class": "section-content"})
+        divUpperAll = divSectionContent.find_all('div', {"class": "panel-default"})
+        divUpper = divUpperAll[-1]
+        name = divUpper.h4
+        div = divUpper.find('div', {"class": "fr-view"})
+        replace_ul(div, soup)
+        replace_hr(div, soup)
+        p = div.find_all("p", recursive=MAKE_P_RECURSICE)
+
+        if len(p) < 6:
+            p = div.find_all("p", recursive=True)
+
+        while p[0].get_text().strip() == "":
+            del p[0]
+        temp_chapter_name = name.get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ").replace(u"\uFF09", ")").replace(u"\uFF08", "(").replace(u",", u"").replace(u":", u"")
+        temp_chapter_name_in_body = p[0].get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ").replace(u"\uFF09", ")").replace(u"\uFF08", "(").replace(u",", u"").replace(u":", u"")
+
+        temp_chapter_name = temp_chapter_name.split("Chapter")
+        if len(temp_chapter_name) > 1:
+            del temp_chapter_name[0]
+        temp_chapter_name = "Chapter".join(temp_chapter_name).strip()
+
+        temp_chapter_name_in_body = temp_chapter_name_in_body.split("Chapter")
+        if len(temp_chapter_name_in_body) > 1:
+            del temp_chapter_name_in_body[0]
+        temp_chapter_name_in_body = "Chapter".join(temp_chapter_name_in_body).strip()
+
+        temp_chapter_name = re.sub(r' [ ]+', r' ', temp_chapter_name, flags=re.IGNORECASE)
+        temp_chapter_name_in_body = re.sub(r' [ ]+', r' ', temp_chapter_name_in_body, flags=re.IGNORECASE)
+
+        if temp_chapter_name == temp_chapter_name_in_body:
+            print("equals")
+            name = p[0]
+            del p[0]
+
+    elif url.find('novel/demon-hunter/') != -1:
+        divSectionContent = soup.find('div', {"class": "section-content"})
+        divUpperAll = divSectionContent.find_all('div', {"class": "panel-default"})
+        divUpper = divUpperAll[-1]
+        name = divUpper.h4
+        div = divUpper.find('div', {"class": "fr-view"})
+        replace_ul(div, soup)
+        replace_hr(div, soup)
+        p = div.find_all("p", recursive=MAKE_P_RECURSICE)
+
+        while p[0].get_text().strip() == "":
+            del p[0]
+        name = p[0]
+        del p[0]
+
+    elif url.find('novel/city-of-sin/') != -1:
+        divSectionContent = soup.find('div', {"class": "section-content"})
+        divUpperAll = divSectionContent.find_all('div', {"class": "panel-default"})
+        divUpper = divUpperAll[-1]
+        name = divUpper.h4
+        div = divUpper.find('div', {"class": "fr-view"})
+        replace_ul(div, soup)
+        replace_hr(div, soup)
+        p = div.find_all("p", recursive=MAKE_P_RECURSICE)
+
+        while p[0].get_text().strip() == "":
+            del p[0]
+
+    elif url.find('wuxiaworld.com') != -1:
+        divSectionContent = soup.find('div', {"class": "section-content"})
+        divUpperAll = divSectionContent.find_all('div', {"class": "panel-default"})
+        divUpper = divUpperAll[-1]
+        name = divUpper.h4
+        div = divUpper.find('div', {"class": "fr-view"})
+        replace_ul(div, soup)
+        replace_hr(div, soup)
+        p = div.find_all("p", recursive=MAKE_P_RECURSICE)
+
+        while p[0].get_text().strip() == "":
+            del p[0]
+        temp_chapter_name = name.get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ").replace(u"\uFF09", ")").replace(u"\uFF08", "(").replace(u",", u"").replace(u":", u"")
+        temp_chapter_name_in_body = p[0].get_text().strip().replace(u'\u2019', '').replace("'", '').replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"-", u" ").replace(u"\uFF09", ")").replace(u"\uFF08", "(").replace(u",", u"").replace(u":", u"")
+
+        temp_chapter_name = temp_chapter_name.split("Chapter")
+        if len(temp_chapter_name) > 1:
+            del temp_chapter_name[0]
+        temp_chapter_name = "Chapter".join(temp_chapter_name).strip()
+
+        temp_chapter_name_in_body = temp_chapter_name_in_body.split("Chapter")
+        if len(temp_chapter_name_in_body) > 1:
+            del temp_chapter_name_in_body[0]
+        temp_chapter_name_in_body = "Chapter".join(temp_chapter_name_in_body).strip()
+
+        temp_chapter_name = re.sub(r' [ ]+', r' ', temp_chapter_name, flags=re.IGNORECASE)
+        temp_chapter_name_in_body = re.sub(r' [ ]+', r' ', temp_chapter_name_in_body, flags=re.IGNORECASE)
+
+        if temp_chapter_name == temp_chapter_name_in_body:
+            print("equals")
+            name = p[0]
+            del p[0]
+
+    elif url.find('wdqk-index') != -1:
+        temp = p[0]
+        if temp is not None and temp.get_text().find('Chapter') != -1:
+            name = temp
+            del p[0]
+        else:
+            name = soup.find("h1", {"class": "entry-title"})
+    elif url.find('mga-index') != -1:
+        name = p[0].strong.extract()
+    elif url.find('chaotic-sword-god') != -1:
+        temp = p[0]
+        if temp is not None and temp.get_text().find('Chapter') != -1:
+            name = temp
+            del p[0]
+        else:
+            name = soup.find("h4")
+    elif url.find('webnovel.com') != -1:
+        nameDiv = soup.find('div', {"class": "cha-tit"})
+        name = nameDiv.h3
+        div = soup.find('div', {"class": "cha-words"})
+        p = div.find_all("p", recursive=False)
+    else:
+        name = p[0]
+        del p[0]
+
+    if SKIP_NAME and LIST_TRUE:
+        name = skipped_name
+
+    if not isinstance(name, str):
         name = name.get_text()
-        if url.find('warlock-of-the-magus-world') != -1:
-            temp_name = p[0].get_text().encode('utf-8')
-            name = "{} - {}".format(name, temp_name)
-            name = name.decode('utf-8')
-            del p[0]
-        if url.find('perfect-world') != -1:
-            name = p[0].get_text()
-            del p[0]
+    if url.find('warlock-of-the-magus-world') != -1:
+        temp_name = p[0].get_text().encode('utf-8')
+        name = "{} - {}".format(name, temp_name)
+        name = name.decode('utf-8')
+        del p[0]
+    if url.find('perfect-world') != -1:
+        name = p[0].get_text()
+        del p[0]
 
-        if url.find('novel/city-of-sin/') != -1:
-            name = name + " - " + p[0].get_text()
-            name = name.replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"/", u"-").replace(u"\\", u" -").replace(u'\u2019', "'").replace(u'\u2018', "'").replace(u'\u201D', '"').replace(u'\u201C', '"')
-            name = re.sub(r' [ ]+', r' ', name)
-            name = re.sub(r'^0+', '', name)
-            name = name.strip()
+    if url.find('novel/city-of-sin/') != -1:
+        name = name + " - " + p[0].get_text()
+        name = name.replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"/", u"-").replace(u"\\", u" -").replace(u'\u2019', "'").replace(u'\u2018', "'").replace(u'\u201D', '"').replace(u'\u201C', '"')
+        name = re.sub(r' [ ]+', r' ', name)
+        name = re.sub(r'^0+', '', name)
+        name = name.strip()
+        del p[0]
+    else:
+        name = name.replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"/", u"-").replace(u"\\", u" -").replace(u'\u2019', "'").replace(u'\u2018', "'").replace(u'\u201D', "'").replace(u'\u201C', "'").replace(u'\u3011', "]").replace(u'\u3010', "[").replace(u'- -', '-').replace(u'"', "'")
+        name = re.sub(r' [ ]+', r' ', name)
+        while not name or name == " " or name == "":
+            name = p[0]
             del p[0]
-        else:
-            name = name.replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"/", u"-").replace(u"\\", u" -").replace(u'\u2019', "'").replace(u'\u2018', "'").replace(u'\u201D', '"').replace(u'\u201C', '"').replace(u'\u3011', "]").replace(u'\u3010', "[")
-            name = re.sub(r' [ ]+', r' ', name)
-            while not name or name == " " or name == "":
-                name = p[0]
-                del p[0]
+            if not isinstance(name, str):
                 name = name.get_text()
-                name = name.replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"/", u"-").replace(u"\\", u" -").replace(u'\u2019', "'").replace(u'\u2018', "'").replace(u'\u201D', '"').replace(u'\u201C', '"')
-                name = re.sub(r' [ ]+', r' ', name)
-            name = re.sub(r':', '-', name)
-            if url.find('novel/stop-friendly-fire') != -1:
-                name = name.replace(">", "").replace("<", "")
+            name = name.replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"\u2013", u"-").replace(u"/", u"-").replace(u"\\", u" -").replace(u'\u2019', "'").replace(u'\u2018', "'").replace(u'\u201D', "'").replace(u'\u201C', "'").replace(u'\u3011', "]").replace(u'\u3010', "[").replace(u'- -', '-').replace(u'"', "'")
+            name = re.sub(r' [ ]+', r' ', name)
+        name = re.sub(r':', '-', name)
+        if url.find('novel/stop-friendly-fire') != -1:
+            name = name.replace(">", "").replace("<", "")
+        if not dont_strip(url):
             name = name.split("Chapter")
             if len(name) > 1:
                 del name[0]
             name = "Chapter".join(name)
             # name = re.sub(r'^[\w\s\S\W]*Chapter\s', '', name, 1)
             name = re.sub(r'^AST ([0-9]{1,5})', r'\1', name)
-            name = re.sub(r'^0+', '', name)
-            name = name.strip()
-            if url.find('http://www.radianttranslations.com') != -1:
-                tempName = url
-                tempName = re.sub(r'^[\w\s\S\W-]*chapter-', '', tempName)
-                tempName = tempName.replace(u"-", u".").replace(u"/", u"")
-                name = tempName + " " + name
+        name = re.sub(r'^0+', '', name)
+        name = name.strip()
+        print(name)
+        if url.find('http://www.radianttranslations.com') != -1:
+            tempName = url
+            tempName = re.sub(r'^[\w\s\S\W-]*chapter-', '', tempName)
+            tempName = tempName.replace(u"-", u".").replace(u"/", u"")
+            name = tempName + " " + name
 
     # Body Extraction
     content = ""
@@ -597,15 +800,15 @@ def get_content(url, content, getName=""):
     # content = content.strip()
     # content = re.sub(r'([\w\W\s\S]*)This\s*Chapter.?s\s*Teaser\Z', r'\1', content, flags=re.IGNORECASE))
     # content = content.strip()
-    content = re.sub(r'([\w\W\s\S]*)Previous(\sChapter)?[\s]*Next\sChapter\Z', r'\1', content, flags=re.IGNORECASE)
+    # content = re.sub(r'([\w\W\s\S]*)Previous(\sChapter)?[\s]*Next\sChapter\Z', r'\1', content, flags=re.IGNORECASE)
     # content = content.strip()
-    content = re.sub(r'([\w\W\s\S]*)\[Previous\sChapter\][\s]*\[Table\sof\sContents\][\s]*\[Next\sChapter\]\Z', r'\1', content, flags=re.IGNORECASE)
+    # content = re.sub(r'([\w\W\s\S]*)\[Previous\sChapter\][\s]*\[Table\sof\sContents\][\s]*\[Next\sChapter\]\Z', r'\1', content, flags=re.IGNORECASE)
     # content = content.strip()
-    content = re.sub(r'([\w\W\s\S]*)Previous(\sChapter)?[\s]*\|[\s]*Index[\s]*\|[\s]*Next\sChapter\Z', r'\1', content, flags=re.IGNORECASE)
+    # content = re.sub(r'([\w\W\s\S]*)Previous(\sChapter)?[\s]*\|[\s]*Index[\s]*\|[\s]*Next\sChapter\Z', r'\1', content, flags=re.IGNORECASE)
     # content = content.strip()
-    content = re.sub(r'([\w\W\s\S]*)«(\s)?Previous(\sChapter)?[\s]*\|[\s]*Next\sChapter(\s)?»\Z', r'\1', content, flags=re.IGNORECASE)
+    # content = re.sub(r'([\w\W\s\S]*)«(\s)?Previous(\sChapter)?[\s]*\|[\s]*Next\sChapter(\s)?»\Z', r'\1', content, flags=re.IGNORECASE)
     # content = content.strip()
-    content = re.sub(r'([\w\W\s\S]*).Previous\s*Chapter[\s]*\|[\s]*Next\s*Chapter.?\Z', r'\1', content, flags=re.IGNORECASE)
+    # content = re.sub(r'([\w\W\s\S]*).Previous\s*Chapter[\s]*\|[\s]*Next\s*Chapter.?\Z', r'\1', content, flags=re.IGNORECASE)
     # content = content.strip()
     content = re.sub(r'\n +\n', r'\n\n', content, flags=re.IGNORECASE)
     content = re.sub(r'\n\n[\n]+', r'\n\n', content, flags=re.IGNORECASE)
@@ -625,6 +828,49 @@ def get_content(url, content, getName=""):
             content += str(i) + "." + li.get_text() + "\n"
             i += 1
         content = content.strip()
+    else:
+        index_foot = 1
+        foot = soup.find("div", {"id": f"ftn{index_foot}"})
+        foot_content = ""
+        if foot:
+            content = re.sub(r'\n----+\Z', r'', content, flags=re.IGNORECASE)
+            content = content.strip()
+            content += "\n\n" + "-----------" + "\n"
+        while foot:
+            lis = foot.find_all("p")
+            for i in lis:
+                # Webnovel Pirate tag
+                if i.pirate:
+                    i.pirate.decompose()
+                if i.sup:
+                    if i.sup.a:
+                        i.sup.a.unwrap()
+                    i.sup.unwrap()
+                if i.strong:
+                    i.strong.unwrap()
+                if i.em:
+                    replace_em(i, soup)
+                    i.em.unwrap()
+                if i.br:
+                    t = i.get_text(separator="\n")
+                else:
+                    t = i.get_text()
+                # tempLower = t.lower()
+                # if tempLower.find('patreon') != -1 and tempLower.find('support') != -1:
+                #     break
+                t = t.replace(u"\xa0", u" ").replace(u"\u3000", u" ").replace(u"  ", u" ").replace(u"  ", u" ").replace(u"  ", u" ").replace(u"\u2013", u"-").replace(u"\xa0", u" ")
+                t = re.sub(r'^\s+', r'', t)
+                t = re.sub(r'\s+$', r'', t)
+                t = re.sub(r"''+", r"'", t)
+                # t = re.sub(r'^\s+$', r'', t)
+                # t = t.strip()
+                if t == "":
+                    continue
+                foot_content += t + "\n\n"
+            index_foot += 1
+            foot = soup.find("div", {"id": f"ftn{index_foot}"})
+        foot_content = foot_content.strip()
+        content += foot_content
 
     if url.find('wuxiaworld.com') != -1:
         foot = soup.select('div[id*="footnote"]')
@@ -657,12 +903,24 @@ def download_chapter(url):
 def convert_local_html_to_txt():
     # d = "/Users/gyanesh/Documents/Web Novels/websites/comrademao.com/Long Live Summons/701-800/"
     # url = "https://comrademao.com/"
-    d = "/Users/gyanesh/Documents/Web Novels/websites/www.centinni.com/Long Live Summons/761-798/"
-    url = "https://www.centinni.com/"
+    # d = "/Users/gyanesh/Documents/Web Novels/websites/www.centinni.com/Long Live Summons/761-798/"
+    # url = "https://www.centinni.com/"
+    # d = "/Users/gyanesh/Documents/Web Novels/websites/novelfull.com/The World after the Fall/"
+    # url = "https://novelfull.com/"
+    d = "/Users/gyanesh/Documents/Web Novels/websites/www.wuxiaworld.com/novel/the-regressed-demon-lord-is-kind/"
+    url = "wuxiaworld.com"
+    d = "/Users/gyanesh/Documents/Web Novels/websites/rainingtl.org/Kidnapped Dragons/"
+    url = "rainingtl.org"
+    # d = "/Users/gyanesh/Documents/Web Novels/websites/mostnovel.com/Sealed Divine Throne/"
+    # url = "mostnovel.com/"
+    print(f"Start: {FILE_NAMES[0]}\tEnd: {FILE_NAMES[-1]}")
+    print("--------------------------------")
     for i in FILE_NAMES:
         with open(os.path.join(d, i), 'rb') as story_summary_file:
             content = story_summary_file.read()
             name, content = get_content(url, content)
+            if NAME_FROM_HTML:
+                name = i.replace(".html", "")
             save_chapter(name, content, url)
 
     # for i in range(1232, 1245):
