@@ -228,7 +228,7 @@ def save_chapter(name, content, url):
 
 def wrap_text_without_tag_with_p(elem, soup):
     while True:
-        inner_text_without_tag = elem.find(text=True, recursive=False)
+        inner_text_without_tag = elem.find(string=True, recursive=False)
         if not inner_text_without_tag:
             return
         new_elem = soup.new_tag("p")
@@ -605,7 +605,7 @@ def get_content(url, getName=""):
             print("equals")
             del p[0]
         else:
-            temp_outer_text = p[0].parent.find(text=True, recursive=False)
+            temp_outer_text = p[0].parent.find(string=True, recursive=False)
             if temp_outer_text:
                 temp_outer_text = temp_outer_text.strip()
 
@@ -643,7 +643,7 @@ def get_content(url, getName=""):
             print("equals")
             del p[0]
         else:
-            temp_outer_text = p[0].parent.find(text=True, recursive=False)
+            temp_outer_text = p[0].parent.find(string=True, recursive=False)
             if temp_outer_text:
                 temp_outer_text = temp_outer_text.strip()
 
@@ -694,8 +694,8 @@ def get_content(url, getName=""):
             div = divUpper.find('div', {"id": "chapterContent"})
             p = div.find_all("p", recursive=MAKE_P_RECURSICE)
 
-        if re.findall('(?:AST|Chapter).*(?:\s|-|^)[0-9]{1,5}(?:\s|-)', p[0].get_text()) != []:
-            print(re.findall('(?:AST|Chapter).*(?:\s|-|^)[0-9]{1,5}(?:\s|-)', p[0].get_text()))
+        if re.findall(r'(?:AST|Chapter).*(?:\s|-|^)[0-9]{1,5}(?:\s|-)', p[0].get_text()) != []:
+            print(re.findall(r'(?:AST|Chapter).*(?:\s|-|^)[0-9]{1,5}(?:\s|-)', p[0].get_text()))
             name = p[0]
             del p[0]
         else:
